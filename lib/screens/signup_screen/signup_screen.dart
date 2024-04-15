@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mg/screens/signup_screen/model/SignUpModel.dart';
 import 'package:mg/screens/signup_screen/signup_bloc.dart';
 import 'package:mg/screens/signup_screen/signup_event.dart';
 import 'package:mg/screens/signup_success_screen/signup_success_screen.dart';
 import 'package:mg/utils/color_resources.dart';
-import '../../utils/contants.dart';
-import '../../utils/preference_helpher.dart';
+
 import '../../base/base_state.dart';
 import '../../router.dart';
+import '../../utils/contants.dart';
 import '../../utils/image_resource.dart';
-import 'package:mg/screens/signup_screen/model/SignUpModel.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -140,11 +140,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     controller: firstNameController,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "Enter FirstName";
+                                        return "Enter First Name";
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
+                                      errorStyle: TextStyle(fontSize: 10.sp),
                                       floatingLabelStyle: const TextStyle(
                                         color: Colors.black,
                                       ),
@@ -173,6 +174,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -182,11 +189,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     controller: lastNameController,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "Enter LastName";
+                                        return "Enter Last Name";
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
+                                      errorStyle: TextStyle(fontSize: 10.sp),
                                       floatingLabelStyle: const TextStyle(
                                         color: Colors.black,
                                       ),
@@ -209,6 +217,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.red,
                                         ),
