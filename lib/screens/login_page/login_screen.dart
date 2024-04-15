@@ -76,32 +76,29 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocListener(
       bloc: bloc,
-      listener: (BuildContext context, BaseState state) async {},
+      listener: (BuildContext context, BaseState state) async {
+        if (state is SuccessState) {
+          if (state.successResponse is LoginResponse) {
+            final LoginResponse response = state.successResponse;
+            if (response.status == Constants.success) {
+              PreferenceHelper.setBearer(response.data?.token);
+              FlashSingleton.instance.bearerToken = response.data?.token;
+              print('bearr ${FlashSingleton.instance.bearerToken}');
+              showToast('Login Successfully');
+              PreferenceHelper.setUserName(response.data?.email);
+              PreferenceHelper.setId(response.data?.id);
+              PreferenceHelper.setLoginStatus(true);
+              hideLoader();
+              Navigator.pushReplacementNamed(context, AppRoutes.dashboardPage);
+            }
+          }
+        }
+        setState(() {});
+      },
       child: BlocBuilder(
           bloc: bloc,
           builder: (BuildContext context, BaseState state) {
-            if (state is InitialState) {
-              return const Center(
-                child: Text('New DAT888888888888888888888A'),
-              );
-            } else if (state is SuccessState) {
-              if (state.successResponse is LoginResponse) {
-                final LoginResponse response = state.successResponse;
-                if (response.status == Constants.success) {
-                  PreferenceHelper.setBearer(response.data?.token);
-                  FlashSingleton.instance.bearerToken = response.data?.token;
-                  print('bearr ${FlashSingleton.instance.bearerToken}');
-                  showToast('Login Successfully');
-                  print("ressssssss-----------------${LoginResponse}");
-                  PreferenceHelper.setUserName(response.data?.email);
-                  PreferenceHelper.setId(response.data?.id);
-                  PreferenceHelper.setLoginStatus(true);
-                  hideLoader();
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.dashboardPage);
-                }
-              }
-            }
+            if (state is SuccessState) {}
             return ScreenUtilInit(
                 designSize: const Size(393, 852),
                 minTextAdapt: true,

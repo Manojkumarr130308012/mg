@@ -555,8 +555,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   fontSize: 14.sp)),
                                           TextButton(
                                             onPressed: () {
-                                              Navigator.pushReplacementNamed(
-                                                  context,
+                                              Navigator.pushNamed(context,
                                                   AppRoutes.loginScreen);
                                             },
                                             child: Text(

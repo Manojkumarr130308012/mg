@@ -23,10 +23,26 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   late DashboardBloc bloc;
 
+  int pageIndex = 0;
+
+  static const List<Widget> pages = <Widget>[
+    const Page1(),
+    const Page2(),
+    const Page3(),
+    const Page4(),
+    const Page5(),
+  ];
+
   @override
   void initState() {
     super.initState();
     bloc = BlocProvider.of<DashboardBloc>(context);
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      pageIndex = index;
+    });
   }
 
   @override
@@ -53,22 +69,151 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     splitScreenMode: true,
                     builder: (_, child) {
                       return SafeArea(
-                        child: Scaffold(
-                          body: Stack(
-                            alignment: Alignment.topCenter,
-                            children: [
-                              Container(
-                                height: 416.h,
-                                child: Image.asset(
-                                  ImageResource.banner,
-                                ),
-                              )
-                            ],
-                          ),
+                          child: Scaffold(
+                        body: Center(
+                          child: pages.elementAt(pageIndex),
                         ),
-                      );
+                        bottomNavigationBar: BottomNavigationBar(
+                            items: const <BottomNavigationBarItem>[
+                              BottomNavigationBarItem(
+                                  icon: Icon(Icons.home),
+                                  label: 'Home',
+                                  backgroundColor: Colors.white),
+                              BottomNavigationBarItem(
+                                  icon: Icon(Icons.favorite),
+                                  label: 'Favorites',
+                                  backgroundColor: Colors.white),
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.calendar_month),
+                                label: 'Bookings',
+                                backgroundColor: Colors.white,
+                              ),
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.message_outlined),
+                                label: 'Chat',
+                                backgroundColor: Colors.white,
+                              ),
+                              BottomNavigationBarItem(
+                                icon: Icon(Icons.account_circle_outlined),
+                                label: 'Profile',
+                                backgroundColor: Colors.white,
+                              ),
+                            ],
+                            type: BottomNavigationBarType.shifting,
+                            currentIndex: pageIndex,
+                            selectedItemColor: ColorResource.primaryColor,
+                            unselectedItemColor: ColorResource.lightGrey,
+                            iconSize: 24,
+                            onTap: _onItemTapped,
+                            elevation: 5),
+                      ));
                     });
               }),
         ));
+  }
+}
+
+class Page1 extends StatelessWidget {
+  const Page1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white54,
+      child: Center(
+        child: Text(
+          "Page Number 1",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  const Page2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white54,
+      child: Center(
+        child: Text(
+          "Page Number 2",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Page3 extends StatelessWidget {
+  const Page3({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white54,
+      child: Center(
+        child: Text(
+          "Page Number 3",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Page4 extends StatelessWidget {
+  const Page4({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white54,
+      child: Center(
+        child: Text(
+          "Page Number 4",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Page5 extends StatelessWidget {
+  const Page5({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white54,
+      child: Center(
+        child: Text(
+          "Page Number 5",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
   }
 }
