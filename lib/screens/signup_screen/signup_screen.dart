@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           builder: (BuildContext context, BaseState state) {
             if (state is InitialState) {
               return const Center(
-                child: Text('New DAT888888888888888888888A'),
+                child: Text('New DAT8888888888888888888A'),
               );
             } else if (state is SuccessState) {
               if (state.successResponse is SignUpModel) {
