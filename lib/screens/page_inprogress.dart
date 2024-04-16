@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mg/utils/color_resources.dart';
 
 class InProgressScreen extends StatefulWidget {
   const InProgressScreen({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: ColorResource.colorE22C24,
+        backgroundColor: Colors.red,
         centerTitle: true,
         leading: GestureDetector(
             onTap: () async {
@@ -41,7 +40,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall
-                ?.copyWith(color: ColorResource.colorE22C24),
+                ?.copyWith(color: Colors.red),
           )
         ],
       )),

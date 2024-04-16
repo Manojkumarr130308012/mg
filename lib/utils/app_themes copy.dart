@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mg/utils/color_resources.dart';
 
 class AppThemes {
   static final appThemeData = {
@@ -22,7 +21,7 @@ class AppThemes {
         headlineMedium: TextStyle(
           fontFamily: 'Roboto-Regular',
           fontSize: 12.0,
-          color: ColorResource.colorFFFFFF,
+          color: Colors.white,
         ),
       ),
     )

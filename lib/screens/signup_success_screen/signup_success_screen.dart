@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mg/screens/login_page/login_screen.dart';
 
 import '../../utils/color_resources.dart';
 import '../../utils/image_resource.dart';
-import 'package:mg/screens/login_page/login_screen.dart';
-import '../../router.dart';
 
 class SignUpSuccessScreen extends StatefulWidget {
   const SignUpSuccessScreen({super.key});
@@ -60,7 +59,7 @@ class _SignUpSuccessScreenState extends State<SignUpSuccessScreen> {
                     textAlign: TextAlign.center,
                     "Registration was successfully completed. Please check your registrered email to verify account",
                     style: TextStyle(
-                        color: ColorResource.textGreyColor,
+                        color: ColorResource.lightGrey,
                         fontSize: 14.sp,
                         fontFamily: FontResousrce.DMSans_MEDIUM),
                   ),

@@ -12,7 +12,7 @@ class AppThemes {
   ThemeCollection getThemeCollections() {
     final ThemeData base = ThemeData.light();
     final ButtonThemeData darkButtonTheme =
-        base.buttonTheme.copyWith(buttonColor: ColorResource.colorF58220);
+        base.buttonTheme.copyWith(buttonColor: ColorResource.primaryColor);
     final FloatingActionButtonThemeData darkFABTheme =
         base.floatingActionButtonTheme;
     return ThemeCollection(themes: {
@@ -32,12 +32,12 @@ class AppThemes {
               900: Color(0xff020E36),
             },
           ),
-          backgroundColor: ColorResource.color020e36,
+          backgroundColor: ColorResource.darkBlue,
           buttonTheme: darkButtonTheme,
-          primaryColor: ColorResource.colorE02E23,
+          primaryColor: ColorResource.red,
           textTheme: AppThemes().basicTextTheme(base.textTheme),
           floatingActionButtonTheme: darkFABTheme.copyWith(
-              backgroundColor: ColorResource.colorF58220)),
+              backgroundColor: ColorResource.primaryColor)),
       AppThemes.lightOrange: ThemeData(
           primarySwatch: const MaterialColor(
             0xffFDF3E6,
@@ -56,8 +56,8 @@ class AppThemes {
           ),
           buttonTheme: darkButtonTheme,
           textTheme: AppThemes().basicTextTheme(base.textTheme),
-          floatingActionButtonTheme: darkFABTheme.copyWith(
-              backgroundColor: ColorResource.colorFDF3E6)),
+          floatingActionButtonTheme:
+              darkFABTheme.copyWith(backgroundColor: Colors.white)),
     });
   }
 
@@ -79,54 +79,54 @@ class AppThemes {
       caption: base.caption!.copyWith(
           fontFamily: 'Poppins-Regular',
           fontSize: 6.0,
-          color: ColorResource.colorFFFFFF,
+          color: Colors.white,
           fontWeight: FontWeight.w400),
 
       //Used for font size of 12//subTitle
       subtitle1: base.subtitle1!.copyWith(
           fontFamily: 'Poppins-Regular',
           fontSize: 14,
-          color: ColorResource.color767C86,
+          color: ColorResource.lightGrey,
           fontWeight: FontWeight.w700),
 
       subtitle2: base.subtitle2!.copyWith(
           fontFamily: 'Poppins-Regular',
           fontSize: 13.0,
-          color: ColorResource.color767C86,
+          color: ColorResource.lightGrey,
           fontWeight: FontWeight.w300),
 
       //Used for font size of 14,16//labelText
       bodyText2: base.bodyText2!.copyWith(
         fontFamily: 'Poppins-Regular',
         fontSize: 14.0,
-        color: ColorResource.color767C86,
+        color: ColorResource.lightGrey,
       ),
 
       //Used for emphasizing text and font size of 18,20,22//hintText
       bodyText1: base.bodyText1!.copyWith(
           fontFamily: 'Poppins-Regular',
           fontSize: 14.0,
-          color: ColorResource.color414A58),
+          color: ColorResource.lightGrey),
 
       //Used for large text in dialogs and font size of 24
       headline1: base.headline1!.copyWith(
           fontFamily: 'Poppins-Medium',
           fontSize: 22.0,
-          color: ColorResource.color333333,
+          color: ColorResource.grey,
           fontWeight: FontWeight.bold),
 
       //Used for the primary text in app bars and font size of 26,28 and greater
       headline2: base.headline2!.copyWith(
           fontFamily: 'Poppins-Medium',
           fontSize: 18.0,
-          color: ColorResource.color333333,
+          color: ColorResource.grey,
           fontWeight: FontWeight.w700),
 
       //used for button  //Title
       headline3: base.headline3!.copyWith(
         fontFamily: 'Poppins-Medium',
         fontSize: 16.0,
-        color: ColorResource.color333333,
+        color: ColorResource.grey,
         fontWeight: FontWeight.w600,
       ),
 

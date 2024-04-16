@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mg/screens/profile_settings/profile_bloc.dart';
 import 'package:mg/screens/profile_settings/profile_event.dart';
 
 import '../../base/base_state.dart';
-import '../../utils/color_resources.dart';
 import '../../utils/preference_helpher.dart';
 import '../../utils/singleton.dart';
 import 'model/get_model.dart';
-import 'package:flutter/services.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -38,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: ColorResource.colorFFFFFF,
+        statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light));
     return BlocListener(
@@ -64,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Scaffold(
                 appBar: AppBar(
                   backgroundColor: Color(0xff090a5f1),
-                  title: Center(
+                  title: const Center(
                     child: Text(
                       "Profile",
                       style:
