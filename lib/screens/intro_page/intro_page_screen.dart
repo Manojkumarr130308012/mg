@@ -54,7 +54,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             alignment: Alignment.topCenter,
                             children: [
                               Container(
-                                height: 376.h,
+                                height: 366.h,
                                 width: double.infinity,
                                 child: Image.asset(
                                   ImageResource.banner,
@@ -63,7 +63,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               ),
                               Container(
                                 alignment: Alignment.topCenter,
-                                margin: EdgeInsets.only(top: 356.h),
+                                margin: EdgeInsets.only(top: 346.h),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(

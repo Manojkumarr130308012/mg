@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -108,17 +110,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           true, // <-- Set to true to resize when keyboard appears
                       body: Stack(
                         children: [
+                          PlatformDispatcher
+                                      .instance.views.first.viewInsets.bottom >
+                                  0.0
+                              ? Container(
+                                  height: 65.h,
+                                  width: double.infinity,
+                                  child: Image.asset(
+                                    ImageResource.banner,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : Container(
+                                  height: 316.h,
+                                  width: double.infinity,
+                                  child: Image.asset(
+                                    ImageResource.banner,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                           Container(
-                            height: 316.h,
-                            width: double.infinity,
-                            child: Image.asset(
-                              ImageResource.banner,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.topCenter,
-                            margin: EdgeInsets.only(top: 296.h),
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.only(
+                                top: PlatformDispatcher.instance.views.first
+                                            .viewInsets.bottom >
+                                        0.0
+                                    ? 50.h
+                                    : 296.h),
                             child: SingleChildScrollView(
                               child: Form(
                                 key: _formkey,
@@ -348,7 +366,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 20.h,
+                                          height: 15.h,
                                         ),
                                         Center(
                                             child: ElevatedButton(
@@ -365,10 +383,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             backgroundColor:
                                                 ColorResource.primaryColor,
                                             fixedSize: Size(360.w, 50.h),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.r),
-                                            ),
                                           ),
                                           child: Text(
                                             "Sign In",
@@ -430,7 +444,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 10.h,
+                                          height: 15.h,
                                         )
                                       ],
                                     )),
