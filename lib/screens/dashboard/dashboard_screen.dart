@@ -12,6 +12,22 @@ import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/gestures.dart';
+import '../../router.dart';
+import 'package:mg/screens/home/home_screen.dart';
+import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/home_event.dart';
+import 'package:mg/screens/favorites/favorites_screen.dart';
+import 'package:mg/screens/favorites/favorites_bloc.dart';
+import 'package:mg/screens/favorites/favorites_event.dart';
+import 'package:mg/screens/bookings/bookings_screen.dart';
+import 'package:mg/screens/bookings/bookings_bloc.dart';
+import 'package:mg/screens/bookings/bookings_event.dart';
+import 'package:mg/screens/chat/chat_screen.dart';
+import 'package:mg/screens/chat/chat_bloc.dart';
+import 'package:mg/screens/chat/chat_event.dart';
+import 'package:mg/screens/profile/profile_screen.dart';
+import 'package:mg/screens/profile/profile_bloc.dart';
+import 'package:mg/screens/profile/profile_event.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -25,12 +41,37 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   int pageIndex = 0;
 
-  static const List<Widget> pages = <Widget>[
-    const Page1(),
-    const Page2(),
-    const Page3(),
-    const Page4(),
-    const Page5(),
+  static final List<Widget> pages = <Widget>[
+    BlocProvider(
+        create: (BuildContext context) => HomeBloc()
+          ..add(HomeInitialEvent(
+            context: context,
+          )),
+        child: const HomeScreen()),
+    BlocProvider(
+        create: (BuildContext context) => FavoritesBloc()
+          ..add(FavoritesInitialEvent(
+            context: context,
+          )),
+        child: const FavoritesScreen()),
+    BlocProvider(
+        create: (BuildContext context) => BookingsBloc()
+          ..add(BookingsInitialEvent(
+            context: context,
+          )),
+        child: const BookingScreen()),
+    BlocProvider(
+        create: (BuildContext context) => ChatBloc()
+          ..add(ChatInitialEvent(
+            context: context,
+          )),
+        child: const ChatScreen()),
+    BlocProvider(
+        create: (BuildContext context) => ProfileBloc()
+          ..add(ProfileInitialEvent(
+            context: context,
+          )),
+        child: const ProfileScreen()),
   ];
 
   @override
@@ -110,110 +151,5 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     });
               }),
         ));
-  }
-}
-
-class Page1 extends StatelessWidget {
-  const Page1({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: Text(
-          "Page Number 1",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page2 extends StatelessWidget {
-  const Page2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: Text(
-          "Page Number 2",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page3 extends StatelessWidget {
-  const Page3({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: Text(
-          "Page Number 3",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page4 extends StatelessWidget {
-  const Page4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: Text(
-          "Page Number 4",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page5 extends StatelessWidget {
-  const Page5({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: Text(
-          "Page Number 5",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mg/screens/profile_settings/profile_bloc.dart';
-import 'package:mg/screens/profile_settings/profile_event.dart';
-
+import 'package:mg/screens/profile/profile_bloc.dart';
+import 'package:mg/screens/profile/profile_event.dart';
 import '../../base/base_state.dart';
 import '../../utils/preference_helpher.dart';
 import '../../utils/singleton.dart';
@@ -20,18 +19,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late ProfileBloc bloc;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
     bloc = BlocProvider.of<ProfileBloc>(context);
-
-    await PreferenceHelper.getId().then((value) {
-      if (PreferenceHelper.getId() != 0) {
-        FlashSingleton.instance.id = value;
-      }
-    });
-
-    bloc.add(GetProfileEvent(
-        context: context, arguments: FlashSingleton.instance.id));
   }
 
   @override
@@ -44,11 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bloc: bloc,
       listener: (BuildContext context, BaseState state) async {
         if (state is SuccessState) {
-          if (state.successResponse is Profiledata) {
-            final Profiledata response = state.successResponse;
-            print('******** SUCCESS **********');
-            print(response);
-          }
+          // if (state.successResponse is Profiledata) {
+          //   final Profiledata response = state.successResponse;
+          //   print('******** SUCCESS **********');
+          //   print(response);
+          // }
         }
       },
       child: BlocBuilder(

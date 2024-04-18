@@ -11,15 +11,27 @@ import 'package:mg/screens/login_page/login_bloc.dart';
 import 'package:mg/screens/login_page/login_event.dart';
 import 'package:mg/screens/login_page/login_screen.dart';
 import 'package:mg/screens/page_inprogress.dart';
-import 'package:mg/screens/profile_settings/profile_bloc.dart';
-import 'package:mg/screens/profile_settings/profile_event.dart';
-import 'package:mg/screens/profile_settings/profile_screen.dart';
 import 'package:mg/screens/signup_screen/signup_bloc.dart';
 import 'package:mg/screens/signup_screen/signup_event.dart';
 import 'package:mg/screens/signup_screen/signup_screen.dart';
 import 'package:mg/screens/dashboard/dashboard_screen.dart';
 import 'package:mg/screens/dashboard/dashboard_bloc.dart';
 import 'package:mg/screens/dashboard/dashboard_event.dart';
+import 'package:mg/screens/home/home_screen.dart';
+import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/home_event.dart';
+import 'package:mg/screens/favorites/favorites_event.dart';
+import 'package:mg/screens/favorites/favorites_screen.dart';
+import 'package:mg/screens/favorites/favorites_bloc.dart';
+import 'package:mg/screens/bookings/bookings_bloc.dart';
+import 'package:mg/screens/bookings/bookings_screen.dart';
+import 'package:mg/screens/bookings/bookings_event.dart';
+import 'package:mg/screens/chat/chat_bloc.dart';
+import 'package:mg/screens/chat/chat_event.dart';
+import 'package:mg/screens/chat/chat_screen.dart';
+import 'package:mg/screens/profile/profile_bloc.dart';
+import 'package:mg/screens/profile/profile_event.dart';
+import 'package:mg/screens/profile/profile_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = 'splash_screen';
@@ -30,6 +42,10 @@ class AppRoutes {
   static const String intropage = 'intro_page';
   static const String forgetPage = 'forgot_password_screen';
   static const String dashboardPage = 'dahboard_screen';
+  static const String homePage = 'home_screen';
+  static const String favoritesPage = 'favorites_screen';
+  static const String bookingPage = 'booking_screen';
+  static const String chatPage = 'chat_screen';
 }
 
 Route<dynamic> getRoute(RouteSettings settings) {
@@ -46,6 +62,14 @@ Route<dynamic> getRoute(RouteSettings settings) {
       return _buildSignUpScreen();
     case AppRoutes.dashboardPage:
       return _buildDashboardPage();
+    case AppRoutes.homePage:
+      return _buildHomePage();
+    case AppRoutes.favoritesPage:
+      return _buildFavoritesPage();
+    case AppRoutes.bookingPage:
+      return _buildBookingPage();
+    case AppRoutes.chatPage:
+      return _buildChatPage();
   }
   return _buildInProgressScreen();
 }
@@ -97,6 +121,30 @@ Route<dynamic> _buildForgetPage() {
 Route<dynamic> _buildDashboardPage() {
   return MaterialPageRoute(
     builder: (BuildContext context) => PageBuilder.buildDashboardScreen(),
+  );
+}
+
+Route<dynamic> _buildHomePage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildHomeScreen(),
+  );
+}
+
+Route<dynamic> _buildFavoritesPage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildFavoritesScreen(),
+  );
+}
+
+Route<dynamic> _buildBookingPage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildBookingScreen(),
+  );
+}
+
+Route<dynamic> _buildChatPage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildChatScreen(),
   );
 }
 
@@ -162,6 +210,38 @@ class PageBuilder {
       create: (BuildContext context) =>
           DashboardBloc()..add(IntroDashboardEvent(context: context)),
       child: const DashBoardScreen(),
+    );
+  }
+
+  static Widget buildHomeScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          HomeBloc()..add(HomeInitialEvent(context: context)),
+      child: const HomeScreen(),
+    );
+  }
+
+  static Widget buildFavoritesScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          FavoritesBloc()..add(FavoritesInitialEvent(context: context)),
+      child: const FavoritesScreen(),
+    );
+  }
+
+  static Widget buildBookingScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          BookingsBloc()..add(BookingsInitialEvent(context: context)),
+      child: const BookingScreen(),
+    );
+  }
+
+  static Widget buildChatScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          ChatBloc()..add(ChatInitialEvent(context: context)),
+      child: const ChatScreen(),
     );
   }
 }
