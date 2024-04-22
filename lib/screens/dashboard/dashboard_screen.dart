@@ -140,7 +140,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 backgroundColor: Colors.white,
                               ),
                             ],
-                            type: BottomNavigationBarType.shifting,
+                            type: BottomNavigationBarType.fixed,
                             currentIndex: pageIndex,
                             selectedItemColor: ColorResource.primaryColor,
                             unselectedItemColor: ColorResource.lightGrey,

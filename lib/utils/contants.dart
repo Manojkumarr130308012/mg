@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 enum ApiRequestMethod { get, put, delete, post, patch }
 
 class Constants {
@@ -11,3 +13,6 @@ class SharedPrefKeys {
   static const String userName = 'username';
   static const String Id = 'Id';
 }
+
+double height = 825.h;
+double width = 375.w;
