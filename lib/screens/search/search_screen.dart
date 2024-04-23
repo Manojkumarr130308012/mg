@@ -51,118 +51,137 @@ class _SearchScreenState extends State<SearchScreen> {
                     minTextAdapt: true,
                     splitScreenMode: true,
                     builder: (_, child) {
-                      return Scaffold(
-                        backgroundColor: ColorResource.white,
-                        appBar: AppBar(
-                          backgroundColor: Colors.white,
-                          title: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(right: 50.w),
-                            child: ReusableText(
-                              text: "Search",
-                              style: appStyle(
-                                  14.sp, Colors.black, FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                        body: Stack(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: CustomContainer(
-                                containercontent: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 20.h,
+                      return SafeArea(
+                        child: Scaffold(
+                          backgroundColor: ColorResource.white,
+                          body: Stack(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 50.h,
+                                    width: 50.w,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(25)),
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: 10.w, right: 10.w),
-                                      width: double.infinity,
-                                      decoration: const BoxDecoration(
-                                        color: ColorResource.whiteGrey,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(25)),
+                                    child: IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.arrow_back)),
+                                  ),
+                                  Container(
+                                    height: 50.h,
+                                    color: Colors.white,
+                                    alignment: Alignment.center,
+                                    child: ReusableText(
+                                      text: "Search",
+                                      style: appStyle(
+                                          14.sp, Colors.black, FontWeight.w500),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 50.h),
+                                padding: EdgeInsets.all(10),
+                                child: CustomContainer(
+                                  containercontent: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20.h,
                                       ),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                            prefixIcon: const Icon(
-                                              Icons.search,
-                                              color: Colors.grey,
-                                            ),
-                                            hintText:
-                                                "Search Area, Location etc.,",
-                                            border: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                            hintStyle: TextStyle(
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10.w, right: 10.w),
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(
+                                          color: ColorResource.whiteGrey,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(25)),
+                                        ),
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                              prefixIcon: const Icon(
+                                                Icons.search,
                                                 color: Colors.grey,
-                                                fontFamily: FontResousrce
-                                                    .DMSans_REGULAR,
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.normal),
-                                            suffixIcon: Icon(
-                                              size: 20.h,
-                                              Icons.close_sharp,
-                                              color:
-                                                  Colors.black.withOpacity(0.5),
-                                            )),
+                                              ),
+                                              hintText:
+                                                  "Search Area, Location etc.,",
+                                              border: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              errorBorder: InputBorder.none,
+                                              disabledBorder: InputBorder.none,
+                                              hintStyle: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontFamily: FontResousrce
+                                                      .DMSans_REGULAR,
+                                                  fontSize: 12.sp,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                              suffixIcon: Icon(
+                                                size: 20.h,
+                                                Icons.close_sharp,
+                                                color: Colors.black
+                                                    .withOpacity(0.5),
+                                              )),
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15.w, vertical: 20.h),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Image.asset(
-                                            scale: 1.5,
-                                            ImageResource.current_location,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          SizedBox(
-                                            width: 7.5.w,
-                                          ),
-                                          Center(
-                                            child: ReusableText(
-                                                text: "Use current location",
-                                                style: appStyle(
-                                                    12.sp,
-                                                    ColorResource.dark,
-                                                    FontWeight.w500)),
-                                          )
-                                        ],
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15.w, vertical: 20.h),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              scale: 1.5,
+                                              ImageResource.current_location,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            SizedBox(
+                                              width: 7.5.w,
+                                            ),
+                                            Center(
+                                              child: ReusableText(
+                                                  text: "Use current location",
+                                                  style: appStyle(
+                                                      12.sp,
+                                                      ColorResource.dark,
+                                                      FontWeight.w500)),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Divider(
-                                      color: ColorResource.whiteGrey,
-                                      height: 1.h,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 15.h),
-                                      child: SearchHeading(
-                                        text: "Recent Searches",
+                                      Divider(
+                                        color: ColorResource.whiteGrey,
+                                        height: 1.h,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 15.h),
+                                        child: SearchHeading(
+                                          text: "Recent Searches",
+                                          onTab: () {},
+                                        ),
+                                      ),
+                                      RecentSearches(),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      SearchHeading(
+                                        text: "Popular Cities",
                                         onTab: () {},
                                       ),
-                                    ),
-                                    RecentSearches(),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    SearchHeading(
-                                      text: "Popular Cities",
-                                      onTab: () {},
-                                    ),
-                                    AllCitiesProperties()
-                                  ],
+                                      AllCitiesProperties()
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       );
                     });

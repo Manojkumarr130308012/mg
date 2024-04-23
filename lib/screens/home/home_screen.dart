@@ -37,12 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
   int segmentedControlGroupValue = 0;
   final Map<int, Widget> myTabs = <int, Widget>{
     0: Container(
-      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-      child: Text("    Meeting Spaces   "),
+      margin: EdgeInsets.symmetric(horizontal: 33.5.w),
+      child: Text("Meeting Spaces",
+          style: TextStyle(
+              fontSize: 12.sp, fontFamily: FontResousrce.DMSans_MEDIUM)),
     ),
     1: Container(
-      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-      child: Text("    Work Spaces   "),
+      margin: EdgeInsets.symmetric(horizontal: 34.w),
+      child: Text(
+        "Work Spaces",
+        style:
+            TextStyle(fontSize: 12.sp, fontFamily: FontResousrce.DMSans_MEDIUM),
+      ),
     )
   };
 
@@ -106,31 +112,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               child: InkWell(
                                                   child: IgnorePointer(
-                                                      child: TextField(
-                                                    decoration: InputDecoration(
-                                                      prefixIcon: const Icon(
-                                                        Icons.search,
-                                                        color: Colors.grey,
-                                                      ),
-                                                      hintText:
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(width: 15.w),
+                                                        const Icon(
+                                                            Icons.search),
+                                                        SizedBox(width: 5.w),
+                                                        Text(
                                                           "Search Area, Location etc.,",
-                                                      border: InputBorder.none,
-                                                      focusedBorder:
-                                                          InputBorder.none,
-                                                      enabledBorder:
-                                                          InputBorder.none,
-                                                      errorBorder:
-                                                          InputBorder.none,
-                                                      disabledBorder:
-                                                          InputBorder.none,
-                                                      hintStyle: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontFamily:
-                                                              FontResousrce
-                                                                  .DMSans_REGULAR,
-                                                          fontSize: 12.sp),
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  FontResousrce
+                                                                      .DMSans_REGULAR,
+                                                              fontSize: 12.sp),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )),
+                                                  ),
                                                   onTap: () {
                                                     Navigator.pushNamed(context,
                                                         AppRoutes.searchPage);
@@ -362,7 +360,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   )
                                                 ]),
                                             child: SizedBox(
-                                              height: 40.h,
                                               width: 363.w,
                                               child:
                                                   CupertinoSlidingSegmentedControl(

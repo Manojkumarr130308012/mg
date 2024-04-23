@@ -10,7 +10,7 @@ class BasedOnAmenitiesProperties extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 20.h),
-      height: 110.h * amenities.length / 4,
+      height: 120.h * amenities.length / 4,
       width: double.infinity,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
