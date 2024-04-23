@@ -31,18 +31,13 @@ class BasedOnAmenitiesWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 4.h,
-              ),
               Center(
-                child: SizedBox(
-                  child: Text(
-                    title,
-                    maxLines: 2,
-                    textDirection: TextDirection.ltr,
-                    textAlign: TextAlign.center,
-                    style: appStyle(10.sp, ColorResource.dark, FontWeight.w500),
-                  ),
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.center,
+                  style: appStyle(10.sp, ColorResource.dark, FontWeight.w500),
                 ),
               ),
             ],

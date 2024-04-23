@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mg/screens/login_page/model/LoginResponseModel.dart';
-import 'package:mg/utils/singleton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
 import 'package:mg/screens/search/search_bloc.dart';
-import '../../router.dart';
-import '../../utils/base_equatable.dart';
-import '../../utils/contants.dart';
-import '../../utils/preference_helpher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/utils/color_resources.dart';
-import 'package:mg/utils/image_resource.dart';
-import 'package:flutter/gestures.dart';
-import 'package:mg/utils/custom_reuseable.dart';
-import 'package:mg/screens/search/ui/based_on_cities_list.dart';
-import 'package:mg/common/uidata.dart';
-import 'package:mg/utils/custom_appstyle.dart';
-import 'package:mg/utils/search_heading.dart';
-import 'package:mg/utils/custom_container.dart';
 import 'package:mg/screens/search/ui/based_on_cities_list.dart';
 import 'package:mg/screens/search/ui/recent_searches_list.dart';
+import 'package:mg/utils/color_resources.dart';
+import 'package:mg/utils/custom_appstyle.dart';
+import 'package:mg/utils/custom_container.dart';
+import 'package:mg/utils/custom_reuseable.dart';
+import 'package:mg/utils/image_resource.dart';
+import 'package:mg/utils/search_heading.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -63,11 +54,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       return Scaffold(
                         backgroundColor: ColorResource.white,
                         appBar: AppBar(
-                          elevation: 0,
                           backgroundColor: Colors.white,
-                          title: ReusableText(
-                            text: "Search",
-                            style: appStyle(13, Colors.black, FontWeight.w600),
+                          title: Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(right: 50.w),
+                            child: ReusableText(
+                              text: "Search",
+                              style: appStyle(
+                                  14.sp, Colors.black, FontWeight.w500),
+                            ),
                           ),
                         ),
                         body: Stack(
@@ -95,7 +90,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                               Icons.search,
                                               color: Colors.grey,
                                             ),
-                                            hintText: "Search",
+                                            hintText:
+                                                "Search Area, Location etc.,",
                                             border: InputBorder.none,
                                             focusedBorder: InputBorder.none,
                                             enabledBorder: InputBorder.none,
@@ -105,30 +101,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 color: Colors.grey,
                                                 fontFamily: FontResousrce
                                                     .DMSans_REGULAR,
-                                                fontSize: 12.sp),
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal),
                                             suffixIcon: Icon(
-                                              Icons.cancel,
-                                              color: Colors.grey,
+                                              size: 20.h,
+                                              Icons.close_sharp,
+                                              color:
+                                                  Colors.black.withOpacity(0.5),
                                             )),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 10.w, vertical: 10.h),
+                                          horizontal: 15.w, vertical: 20.h),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Icon(
-                                            Icons.send,
-                                            size: 18.sp,
+                                            Icons.navigation_sharp,
+                                            size: 20.h,
                                             color: ColorResource.primaryColor,
                                           ),
                                           SizedBox(
-                                            width: 10.w,
+                                            width: 7.5.w,
                                           ),
                                           Center(
                                             child: ReusableText(
@@ -136,27 +132,22 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 style: appStyle(
                                                     12.sp,
                                                     ColorResource.dark,
-                                                    FontWeight.w400)),
+                                                    FontWeight.w500)),
                                           )
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
                                     ),
                                     Divider(
                                       color: ColorResource.whiteGrey,
                                       height: 1.h,
                                     ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    SearchHeading(
-                                      text: "Recent Searches",
-                                      onTab: () {},
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 15.h),
+                                      child: SearchHeading(
+                                        text: "Recent Searches",
+                                        onTab: () {},
+                                      ),
                                     ),
                                     RecentSearches(),
                                     SizedBox(

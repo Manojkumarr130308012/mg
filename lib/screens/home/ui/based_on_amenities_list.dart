@@ -17,7 +17,6 @@ class BasedOnAmenitiesProperties extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, // number of items in each row
             mainAxisSpacing: 5.w, // spacing between rows
-            crossAxisSpacing: 5.h, // spacing between columns
           ),
           itemCount: amenities.length, // total number of items
           itemBuilder: (context, index) {
