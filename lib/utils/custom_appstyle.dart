@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextStyle appStyle(double fontSize, Color color, FontWeight fontWeight) {
-  return GoogleFonts.poppins(
+  return GoogleFonts.dmSans(
     fontSize: fontSize.sp,
     color: color,
     fontWeight: fontWeight,

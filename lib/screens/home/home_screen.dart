@@ -1,27 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mg/screens/login_page/model/LoginResponseModel.dart';
-import 'package:mg/utils/singleton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
 import 'package:mg/screens/home/home_bloc.dart';
-import '../../router.dart';
-import '../../utils/base_equatable.dart';
-import '../../utils/contants.dart';
-import '../../utils/preference_helpher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/utils/color_resources.dart';
-import 'package:mg/utils/image_resource.dart';
-import 'package:flutter/gestures.dart';
-import 'package:mg/utils/heading.dart';
-import 'package:mg/utils/sub_heading.dart';
-import 'package:mg/utils/custom_container.dart';
-import 'package:mg/screens/home/ui/popular_properties_list.dart';
+import 'package:mg/screens/home/ui/based_on_amenities_list.dart';
 import 'package:mg/screens/home/ui/cities_properties_list.dart';
 import 'package:mg/screens/home/ui/latest_properties_list.dart';
-import 'package:mg/screens/home/ui/based_on_amenities_list.dart';
-import 'package:mg/utils/custom_reuseable.dart';
-import 'package:mg/utils/custom_appstyle.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:mg/screens/home/ui/popular_properties_list.dart';
+import 'package:mg/utils/color_resources.dart';
+import 'package:mg/utils/custom_container.dart';
+import 'package:mg/utils/heading.dart';
+import 'package:mg/utils/image_resource.dart';
+import 'package:mg/utils/sub_heading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -41,7 +32,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int tagSelected = 0;
   Map<int, Widget> map = new Map();
-  int _currentSelection = 0;
+
+  int segmentedControlGroupValue = 0;
+  final Map<int, Widget> myTabs = <int, Widget>{
+    0: Text(
+      "Meeting Spaces",
+      style:
+          TextStyle(fontFamily: FontResousrce.DMSans_MEDIUM, fontSize: 12.sp),
+    ),
+    1: Text(
+      "Work Spaces",
+      style:
+          TextStyle(fontFamily: FontResousrce.DMSans_MEDIUM, fontSize: 12.sp),
+    )
+  };
 
   @override
   void initState() {
@@ -94,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                              height: 45.h,
+                                              height: 50.h,
                                               width: 300.w,
                                               decoration: const BoxDecoration(
                                                 color: Colors.white,
@@ -127,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             Container(
                                               height: 50.h,
-                                              width: 50.h,
+                                              width: 50.w,
                                               decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.all(
@@ -258,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   "Properties situated in the heart of the city",
                                               onTab: () {},
                                             ),
-                                            PopularProperties(),
+                                            const PopularProperties(),
                                             Container(
                                               height: 5.h,
                                               width: double.infinity,
@@ -268,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               text: "Cities you might like",
                                               onTab: () {},
                                             ),
-                                            CitiesProperties(),
+                                            const CitiesProperties(),
                                             Container(
                                               height: 5.h,
                                               width: double.infinity,
@@ -278,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               text: "Latest Properties",
                                               onTab: () {},
                                             ),
-                                            LatestProperties(),
+                                            const LatestProperties(),
                                             Container(
                                               height: 5.h,
                                               width: double.infinity,
@@ -288,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               text: "Based on amenities",
                                               onTab: () {},
                                             ),
-                                            BasedOnAmenitiesProperties(),
+                                            const BasedOnAmenitiesProperties(),
                                             Container(
                                               height: 10.h,
                                               width: double.infinity,
@@ -313,65 +317,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                      bottom: 1.h,
-                                      right: 1.w,
-                                      left: 1.w,
-                                      child: Center(
-                                          child: Column(
+                                    bottom: 15.h,
+                                    right: 15.w,
+                                    left: 15.w,
+                                    child: Center(
+                                      child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
                                                 color: Colors.white,
-                                                width: 1.0, // Set border width
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      10.0), // Set border radius
-                                            ),
-                                            child: ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child:
-                                                    CupertinoSegmentedControl<
-                                                        int>(
-                                                  children: {
-                                                    0: Container(
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 12.h,
-                                                              horizontal: 16.w),
-                                                      child: Text(
-                                                          "    Meeting Spaces   "),
-                                                    ),
-                                                    1: Container(
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 12.h,
-                                                              horizontal: 16.w),
-                                                      child: Text(
-                                                          "     Work Spaces   "),
-                                                    ),
-                                                  },
-                                                  borderColor:
-                                                      ColorResource.white,
-                                                  groupValue: _currentSelection,
-                                                  onValueChanged: (value) {
-                                                    setState(() {
-                                                      _currentSelection =
-                                                          value!;
-                                                    });
-                                                  },
-                                                  selectedColor: ColorResource
-                                                      .primaryColor,
-                                                )),
+                                                    BorderRadius.circular(8),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    offset: const Offset(2, 2),
+                                                    blurRadius: 5,
+                                                    color: Colors.black
+                                                        .withOpacity(0.5),
+                                                  )
+                                                ]),
+                                            child: SizedBox(
+                                              height: 40.h,
+                                              width: 363.w,
+                                              child:
+                                                  CupertinoSlidingSegmentedControl(
+                                                backgroundColor: Colors.white,
+                                                thumbColor:
+                                                    ColorResource.primaryColor,
+                                                groupValue:
+                                                    segmentedControlGroupValue,
+                                                children: myTabs,
+                                                onValueChanged: (value) {
+                                                  setState(() {
+                                                    segmentedControlGroupValue =
+                                                        value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                          SizedBox(height: 10.h)
                                         ],
-                                      )))
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ],

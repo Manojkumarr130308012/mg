@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
-import 'package:mg/utils/contants.dart';
-import 'package:mg/utils/color_resources.dart';
 
 class PopularPropertiesWidget extends StatelessWidget {
   const PopularPropertiesWidget(
@@ -32,7 +30,7 @@ class PopularPropertiesWidget extends StatelessWidget {
         padding: EdgeInsets.only(right: 0.w),
         child: Container(
           width: 267.w,
-          height: 190.h,
+          height: 230.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r), color: Colors.white),
           child: ListView(
@@ -65,14 +63,14 @@ class PopularPropertiesWidget extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.star,
                                   color: ColorResource.primaryColor,
-                                  size: 12.0,
+                                  size: 12,
                                 ),
                                 ReusableText(
                                     text: '${rating}',
-                                    style: appStyle(12, ColorResource.white,
+                                    style: appStyle(12.sp, ColorResource.white,
                                         FontWeight.w400))
                               ],
                             ),
@@ -87,7 +85,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                             height: 24.h,
                             width: 24.w,
                             color: ColorResource.circleGrey,
-                            child: Icon(
+                            child: const Icon(
                               Icons.favorite_border,
                               color: ColorResource.offWhite,
                               size: 16.0,
@@ -110,17 +108,18 @@ class PopularPropertiesWidget extends StatelessWidget {
                         ReusableText(
                             text: title,
                             style: appStyle(
-                                12, ColorResource.dark, FontWeight.w500)),
+                                14.sp, ColorResource.dark, FontWeight.w600)),
                         ReusableText(
                             text: "₹ ${rate}/hour",
-                            style: appStyle(
-                                9, ColorResource.primaryColor, FontWeight.w400))
+                            style: appStyle(12.sp, ColorResource.primaryColor,
+                                FontWeight.w600))
                       ],
                     ),
+                    SizedBox(height: 4.h),
                     ReusableText(
                         text: address,
                         style: appStyle(
-                            9, ColorResource.lightGrey, FontWeight.w500))
+                            12.sp, ColorResource.lightGrey, FontWeight.w400))
                   ],
                 ),
               )

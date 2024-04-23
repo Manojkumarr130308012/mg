@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/common/shimmers/popular_places.dart';
 import 'package:mg/common/uidata.dart';
-import 'package:mg/utils/color_resources.dart';
 import 'package:mg/screens/home/ui/popular_properties_widget.dart';
 
 class LatestProperties extends StatelessWidget {
@@ -11,7 +9,7 @@ class LatestProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220.h,
+      height: 250.h,
       padding: EdgeInsets.only(top: 2.h),
       child: ListView(
         scrollDirection: Axis.horizontal,
