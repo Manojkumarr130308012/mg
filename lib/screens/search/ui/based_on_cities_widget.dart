@@ -14,43 +14,40 @@ class AllCitiesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTab,
-      child: Container(
-        child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: ClipOval(
-                    child: SizedBox.fromSize(
-                      size: Size.fromRadius(31.r), // Image radius
-                      child: Image.network(
-                        image,
-                        fit: BoxFit.fill,
-                      ),
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: ClipOval(
+                  child: SizedBox.fromSize(
+                    size: Size.fromRadius(26.r), // Image radius
+                    child: Image.network(
+                      image,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Center(
-                  child: SizedBox(
-                    child: Text(
-                      title,
-                      maxLines: 1,
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.center,
-                      style:
-                          appStyle(10.sp, ColorResource.dark, FontWeight.w500),
-                    ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Center(
+                child: SizedBox(
+                  child: Text(
+                    title,
+                    maxLines: 1,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.center,
+                    style: appStyle(10.sp, ColorResource.dark, FontWeight.w500),
                   ),
                 ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
