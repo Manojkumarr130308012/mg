@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
+import 'package:mg/router.dart';
 import 'package:mg/screens/home/home_bloc.dart';
 import 'package:mg/screens/home/ui/based_on_amenities_list.dart';
 import 'package:mg/screens/home/ui/cities_properties_list.dart';
@@ -13,7 +14,6 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
-import 'package:mg/router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -145,9 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Radius.circular(25)),
                                               ),
                                               child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(Icons.menu),
-                                              ),
+                                                  onPressed: () {},
+                                                  icon: Image.asset(
+                                                    ImageResource.filter_icon,
+                                                    scale: 1.5.h,
+                                                  )),
                                             ),
                                           ],
                                         ),
@@ -159,79 +161,60 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: double.infinity,
                                     color: ColorResource.menuBackgroundColor,
                                     margin: EdgeInsets.only(top: 100.h),
-                                    child: Container(
-                                      child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 10),
-                                          child: SizedBox(
-                                            child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount: titles.length,
-                                                itemBuilder: (context, index) {
-                                                  return Container(
-                                                      margin: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 5),
-                                                      decoration: BoxDecoration(
-                                                          color: tagSelected ==
-                                                                  index
-                                                              ? ColorResource
-                                                                  .primaryColor
-                                                              : Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      25)),
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      10),
-                                                          child: Center(
-                                                            child: index != 0
-                                                                ? TextButton
-                                                                    .icon(
-                                                                    onPressed:
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 10),
+                                        child: SizedBox(
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: titles.length,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 5),
+                                                    decoration: BoxDecoration(
+                                                        color: tagSelected ==
+                                                                index
+                                                            ? ColorResource
+                                                                .primaryColor
+                                                            : Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 10),
+                                                        child: Center(
+                                                          child: index != 0
+                                                              ? TextButton.icon(
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
                                                                         () {
-                                                                      setState(
-                                                                          () {
-                                                                        tagSelected =
-                                                                            index;
-                                                                      });
-                                                                    },
-                                                                    icon: Icon(
-                                                                      color: tagSelected ==
-                                                                              index
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .black,
-                                                                      Icons
-                                                                          .monitor,
-                                                                    ),
-                                                                    label: Text(
-                                                                        style: TextStyle(
-                                                                            color: tagSelected == index
-                                                                                ? Colors.white
-                                                                                : Colors.black,
-                                                                            fontSize: 12.sp,
-                                                                            fontFamily: FontResousrce.DMSans_REGULAR,
-                                                                            fontWeight: FontWeight.normal),
-                                                                        titles[index]),
-                                                                  )
-                                                                : TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      setState(
-                                                                          () {
-                                                                        tagSelected =
-                                                                            index;
-                                                                      });
-                                                                    },
-                                                                    child: Text(
-                                                                      "All",
+                                                                      tagSelected =
+                                                                          index;
+                                                                    });
+                                                                  },
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    splashFactory:
+                                                                        NoSplash
+                                                                            .splashFactory,
+                                                                  ),
+                                                                  icon: Icon(
+                                                                    color: tagSelected ==
+                                                                            index
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                    Icons
+                                                                        .monitor,
+                                                                  ),
+                                                                  label: Text(
                                                                       style: TextStyle(
                                                                           color: tagSelected == index
                                                                               ? Colors
@@ -242,14 +225,47 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               .sp,
                                                                           fontFamily: FontResousrce
                                                                               .DMSans_REGULAR,
-                                                                          fontWeight:
-                                                                              FontWeight.normal),
-                                                                    ),
+                                                                          fontWeight: FontWeight
+                                                                              .normal),
+                                                                      titles[
+                                                                          index]),
+                                                                )
+                                                              : TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      tagSelected =
+                                                                          index;
+                                                                    });
+                                                                  },
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    splashFactory:
+                                                                        NoSplash
+                                                                            .splashFactory,
                                                                   ),
-                                                          )));
-                                                }),
-                                          )),
-                                    ),
+                                                                  child: Text(
+                                                                    "All",
+                                                                    style: TextStyle(
+                                                                        color: tagSelected ==
+                                                                                index
+                                                                            ? Colors
+                                                                                .white
+                                                                            : Colors
+                                                                                .black,
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        fontFamily:
+                                                                            FontResousrce
+                                                                                .DMSans_REGULAR,
+                                                                        fontWeight:
+                                                                            FontWeight.normal),
+                                                                  ),
+                                                                ),
+                                                        )));
+                                              }),
+                                        )),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 160.h),

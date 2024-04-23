@@ -8,6 +8,8 @@ class ImageResource {
   static const String location = 'assets/images/location.png';
   static const String tick_green_anim = 'assets/gifs/tick_green_anim.gif';
   static const String tick_bg_anim = 'assets/gifs/tick_bg_anim.gif';
+
+  static const String filter_icon = 'assets/images/filter.png';
 }
 
 class FontResousrce {
