@@ -13,6 +13,7 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
+import 'package:mg/router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -105,29 +106,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(25)),
                                               ),
-                                              child: TextField(
-                                                decoration: InputDecoration(
-                                                  prefixIcon: const Icon(
-                                                    Icons.search,
-                                                    color: Colors.grey,
-                                                  ),
-                                                  hintText:
-                                                      "Search Area, Location etc.,",
-                                                  border: InputBorder.none,
-                                                  focusedBorder:
-                                                      InputBorder.none,
-                                                  enabledBorder:
-                                                      InputBorder.none,
-                                                  errorBorder: InputBorder.none,
-                                                  disabledBorder:
-                                                      InputBorder.none,
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontFamily: FontResousrce
-                                                          .DMSans_REGULAR,
-                                                      fontSize: 12.sp),
-                                                ),
-                                              ),
+                                              child: InkWell(
+                                                  child: IgnorePointer(
+                                                      child: TextField(
+                                                    decoration: InputDecoration(
+                                                      prefixIcon: const Icon(
+                                                        Icons.search,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      hintText:
+                                                          "Search Area, Location etc.,",
+                                                      border: InputBorder.none,
+                                                      focusedBorder:
+                                                          InputBorder.none,
+                                                      enabledBorder:
+                                                          InputBorder.none,
+                                                      errorBorder:
+                                                          InputBorder.none,
+                                                      disabledBorder:
+                                                          InputBorder.none,
+                                                      hintStyle: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontFamily:
+                                                              FontResousrce
+                                                                  .DMSans_REGULAR,
+                                                          fontSize: 12.sp),
+                                                    ),
+                                                  )),
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.searchPage);
+                                                  }),
                                             ),
                                             Container(
                                               height: 50.h,

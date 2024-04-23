@@ -12,4 +12,5 @@ class ColorResource {
   static const Color white = Color(0xffffffff);
   static const Color secondaryLight = Color(0xFFffe5db);
   static const Color menuBackgroundColor = Color(0xffFFF9F3);
+  static const Color whiteGrey = Color(0xffefeff1);
 }
