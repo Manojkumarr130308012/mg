@@ -23,7 +23,7 @@ class BasedOnAmenitiesWidget extends StatelessWidget {
               Center(
                 child: ClipOval(
                   child: SizedBox.fromSize(
-                    size: Size.fromRadius(31.r), // Image radius
+                    size: Size.fromRadius(26.r), // Image radius
                     child: Image.network(
                       image,
                       fit: BoxFit.fill,
@@ -31,6 +31,7 @@ class BasedOnAmenitiesWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 5.h),
               Center(
                 child: Text(
                   title,

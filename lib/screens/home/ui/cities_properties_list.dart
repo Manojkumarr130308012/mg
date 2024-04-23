@@ -9,7 +9,7 @@ class CitiesProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125.h,
+      height: 110.h,
       padding: EdgeInsets.only(top: 20.h),
       child: ListView(
         scrollDirection: Axis.horizontal,

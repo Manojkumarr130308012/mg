@@ -9,14 +9,15 @@ class BasedOnAmenitiesProperties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125.h * amenities.length / 4,
-      width: double.infinity,
       padding: EdgeInsets.only(top: 20.h),
+      height: 110.h * amenities.length / 4,
+      width: double.infinity,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, // number of items in each row
             mainAxisSpacing: 5.w, // spacing between rows
+            crossAxisSpacing: 5.h, // spacing between columns
           ),
           itemCount: amenities.length, // total number of items
           itemBuilder: (context, index) {

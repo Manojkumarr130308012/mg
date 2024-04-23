@@ -31,7 +31,7 @@ class CitiesPropertiesWidget extends StatelessWidget {
                   Center(
                     child: ClipOval(
                       child: SizedBox.fromSize(
-                        size: Size.fromRadius(31.r), // Image radius
+                        size: Size.fromRadius(26.r), // Image radius
                         child: Image.network(
                           image,
                           fit: BoxFit.fill,
@@ -40,7 +40,7 @@ class CitiesPropertiesWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 5.h,
                   ),
                   Center(
                     child: ReusableText(
