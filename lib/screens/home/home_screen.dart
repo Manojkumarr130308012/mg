@@ -36,15 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int segmentedControlGroupValue = 0;
   final Map<int, Widget> myTabs = <int, Widget>{
-    0: Text(
-      "Meeting Spaces",
-      style:
-          TextStyle(fontFamily: FontResousrce.DMSans_MEDIUM, fontSize: 12.sp),
+    0: Container(
+      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+      child: Text("    Meeting Spaces   "),
     ),
-    1: Text(
-      "Work Spaces",
-      style:
-          TextStyle(fontFamily: FontResousrce.DMSans_MEDIUM, fontSize: 12.sp),
+    1: Container(
+      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+      child: Text("    Work Spaces   "),
     )
   };
 

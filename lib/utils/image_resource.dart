@@ -4,7 +4,8 @@ class ImageResource {
   static const String eye_open = 'assets/images/eye_open.png';
   static const String eye_slashed = 'assets/images/eye_slashed.png';
   static const String tick_green = 'assets/images/tick_green.png';
-
+  static const String current_location = 'assets/images/current_location.png';
+  static const String location = 'assets/images/location.png';
   static const String tick_green_anim = 'assets/gifs/tick_green_anim.gif';
   static const String tick_bg_anim = 'assets/gifs/tick_bg_anim.gif';
 }

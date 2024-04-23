@@ -5,6 +5,7 @@ import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:mg/utils/contants.dart';
 import 'package:mg/utils/color_resources.dart';
+import 'package:mg/utils/image_resource.dart';
 
 class RecentSearchesWidget extends StatelessWidget {
   const RecentSearchesWidget({super.key, required this.address, this.onTab});
@@ -30,10 +31,10 @@ class RecentSearchesWidget extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.location_on_sharp,
-                      size: 18.sp,
-                      color: ColorResource.primaryColor,
+                    Image.asset(
+                      scale: 1.7,
+                      ImageResource.location,
+                      fit: BoxFit.fill,
                     ),
                     SizedBox(
                       width: 10.w,

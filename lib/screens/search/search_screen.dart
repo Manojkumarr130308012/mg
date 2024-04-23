@@ -118,10 +118,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.navigation,
-                                            size: 20.h,
-                                            color: ColorResource.primaryColor,
+                                          Image.asset(
+                                            scale: 1.5,
+                                            ImageResource.current_location,
+                                            fit: BoxFit.fill,
                                           ),
                                           SizedBox(
                                             width: 7.5.w,
