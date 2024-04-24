@@ -23,16 +23,6 @@ class Heading extends StatelessWidget {
               text: text,
               style: appStyle(14.sp, ColorResource.dark, FontWeight.w600),
             ),
-          ),
-          GestureDetector(
-            onTap: onTab,
-            child: Text(
-              'View All',
-              style: TextStyle(
-                  color: ColorResource.primaryColor,
-                  fontSize: 12.sp,
-                  fontFamily: FontResousrce.DMSans_SEMIBOLD),
-            ),
           )
         ],
       ),

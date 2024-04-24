@@ -35,6 +35,9 @@ import 'package:mg/screens/profile/profile_screen.dart';
 import 'package:mg/screens/search/search_bloc.dart';
 import 'package:mg/screens/search/search_event.dart';
 import 'package:mg/screens/search/search_screen.dart';
+import 'package:mg/screens/explore_screen/explore_bloc.dart';
+import 'package:mg/screens/explore_screen/explore_event.dart';
+import 'package:mg/screens/explore_screen/explore_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = 'splash_screen';
@@ -50,6 +53,7 @@ class AppRoutes {
   static const String bookingPage = 'booking_screen';
   static const String chatPage = 'chat_screen';
   static const String searchPage = 'search_screen';
+  static const String explorePage = 'explore_screen';
 }
 
 Route<dynamic> getRoute(RouteSettings settings) {
@@ -76,6 +80,8 @@ Route<dynamic> getRoute(RouteSettings settings) {
       return _buildChatPage();
     case AppRoutes.searchPage:
       return _buildSearchPage();
+    case AppRoutes.explorePage:
+      return _buildExplorePage();
   }
   return _buildInProgressScreen();
 }
@@ -157,6 +163,12 @@ Route<dynamic> _buildChatPage() {
 Route<dynamic> _buildSearchPage() {
   return MaterialPageRoute(
     builder: (BuildContext context) => PageBuilder.buildSearchScreen(),
+  );
+}
+
+Route<dynamic> _buildExplorePage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildExploreScreen(),
   );
 }
 
@@ -262,6 +274,14 @@ class PageBuilder {
       create: (BuildContext context) =>
           SearchBloc()..add(SearchInitialEvent(context: context)),
       child: const SearchScreen(),
+    );
+  }
+
+  static Widget buildExploreScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          ExploreBloc()..add(ExploreInitialEvent(context: context)),
+      child: const ExploreScreen(),
     );
   }
 }

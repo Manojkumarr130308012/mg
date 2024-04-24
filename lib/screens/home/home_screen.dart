@@ -271,9 +271,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: CustomContainer(
                                         containercontent: Column(
                                           children: [
-                                            Heading(
-                                              text: "Popular Properties",
-                                              onTab: () {},
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Heading(
+                                                  text: "Popular Properties",
+                                                  onTab: () {},
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.explorePage);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 10.h, right: 5.w),
+                                                    child: Text(
+                                                      'View All',
+                                                      style: TextStyle(
+                                                          color: ColorResource
+                                                              .primaryColor,
+                                                          fontSize: 14.sp,
+                                                          fontFamily: FontResousrce
+                                                              .DMSans_SEMIBOLD),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                             SizedBox(
                                               height: 3.h,
@@ -289,9 +315,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: double.infinity,
                                               color: ColorResource.offWhite,
                                             ),
-                                            Heading(
-                                              text: "Cities you might like",
-                                              onTab: () {},
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Heading(
+                                                  text: "Cities you might like",
+                                                  onTab: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.explorePage);
+                                                  },
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.explorePage);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 10.h, right: 5.w),
+                                                    child: Text(
+                                                      'View All',
+                                                      style: TextStyle(
+                                                          color: ColorResource
+                                                              .primaryColor,
+                                                          fontSize: 14.sp,
+                                                          fontFamily: FontResousrce
+                                                              .DMSans_SEMIBOLD),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                             const CitiesProperties(),
                                             Container(
@@ -299,9 +354,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: double.infinity,
                                               color: ColorResource.offWhite,
                                             ),
-                                            Heading(
-                                              text: "Latest Properties",
-                                              onTab: () {},
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Heading(
+                                                  text: "Latest Properties",
+                                                  onTab: () {},
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.explorePage);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 10.h, right: 5.w),
+                                                    child: Text(
+                                                      'View All',
+                                                      style: TextStyle(
+                                                          color: ColorResource
+                                                              .primaryColor,
+                                                          fontSize: 14.sp,
+                                                          fontFamily: FontResousrce
+                                                              .DMSans_SEMIBOLD),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                             const LatestProperties(),
                                             Container(
@@ -309,9 +390,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: double.infinity,
                                               color: ColorResource.offWhite,
                                             ),
-                                            Heading(
-                                              text: "Based on amenities",
-                                              onTab: () {},
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Heading(
+                                                  text: "Based on amenities",
+                                                  onTab: () {},
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        AppRoutes.explorePage);
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 10.h, right: 5.w),
+                                                    child: Text(
+                                                      'View All',
+                                                      style: TextStyle(
+                                                          color: ColorResource
+                                                              .primaryColor,
+                                                          fontSize: 14.sp,
+                                                          fontFamily: FontResousrce
+                                                              .DMSans_SEMIBOLD),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                             const BasedOnAmenitiesProperties(),
                                             Container(
