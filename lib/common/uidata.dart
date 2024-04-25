@@ -180,6 +180,31 @@ List<dynamic> amenities = [
   }
 ];
 
+List<dynamic> propertyType = [
+  {
+    "_id": "6537ece708ff5b7de97d0695",
+    "title": "Managed Workspaces for Corporates",
+    "_v": 0
+  },
+  {
+    "_id": "6537ece708ff5b7de97d0696",
+    "title": "Space only for Corporates",
+    "_v": 0
+  },
+  {
+    "_id": "6537ece708ff5b7de97d0697",
+    "title": "BeRightHere.com Center",
+    "_v": 0
+  },
+  {"_id": "6537ece708ff5b7de97d0698", "title": "CoWorking Center", "_v": 0},
+  {"_id": "6537ece708ff5b7de97d0699", "title": "Collaborative Center", "_v": 0},
+  {
+    "_id": "6537ece708ff5b7de97d0699",
+    "title": "Work from Hotel - Woho",
+    "_v": 0
+  }
+];
+
 List<dynamic> restaurant = [
   {
     "_id": "6537ece708ff5b7de97d0700",

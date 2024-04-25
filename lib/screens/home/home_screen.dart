@@ -14,6 +14,8 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
+import 'package:mg/utils/image_resource.dart';
+import 'package:mg/screens/home/ui/property_type_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -143,7 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Radius.circular(25)),
                                               ),
                                               child: IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    _showBottomSheet(context);
+                                                  },
                                                   icon: Image.asset(
                                                     ImageResource.filter_icon,
                                                     scale: 1.5.h,
@@ -498,5 +502,76 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
               }),
         ));
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: 800.h,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(25.0),
+            topRight: const Radius.circular(25.0),
+          ),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 10.sp),
+                    child: Icon(
+                      Icons.cancel_outlined,
+                      size: 24.sp,
+                    )),
+                SizedBox(
+                  width: 140.w,
+                ),
+                Center(
+                    child: Text(
+                  "Filter",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ))
+              ]),
+              SizedBox(
+                height: 10.h,
+              ),
+              const Divider(),
+              Heading(
+                text: "Price Range",
+                onTab: () {},
+              ),
+              Heading(
+                text: "No of Seats",
+                onTab: () {},
+              ),
+              Heading(
+                text: "Property Type",
+                onTab: () {},
+              ),
+              PropertiesTypeList(),
+              Heading(
+                text: "Resource Type",
+                onTab: () {},
+              ),
+              Heading(
+                text: "Amenities",
+                onTab: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
