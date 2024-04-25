@@ -205,6 +205,21 @@ List<dynamic> propertyType = [
   }
 ];
 
+List<dynamic> resourceType = [
+  {"_id": "", "title": "Dedicated Desk", "_v": 0},
+  {"_id": "", "title": "Flexi/Hot Desk", "_v": 0},
+  {"_id": "", "title": "Shared Space", "_v": 0},
+  {"_id": "", "title": "Meeting Room", "_v": 0},
+  {"_id": "", "title": "Conference Room ", "_v": 0},
+  {"_id": "", "title": "Manager Room", "_v": 0},
+  {"_id": "", "title": "Private Cabin", "_v": 0},
+  {"_id": "", "title": "Conference Hall", "_v": 0},
+  {"_id": "", "title": "Board Rooms", "_v": 0},
+  {"_id": "", "title": "Banquet Halls", "_v": 0},
+  {"_id": "", "title": "Training Room", "_v": 0},
+  {"_id": "", "title": "Open Space", "_v": 0},
+];
+
 List<dynamic> restaurant = [
   {
     "_id": "6537ece708ff5b7de97d0700",

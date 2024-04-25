@@ -9,12 +9,13 @@ class Properties extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 80.h),
       child: ListView(
         scrollDirection: Axis.vertical,
         children: List.generate(restaurant.length, (i) {
           var popularProperties = restaurant[i];
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
             child: PropertiesWidget(
                 image: popularProperties['imageUrl'],
                 logo: popularProperties['logourl'],

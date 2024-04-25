@@ -3,7 +3,7 @@ class FlashSingleton {
   String? bearerToken;
   int? id;
 
-  static final FlashSingleton _singleton = new FlashSingleton._internal();
+  static final FlashSingleton _singleton = FlashSingleton._internal();
 
   FlashSingleton._internal();
 

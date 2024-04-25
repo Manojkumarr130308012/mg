@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/common/uidata.dart';
-import 'package:mg/screens/home/ui/property_type_widget.dart';
+import 'package:mg/screens/home/ui/resource_type_widget.dart';
 
-class PropertiesTypeList extends StatelessWidget {
-  const PropertiesTypeList({super.key});
+class ResourceTypeList extends StatelessWidget {
+  const ResourceTypeList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.h * propertyType.length / 3,
+      color: Colors.blue,
+      height: 92.h * resourceType.length / 3,
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
       child: GridView.builder(
           shrinkWrap: true,
@@ -19,10 +20,10 @@ class PropertiesTypeList extends StatelessWidget {
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
               childAspectRatio: 1.5),
-          itemCount: propertyType.length, // total number of items
+          itemCount: resourceType.length, // total number of items
           itemBuilder: (context, index) {
-            var propertyTypeList = propertyType[index];
-            return PropertyTypeWidget(title: propertyTypeList['title']);
+            var resourceTypeList = resourceType[index];
+            return ResourceTypeWidget(title: resourceTypeList['title']);
           }),
     );
   }

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 
-class PropertyTypeWidget extends StatelessWidget {
-  const PropertyTypeWidget({super.key, required this.title, this.onTab});
+class ResourceTypeWidget extends StatelessWidget {
+  const ResourceTypeWidget({super.key, required this.title, this.onTab});
 
   final String title;
   final void Function()? onTab;
