@@ -3,18 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 
-class ResourceTypeWidgets extends StatefulWidget {
+class AmenitiesListWidgets extends StatefulWidget {
   final String title;
   late bool isSelected;
 
-  ResourceTypeWidgets(
+  AmenitiesListWidgets(
       {super.key, required this.title, required this.isSelected});
-
   @override
-  State<ResourceTypeWidgets> createState() => _ResourceTypeWidgetsState();
+  State<AmenitiesListWidgets> createState() => _AmenitiesListWidgetsState();
 }
 
-class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
+class _AmenitiesListWidgetsState extends State<AmenitiesListWidgets> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,7 +45,7 @@ class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: Icon(
-                        Icons.image,
+                        Icons.ice_skating,
                         size: 30.h,
                         color: widget.isSelected
                             ? Colors.white

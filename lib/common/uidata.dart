@@ -206,18 +206,32 @@ List<dynamic> propertyType = [
 ];
 
 List<dynamic> resourceType = [
-  {"_id": "", "title": "Dedicated Desk", "_v": 0},
-  {"_id": "", "title": "Flexi/Hot Desk", "_v": 0},
-  {"_id": "", "title": "Shared Space", "_v": 0},
-  {"_id": "", "title": "Meeting Room", "_v": 0},
-  {"_id": "", "title": "Conference Room ", "_v": 0},
-  {"_id": "", "title": "Manager Room", "_v": 0},
-  {"_id": "", "title": "Private Cabin", "_v": 0},
-  {"_id": "", "title": "Conference Hall", "_v": 0},
-  {"_id": "", "title": "Board Rooms", "_v": 0},
-  {"_id": "", "title": "Banquet Halls", "_v": 0},
-  {"_id": "", "title": "Training Room", "_v": 0},
-  {"_id": "", "title": "Open Space", "_v": 0},
+  {"_id": "", "title": "Flexi/Hot Desk", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Shared Space", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Meeting Room", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Conference Room ", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Manager Room", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Private Cabin", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Conference Hall", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Board Rooms", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Banquet Halls", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Training Room", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Open Space", "_v": 0, "isSelected": false},
+];
+
+List<dynamic> amenitiesType = [
+  {"_id": "", "title": "Breakout Area/ Lounge", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Pantry / Cafe", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Parking", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Print & Photocopy", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Wifi / Shared Internet", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "24/7", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Air Conditioning", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Lan", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "IT Support", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "WhiteBoard", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Lift Facilities", "_v": 0, "isSelected": false},
+  {"_id": "", "title": "Cleaning / Housekeeping", "_v": 0, "isSelected": false},
 ];
 
 List<dynamic> restaurant = [

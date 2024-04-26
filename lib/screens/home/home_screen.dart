@@ -7,6 +7,7 @@ import 'package:mg/router.dart';
 import 'package:mg/screens/home/home_bloc.dart';
 import 'package:mg/screens/home/ui/based_on_amenities_list.dart';
 import 'package:mg/screens/home/ui/cities_properties_list.dart';
+import 'package:mg/screens/home/ui/filter_amenities_list.dart';
 import 'package:mg/screens/home/ui/latest_properties_list.dart';
 import 'package:mg/screens/home/ui/popular_properties_list.dart';
 import 'package:mg/screens/home/ui/property_type_list.dart';
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int tagSelected = 0;
-  Map<int, Widget> map = new Map();
+  Map<int, Widget> map = Map();
 
   int segmentedControlGroupValue = 0;
   final Map<int, Widget> myTabs = <int, Widget>{
@@ -554,11 +555,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: "Resource Type",
                       onTab: () {},
                     ),
-                    const ResourceTypeList(),
+                    const ResourceTypeLists(),
                     Heading(
                       text: "Amenities",
                       onTab: () {},
                     ),
+                    const AmenitiesLists(),
                   ],
                 ),
               ),

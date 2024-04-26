@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/common/uidata.dart';
-import 'package:mg/screens/home/ui/property_type_widget.dart';
+import 'package:mg/screens/home/ui/filter_amenities_widget.dart';
 
-class PropertiesTypeList extends StatelessWidget {
-  const PropertiesTypeList({super.key});
+class AmenitiesLists extends StatefulWidget {
+  const AmenitiesLists({super.key});
 
+  @override
+  State<AmenitiesLists> createState() => _AmenitiesListsState();
+}
+
+class _AmenitiesListsState extends State<AmenitiesLists> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110.h * propertyType.length / 3,
+      height: 110.h * amenitiesType.length / 3,
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
       child: GridView.builder(
           shrinkWrap: true,
@@ -19,12 +24,12 @@ class PropertiesTypeList extends StatelessWidget {
               mainAxisSpacing: 5,
               crossAxisSpacing: 5,
               childAspectRatio: 1.5),
-          itemCount: propertyType.length, // total number of items
+          itemCount: amenitiesType.length, // total number of items
           itemBuilder: (context, index) {
-            var propertyTypeList = propertyType[index];
-            return PropertyTypeWidgets(
-              title: propertyTypeList['title'],
-              index: index,
+            var amenitiesTypeList = amenitiesType[index];
+            return AmenitiesListWidgets(
+              title: amenitiesTypeList['title'],
+              isSelected: amenitiesTypeList['isSelected'],
             );
           }),
     );

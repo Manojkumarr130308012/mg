@@ -3,14 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/common/uidata.dart';
 import 'package:mg/screens/home/ui/resource_type_widget.dart';
 
-class ResourceTypeList extends StatelessWidget {
-  const ResourceTypeList({super.key});
+class ResourceTypeLists extends StatefulWidget {
+  const ResourceTypeLists({super.key});
 
+  @override
+  State<ResourceTypeLists> createState() => _ResourceTypeListsState();
+}
+
+class _ResourceTypeListsState extends State<ResourceTypeLists> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
-      height: 92.h * resourceType.length / 3,
+      height: 110.h * resourceType.length / 3,
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
       child: GridView.builder(
           shrinkWrap: true,
@@ -23,7 +27,10 @@ class ResourceTypeList extends StatelessWidget {
           itemCount: resourceType.length, // total number of items
           itemBuilder: (context, index) {
             var resourceTypeList = resourceType[index];
-            return ResourceTypeWidget(title: resourceTypeList['title']);
+            return ResourceTypeWidgets(
+              title: resourceTypeList['title'],
+              isSelected: resourceTypeList['isSelected'],
+            );
           }),
     );
   }

@@ -3,15 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 
-class PropertyTypeWidget extends StatelessWidget {
-  const PropertyTypeWidget({super.key, required this.title, this.onTab});
-
+class PropertyTypeWidgets extends StatefulWidget {
   final String title;
-  final void Function()? onTab;
+  final int index;
+  const PropertyTypeWidgets(
+      {super.key, required this.title, required this.index});
+
+  @override
+  State<PropertyTypeWidgets> createState() => _PropertyTypeWidgetsState();
+}
+
+class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTab,
+      onTap: () {},
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: [
@@ -29,7 +35,7 @@ class PropertyTypeWidget extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  title,
+                  widget.title,
                   textAlign: TextAlign.center,
                   style: appStyle(10.sp, ColorResource.dark, FontWeight.w500),
                 ),
