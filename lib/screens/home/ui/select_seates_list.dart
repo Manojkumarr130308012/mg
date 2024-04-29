@@ -12,23 +12,21 @@ class SelectSeats extends StatefulWidget {
 }
 
 class _SelectSeats extends State<SelectSeats> {
-  RangeValues _currentRangeValues = const RangeValues(4000, 8000);
-  var minTxt = TextEditingController();
-  var maxTxt = TextEditingController();
+  var seatTxt = TextEditingController();
 
   int _selectedIndex = 0;
-
 // Sample list of items
-  List<String> items = [
-    ' 1 ',
-    ' 2 ',
-    ' 3 ',
-    ' 4 ',
-    ' 5 ',
+  List<dynamic> items = [
+    {"_id": "", "title": "1", "isSelected": false},
+    {"_id": "", "title": "2", "isSelected": false},
+    {"_id": "", "title": "3", "isSelected": false},
+    {"_id": "", "title": "4", "isSelected": false},
+    {"_id": "", "title": "5", "isSelected": false}
   ];
 
   @override
   void initState() {
+    seatTxt.text = " ₹ ${items[_selectedIndex]['title']}";
     super.initState();
   }
 
@@ -53,23 +51,40 @@ class _SelectSeats extends State<SelectSeats> {
                   var itemsProperties = items[i];
                   return Padding(
                       padding: EdgeInsets.only(left: 8, top: 8),
-                      child: Container(
-                          height: 32.h,
-                          width: 43.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(18.0.r),
-                          ),
-                          child: Center(
-                            child: Text(
-                              itemsProperties,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = i;
+                            seatTxt.text =
+                                "  ${items[_selectedIndex]['title']}";
+                          });
+                        },
+                        child: Container(
+                            height: 32.h,
+                            width: 43.w,
+                            decoration: BoxDecoration(
+                              color: _selectedIndex == i
+                                  ? ColorResource.primaryColor
+                                  : ColorResource.white,
+                              border: _selectedIndex == i
+                                  ? Border.all(
+                                      color: ColorResource.primaryColor)
+                                  : Border.all(color: ColorResource.lightGrey),
+                              borderRadius: BorderRadius.circular(18.0.r),
                             ),
-                          )));
+                            child: Center(
+                              child: Text(
+                                "${itemsProperties['title']}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: _selectedIndex == i
+                                        ? ColorResource.white
+                                        : ColorResource.dark,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            )),
+                      ));
                 }),
               ),
             ),
@@ -79,12 +94,12 @@ class _SelectSeats extends State<SelectSeats> {
                 width: 90.w,
                 height: 44.h,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: ColorResource.primaryColor),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Center(
                   child: TextField(
-                      controller: minTxt,
+                      controller: seatTxt,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         border: InputBorder.none,

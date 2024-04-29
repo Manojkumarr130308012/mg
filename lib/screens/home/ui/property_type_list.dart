@@ -3,8 +3,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/common/uidata.dart';
 import 'package:mg/screens/home/ui/property_type_widget.dart';
 
-class PropertiesTypeList extends StatelessWidget {
-  const PropertiesTypeList({super.key});
+class PropertiesTypeList extends StatefulWidget {
+  const PropertiesTypeList({Key? key}) : super(key: key);
+
+  @override
+  _PropertiesTypeListState createState() => _PropertiesTypeListState();
+}
+
+class _PropertiesTypeListState extends State<PropertiesTypeList> {
+  int? _selectedIndex;
+
+  void _handleItemTap(int index) {
+    print("object ${index}");
+    setState(() {
+      if (_selectedIndex == index) {
+        _selectedIndex = null; // Deselect if already selected
+      } else {
+        _selectedIndex = index; // Select the tapped item
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +42,8 @@ class PropertiesTypeList extends StatelessWidget {
             var propertyTypeList = propertyType[index];
             return PropertyTypeWidgets(
               title: propertyTypeList['title'],
-              isSelected: propertyTypeList['isSelected'],
+              isSelected: index == _selectedIndex,
+              onTap: () => _handleItemTap(index),
             );
           }),
     );

@@ -7,8 +7,14 @@ import 'package:mg/common/uidata.dart';
 class PropertyTypeWidgets extends StatefulWidget {
   final String title;
   late bool isSelected;
-  PropertyTypeWidgets(
-      {super.key, required this.title, required this.isSelected});
+  final VoidCallback onTap;
+
+  PropertyTypeWidgets({
+    Key? key,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   State<PropertyTypeWidgets> createState() => _PropertyTypeWidgetsState();
@@ -18,11 +24,7 @@ class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.isSelected = !widget.isSelected;
-        });
-      },
+      onTap: widget.onTap,
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: [
