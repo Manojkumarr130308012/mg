@@ -220,32 +220,171 @@ List<dynamic> propertyType = [
 ];
 
 List<dynamic> resourceType = [
-  {"_id": "", "title": "Flexi/Hot Desk", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Shared Space", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Meeting Room", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Conference Room ", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Manager Room", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Private Cabin", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Conference Hall", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Board Rooms", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Banquet Halls", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Training Room", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Open Space", "_v": 0, "isSelected": false},
+  {
+    "_id": "",
+    "title": "Dedicated Desk",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "dedicated_desk"
+  },
+  {
+    "_id": "",
+    "title": "Flexi/Hot Desk",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "hot_desk"
+  },
+  {
+    "_id": "",
+    "title": "Shared Space",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "shared_space"
+  },
+  {
+    "_id": "",
+    "title": "Meeting Room",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "meeting_room"
+  },
+  {
+    "_id": "",
+    "title": "Conference Room",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "conference_hall"
+  },
+  {
+    "_id": "",
+    "title": "Manager Room",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "manager_room"
+  },
+  {
+    "_id": "",
+    "title": "Private Cabin",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "private_cabin"
+  },
+  {
+    "_id": "",
+    "title": "Conference Hall",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "conference_hall"
+  },
+  {
+    "_id": "",
+    "title": "Board Rooms",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "board_rooms"
+  },
+  {
+    "_id": "",
+    "title": "Banquet Halls",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "banquet_halls"
+  },
+  {
+    "_id": "",
+    "title": "Training Room",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "training_room"
+  },
+  {
+    "_id": "",
+    "title": "Open Space",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "open_space"
+  },
 ];
 
 List<dynamic> amenitiesType = [
-  {"_id": "", "title": "Breakout Area/ Lounge", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Pantry / Cafe", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Parking", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Print & Photocopy", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Wifi / Shared Internet", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "24/7", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Air Conditioning", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Lan", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "IT Support", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "WhiteBoard", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Lift Facilities", "_v": 0, "isSelected": false},
-  {"_id": "", "title": "Cleaning / Housekeeping", "_v": 0, "isSelected": false},
+  {
+    "_id": "",
+    "title": "Breakout Area/ Lounge",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "lounge"
+  },
+  {
+    "_id": "",
+    "title": "Pantry / Cafe",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "pantry_cafe"
+  },
+  {
+    "_id": "",
+    "title": "Parking",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "parking"
+  },
+  {
+    "_id": "",
+    "title": "Print & Photocopy",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "print_photocopy"
+  },
+  {
+    "_id": "",
+    "title": "Wifi / Shared Internet",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "shared_Internet"
+  },
+  {
+    "_id": "",
+    "title": "24_7",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "support24_7"
+  },
+  {
+    "_id": "",
+    "title": "Air Conditioning",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "air_conditioning"
+  },
+  {"_id": "", "title": "Lan", "_v": 0, "isSelected": false, "icon": "lan"},
+  {
+    "_id": "",
+    "title": "IT Support",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "it_support"
+  },
+  {
+    "_id": "",
+    "title": "WhiteBoard",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "whiteboard"
+  },
+  {
+    "_id": "",
+    "title": "Lift Facilities",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "lift_facilities"
+  },
+  {
+    "_id": "",
+    "title": "Cleaning / Housekeeping",
+    "_v": 0,
+    "isSelected": false,
+    "icon": "house_keeping"
+  },
 ];
 
 List<dynamic> restaurant = [
@@ -270,7 +409,15 @@ List<dynamic> restaurant = [
       "title": "",
       "latitudeDelta": "",
       "longitudeDelta": ""
-    }
+    },
+    "icons": [
+      "pantry_cafe",
+      "parking",
+      "print_photocopy",
+      "shared_Internet",
+      "lan",
+      "air_conditioning"
+    ]
   },
   {
     "_id": "6537ece708ff5b7de97d0701",
@@ -293,7 +440,15 @@ List<dynamic> restaurant = [
       "title": "",
       "latitudeDelta": "",
       "longitudeDelta": ""
-    }
+    },
+    "icons": [
+      "pantry_cafe",
+      "parking",
+      "print_photocopy",
+      "shared_Internet",
+      "lan",
+      "air_conditioning"
+    ]
   },
   {
     "_id": "6537ece708ff5b7de97d0702",
@@ -316,7 +471,15 @@ List<dynamic> restaurant = [
       "title": "",
       "latitudeDelta": "",
       "longitudeDelta": ""
-    }
+    },
+    "icons": [
+      "pantry_cafe",
+      "parking",
+      "print_photocopy",
+      "shared_Internet",
+      "lan",
+      "air_conditioning"
+    ]
   },
   {
     "_id": "6537ece708ff5b7de97d0703",
@@ -339,7 +502,15 @@ List<dynamic> restaurant = [
       "title": "",
       "latitudeDelta": "",
       "longitudeDelta": ""
-    }
+    },
+    "icons": [
+      "pantry_cafe",
+      "parking",
+      "print_photocopy",
+      "shared_Internet",
+      "lan",
+      "air_conditioning"
+    ]
   }
 ];
 

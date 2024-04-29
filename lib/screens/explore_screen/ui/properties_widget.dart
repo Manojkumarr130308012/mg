@@ -13,7 +13,8 @@ class PropertiesWidget extends StatelessWidget {
       required this.rate,
       required this.rating,
       required this.address,
-      this.onTab});
+      this.onTab,
+      required this.icon});
 
   final String image;
   final String logo;
@@ -21,6 +22,7 @@ class PropertiesWidget extends StatelessWidget {
   final int rate;
   final int rating;
   final String address;
+  final List<String> icon;
   final void Function()? onTab;
   @override
   Widget build(BuildContext context) {
@@ -121,11 +123,25 @@ class PropertiesWidget extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: 6,
+                itemCount: icon.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.message),
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: 0.w, top: 6.h, bottom: 6.h, right: 8.w),
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5.r)),
+                          border: Border.all(
+                            color: ColorResource.lightGrey.withOpacity(0.5),
+                            width: 1.w,
+                          )),
+                      child: ImageIcon(
+                        AssetImage(
+                            'assets/images/icons/amenities_icons/${icon[index]}.png'),
+                        size: 25.sp,
+                      ),
+                    ),
                   );
                 },
               ),

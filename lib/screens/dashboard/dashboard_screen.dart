@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mg/utils/singleton.dart';
-import 'package:mg/base/base_state.dart';
-import 'package:mg/screens/dashboard/dashboard_bloc.dart';
-import '../../router.dart';
-import '../../utils/base_equatable.dart';
-import '../../utils/contants.dart';
-import '../../utils/preference_helpher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/utils/color_resources.dart';
-import 'package:mg/utils/image_resource.dart';
-import 'package:mg/screens/dashboard/dashboard_screen.dart';
-import 'package:flutter/gestures.dart';
-import '../../router.dart';
-import 'package:mg/screens/home/home_screen.dart';
-import 'package:mg/screens/home/home_bloc.dart';
-import 'package:mg/screens/home/home_event.dart';
-import 'package:mg/screens/favorites/favorites_screen.dart';
-import 'package:mg/screens/favorites/favorites_bloc.dart';
-import 'package:mg/screens/favorites/favorites_event.dart';
-import 'package:mg/screens/bookings/bookings_screen.dart';
+import 'package:mg/base/base_state.dart';
 import 'package:mg/screens/bookings/bookings_bloc.dart';
 import 'package:mg/screens/bookings/bookings_event.dart';
-import 'package:mg/screens/chat/chat_screen.dart';
+import 'package:mg/screens/bookings/bookings_screen.dart';
 import 'package:mg/screens/chat/chat_bloc.dart';
 import 'package:mg/screens/chat/chat_event.dart';
-import 'package:mg/screens/profile/profile_screen.dart';
+import 'package:mg/screens/chat/chat_screen.dart';
+import 'package:mg/screens/dashboard/dashboard_bloc.dart';
+import 'package:mg/screens/favorites/favorites_bloc.dart';
+import 'package:mg/screens/favorites/favorites_event.dart';
+import 'package:mg/screens/favorites/favorites_screen.dart';
+import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/home_event.dart';
 import 'package:mg/screens/profile/profile_bloc.dart';
 import 'package:mg/screens/profile/profile_event.dart';
+import 'package:mg/screens/profile/profile_screen.dart';
+import 'package:mg/utils/color_resources.dart';
+
+import '../home/home_screen.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);

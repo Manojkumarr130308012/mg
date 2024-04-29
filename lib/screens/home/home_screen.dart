@@ -11,15 +11,14 @@ import 'package:mg/screens/home/ui/filter_amenities_list.dart';
 import 'package:mg/screens/home/ui/latest_properties_list.dart';
 import 'package:mg/screens/home/ui/popular_properties_list.dart';
 import 'package:mg/screens/home/ui/property_type_list.dart';
+import 'package:mg/screens/home/ui/range_slider.dart';
 import 'package:mg/screens/home/ui/resourse_type_list.dart';
+import 'package:mg/screens/home/ui/select_seates_list.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
-import 'package:mg/screens/home/ui/range_slider.dart';
-import 'package:mg/screens/home/ui/select_seates_list.dart';
-import 'package:mg/screens/home/ui/resourse_type_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -517,12 +516,17 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Padding(
                   padding: EdgeInsets.only(left: 10.sp),
-                  child: Icon(
-                    Icons.close,
-                    size: 24.sp,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      size: 24.h,
+                    ),
                   )),
               SizedBox(
-                width: 140.w,
+                width: 120.w,
               ),
               Center(
                   child: Text(

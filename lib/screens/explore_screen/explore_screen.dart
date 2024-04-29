@@ -71,7 +71,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                               Border.all(color: Colors.grey),
                                         ),
                                         child: IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
                                             icon: const Icon(Icons.arrow_back)),
                                       ),
                                     ),

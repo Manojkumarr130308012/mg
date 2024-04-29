@@ -24,7 +24,8 @@ class ResourceTypeList extends StatelessWidget {
             var resourceTypeList = resourceType[index];
             return ResourceTypeWidgets(
                 title: resourceTypeList['title'],
-                isSelected: resourceTypeList['isSelected']);
+                isSelected: resourceTypeList['isSelected'],
+                icon: resourceTypeList['icon']);
           }),
     );
   }

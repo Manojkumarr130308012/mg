@@ -30,6 +30,7 @@ class _AmenitiesListsState extends State<AmenitiesLists> {
             return AmenitiesListWidgets(
               title: amenitiesTypeList['title'],
               isSelected: amenitiesTypeList['isSelected'],
+              icon: amenitiesTypeList['icon'],
             );
           }),
     );

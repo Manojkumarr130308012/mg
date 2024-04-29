@@ -5,10 +5,14 @@ import 'package:mg/utils/custom_appstyle.dart';
 
 class ResourceTypeWidgets extends StatefulWidget {
   final String title;
+  final String icon;
   late bool isSelected;
 
   ResourceTypeWidgets(
-      {super.key, required this.title, required this.isSelected});
+      {super.key,
+      required this.title,
+      required this.isSelected,
+      required this.icon});
 
   @override
   State<ResourceTypeWidgets> createState() => _ResourceTypeWidgetsState();
@@ -45,8 +49,9 @@ class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Icon(
-                        Icons.image,
+                      child: ImageIcon(
+                        AssetImage(
+                            'assets/images/icons/resource_type_icons/${widget.icon}.png'),
                         size: 30.h,
                         color: widget.isSelected
                             ? Colors.white

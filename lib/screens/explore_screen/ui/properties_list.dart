@@ -17,12 +17,14 @@ class Properties extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
             child: PropertiesWidget(
-                image: popularProperties['imageUrl'],
-                logo: popularProperties['logourl'],
-                title: popularProperties['title'],
-                rate: popularProperties['rate'],
-                rating: popularProperties['rating'],
-                address: popularProperties['coords']['address']),
+              image: popularProperties['imageUrl'],
+              logo: popularProperties['logourl'],
+              title: popularProperties['title'],
+              rate: popularProperties['rate'],
+              rating: popularProperties['rating'],
+              address: popularProperties['coords']['address'],
+              icon: popularProperties['icons'],
+            ),
           );
         }),
       ),

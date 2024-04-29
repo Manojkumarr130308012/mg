@@ -5,10 +5,14 @@ import 'package:mg/utils/custom_appstyle.dart';
 
 class AmenitiesListWidgets extends StatefulWidget {
   final String title;
+  final String icon;
   late bool isSelected;
 
   AmenitiesListWidgets(
-      {super.key, required this.title, required this.isSelected});
+      {super.key,
+      required this.title,
+      required this.isSelected,
+      required this.icon});
   @override
   State<AmenitiesListWidgets> createState() => _AmenitiesListWidgetsState();
 }
@@ -44,8 +48,9 @@ class _AmenitiesListWidgetsState extends State<AmenitiesListWidgets> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Icon(
-                        Icons.ice_skating,
+                      child: ImageIcon(
+                        AssetImage(
+                            'assets/images/icons/amenities_icons/${widget.icon}.png'),
                         size: 30.h,
                         color: widget.isSelected
                             ? Colors.white

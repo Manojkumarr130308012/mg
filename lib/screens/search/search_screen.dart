@@ -68,7 +68,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                           BorderRadius.all(Radius.circular(25)),
                                     ),
                                     child: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
                                         icon: Icon(Icons.arrow_back)),
                                   ),
                                   Container(
