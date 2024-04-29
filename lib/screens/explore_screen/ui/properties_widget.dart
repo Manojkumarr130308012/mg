@@ -45,7 +45,7 @@ class PropertiesWidget extends StatelessWidget {
                       width: 363.w,
                       child: Image.network(
                         image,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
