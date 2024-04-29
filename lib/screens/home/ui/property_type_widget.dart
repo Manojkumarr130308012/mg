@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
+import 'package:mg/common/uidata.dart';
 
 class PropertyTypeWidgets extends StatefulWidget {
   final String title;
-  final int index;
-  const PropertyTypeWidgets(
-      {super.key, required this.title, required this.index});
+  late bool isSelected;
+  PropertyTypeWidgets(
+      {super.key, required this.title, required this.isSelected});
 
   @override
   State<PropertyTypeWidgets> createState() => _PropertyTypeWidgetsState();
@@ -17,7 +18,11 @@ class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          widget.isSelected = !widget.isSelected;
+        });
+      },
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: [
@@ -26,7 +31,9 @@ class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
               height: 76.h,
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               decoration: BoxDecoration(
-                color: ColorResource.white,
+                color: widget.isSelected
+                    ? ColorResource.primaryColor
+                    : ColorResource.white,
                 borderRadius: BorderRadius.all(Radius.circular(12.r)),
                 border: Border.all(
                   color: ColorResource.primaryColor.withOpacity(0.5),
@@ -37,7 +44,10 @@ class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
                 child: Text(
                   widget.title,
                   textAlign: TextAlign.center,
-                  style: appStyle(10.sp, ColorResource.dark, FontWeight.w500),
+                  style: appStyle(
+                      10.sp,
+                      widget.isSelected ? Colors.white : ColorResource.dark,
+                      FontWeight.w500),
                 ),
               ),
             ),

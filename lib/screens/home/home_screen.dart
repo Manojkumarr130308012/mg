@@ -17,6 +17,9 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
+import 'package:mg/screens/home/ui/range_slider.dart';
+import 'package:mg/screens/home/ui/select_seates_list.dart';
+import 'package:mg/screens/home/ui/resourse_type_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -542,10 +545,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: "Price Range",
                       onTab: () {},
                     ),
+                    RangeSliderProperties(),
                     Heading(
                       text: "No of Seats",
                       onTab: () {},
                     ),
+                    SelectSeats(),
                     Heading(
                       text: "Property Type",
                       onTab: () {},
@@ -555,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: "Resource Type",
                       onTab: () {},
                     ),
-                    const ResourceTypeLists(),
+                    const ResourceTypeList(),
                     Heading(
                       text: "Amenities",
                       onTab: () {},

@@ -24,7 +24,7 @@ class PropertiesTypeList extends StatelessWidget {
             var propertyTypeList = propertyType[index];
             return PropertyTypeWidgets(
               title: propertyTypeList['title'],
-              index: index,
+              isSelected: propertyTypeList['isSelected'],
             );
           }),
     );
