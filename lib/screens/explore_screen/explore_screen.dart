@@ -6,6 +6,7 @@ import 'package:mg/screens/explore_screen/explore_bloc.dart';
 import 'package:mg/screens/explore_screen/ui/properties_list.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
+import 'package:mg/utils/image_resource.dart';
 
 import '../../utils/custom_reuseable.dart';
 
@@ -50,6 +51,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     builder: (_, child) {
                       return SafeArea(
                         child: Scaffold(
+                          floatingActionButtonLocation:
+                              FloatingActionButtonLocation.centerFloat,
+                          floatingActionButton: Container(
+                            width: 88.w,
+                            height: 40.h,
+                            decoration: BoxDecoration(
+                              color: ColorResource.primaryColor,
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: MaterialButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Map",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: FontResousrce.DMSans_MEDIUM,
+                                    fontSize: 12.sp),
+                              ),
+                            ),
+                          ),
                           backgroundColor: ColorResource.white,
                           body: Stack(
                             children: [

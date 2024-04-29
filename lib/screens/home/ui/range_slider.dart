@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/common/uidata.dart';
-import 'package:mg/screens/home/ui/based_on_amenities_widget.dart';
 import 'package:mg/utils/color_resources.dart';
+import 'package:mg/utils/image_resource.dart';
 
 class RangeSliderProperties extends StatefulWidget {
   const RangeSliderProperties({Key? key}) : super(key: key);
@@ -60,7 +59,7 @@ class _RangeSliderPropertiesState extends State<RangeSliderProperties> {
               },
             ),
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -75,14 +74,14 @@ class _RangeSliderPropertiesState extends State<RangeSliderProperties> {
                       child: TextField(
                           controller: minTxt,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Enter text',
                           ),
-                          style: TextStyle(color: Colors.black)),
+                          style: const TextStyle(color: Colors.black)),
                     ),
                   ),
-                  Container(width: 20.w, child: Divider()),
+                  Container(width: 20.w, child: const Divider()),
                   Container(
                     width: 135.w,
                     height: 44.h,
@@ -94,40 +93,47 @@ class _RangeSliderPropertiesState extends State<RangeSliderProperties> {
                       child: TextField(
                         controller: maxTxt,
                         textAlign: TextAlign.center,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Enter text',
                         ),
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 135.w,
-                    height: 44.h,
-                    child: Center(
-                      child: Text("Minimum",
-                          style: TextStyle(color: Colors.black)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 140.w,
+                  height: 16.h,
+                  child: Center(
+                    child: Text(
+                      "Minimum",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: FontResousrce.DMSans_MEDIUM,
+                          fontSize: 12.sp),
                     ),
                   ),
-                  Container(
-                    width: 135.w,
-                    height: 44.h,
-                    child: Center(
-                      child: Text("Maximum",
-                          style: TextStyle(color: Colors.black)),
+                ),
+                SizedBox(
+                  width: 140.w,
+                  height: 16.h,
+                  child: Center(
+                    child: Text(
+                      "Maximum",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: FontResousrce.DMSans_MEDIUM,
+                          fontSize: 12.sp),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ));

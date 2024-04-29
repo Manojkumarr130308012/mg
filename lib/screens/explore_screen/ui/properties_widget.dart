@@ -5,6 +5,15 @@ import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 
 class PropertiesWidget extends StatelessWidget {
+  final String image;
+  final String logo;
+  final String title;
+  final int rate;
+  final int rating;
+  final String address;
+  final List<String> icon;
+  final void Function()? onTab;
+
   const PropertiesWidget(
       {super.key,
       required this.image,
@@ -16,14 +25,6 @@ class PropertiesWidget extends StatelessWidget {
       this.onTab,
       required this.icon});
 
-  final String image;
-  final String logo;
-  final String title;
-  final int rate;
-  final int rating;
-  final String address;
-  final List<String> icon;
-  final void Function()? onTab;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

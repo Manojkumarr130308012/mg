@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               },
                                               icon: Image.asset(
                                                 ImageResource.filter_icon,
-                                                scale: 1.5.h,
+                                                scale: 2.0.h,
                                               )),
                                         ),
                                       ],
@@ -446,42 +446,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                 right: 15.w,
                                 left: 15.w,
                                 child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 5,
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                              )
-                                            ]),
-                                        child: SizedBox(
-                                          width: 363.w,
-                                          child:
-                                              CupertinoSlidingSegmentedControl(
-                                            backgroundColor: Colors.white,
-                                            thumbColor:
-                                                ColorResource.primaryColor,
-                                            groupValue:
-                                                segmentedControlGroupValue,
-                                            children: myTabs,
-                                            onValueChanged: (value) {
-                                              setState(() {
-                                                segmentedControlGroupValue =
-                                                    value!;
-                                              });
-                                            },
-                                          ),
-                                        ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: const Offset(2, 2),
+                                            blurRadius: 5,
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                          )
+                                        ]),
+                                    child: SizedBox(
+                                      width: 363.w,
+                                      height: 40.h,
+                                      child: CupertinoSlidingSegmentedControl(
+                                        backgroundColor: Colors.white,
+                                        thumbColor: ColorResource.primaryColor,
+                                        groupValue: segmentedControlGroupValue,
+                                        children: myTabs,
+                                        onValueChanged: (value) {
+                                          setState(() {
+                                            segmentedControlGroupValue = value!;
+                                          });
+                                        },
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -522,7 +513,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     icon: Icon(
                       Icons.close,
-                      size: 24.h,
+                      size: 25.h,
                     ),
                   )),
               SizedBox(
@@ -532,15 +523,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                 "Filter",
                 style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     color: Colors.black,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.w500),
               ))
             ]),
             SizedBox(
               height: 10.h,
             ),
-            const Divider(),
+            Divider(
+              thickness: 0.5.h,
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -549,12 +542,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: "Price Range",
                       onTab: () {},
                     ),
-                    RangeSliderProperties(),
+                    const RangeSliderProperties(),
                     Heading(
                       text: "No of Seats",
                       onTab: () {},
                     ),
-                    SelectSeats(),
+                    const SelectSeats(),
                     Heading(
                       text: "Property Type",
                       onTab: () {},
@@ -574,6 +567,50 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Divider(
+              thickness: 0.5.h,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: 180.w,
+                      height: 40.h,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Clear All",
+                            style: TextStyle(
+                                color: ColorResource.primaryColor,
+                                fontSize: 12.sp,
+                                fontFamily: FontResousrce.DMSans_MEDIUM),
+                          )),
+                    ),
+                    Container(
+                      width: 180.w,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                          color: ColorResource.primaryColor,
+                          borderRadius: BorderRadius.circular(8.r)),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Apply",
+                            style: TextStyle(
+                                color: ColorResource.white,
+                                fontSize: 12.sp,
+                                fontFamily: FontResousrce.DMSans_MEDIUM),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
