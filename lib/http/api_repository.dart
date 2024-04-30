@@ -23,8 +23,11 @@ class APIRepository {
     String bearertoken = '';
 
     await PreferenceHelper.getBearer().then((value) {
+      print("bearerToken ${value} ${isBearerTokenNeed}");
+
       if (value != null && isBearerTokenNeed) {
         bearertoken = value;
+        print("bearerToken ${bearertoken}");
         // FlashSingleton.instance.id =  PreferenceHelper.getId();
       }
     });

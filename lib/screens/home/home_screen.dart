@@ -19,6 +19,12 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/sub_heading.dart';
+import 'home_event.dart';
+import '../../utils/preference_helpher.dart';
+import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/utils/contants.dart';
+import 'package:mg/common/shimmers/popular_places.dart';
+import 'package:mg/screens/home/model/AmenitiesList.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,8 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int tagSelected = 0;
   Map<int, Widget> map = Map();
+  int userId = 0;
 
   int segmentedControlGroupValue = 0;
+  List<Data>? propertiesListes = [];
+  List<Datas>? amenitiesListes = [];
   final Map<int, Widget> myTabs = <int, Widget>{
     0: Container(
       margin: EdgeInsets.symmetric(horizontal: 33.5.w),
@@ -61,6 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<HomeBloc>(context);
+
+    final Map<String, dynamic> data = {"is_meeting_space": 1, "user_id": 1634};
+    bloc.add(PropertyListEvent(context: context, arguments: data));
+    bloc.add(AmenitiesListEvent(context: context));
   }
 
   @override
@@ -72,7 +85,22 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: BlocListener(
           bloc: bloc,
-          listener: (BuildContext context, BaseState state) async {},
+          listener: (BuildContext context, BaseState state) async {
+            if (state is SuccessState) {
+              if (state.successResponse is PropertiesList) {
+                setState(() {
+                  PropertiesList propertiesList = state.successResponse;
+                  propertiesListes = propertiesList?.results?.data!;
+                });
+              } else if (state.successResponse is AmenitiesList) {
+                setState(() {
+                  AmenitiesList amenitiesList = state.successResponse;
+                  amenitiesListes = amenitiesList?.data?.data!;
+                });
+              }
+            }
+            setState(() {});
+          },
           child: BlocBuilder(
               bloc: bloc,
               builder: (BuildContext context, BaseState state) {
@@ -309,7 +337,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               "Properties situated in the heart of the city",
                                           onTab: () {},
                                         ),
-                                        const PopularProperties(),
+                                        propertiesListes == null
+                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
+                                            : PopularProperties(
+                                                propertiesList:
+                                                    propertiesListes!),
                                         Container(
                                           height: 5.h,
                                           width: double.infinity,
@@ -382,7 +414,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                           ],
                                         ),
-                                        const LatestProperties(),
+                                        propertiesListes == null
+                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
+                                            : LatestProperties(
+                                                propertiesList:
+                                                    propertiesListes!),
                                         Container(
                                           height: 5.h,
                                           width: double.infinity,
@@ -417,7 +453,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                           ],
                                         ),
-                                        const BasedOnAmenitiesProperties(),
+                                        amenitiesListes == null
+                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
+                                            : BasedOnAmenitiesProperties(
+                                                amenitiesListes:
+                                                    amenitiesListes!),
                                         Container(
                                           height: 10.h,
                                           width: double.infinity,

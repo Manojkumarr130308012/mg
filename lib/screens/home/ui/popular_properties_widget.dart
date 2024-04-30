@@ -13,6 +13,7 @@ class PopularPropertiesWidget extends StatelessWidget {
       required this.rate,
       required this.rating,
       required this.address,
+      required this.unit,
       this.onTab});
 
   final String image;
@@ -21,6 +22,7 @@ class PopularPropertiesWidget extends StatelessWidget {
   final int rate;
   final int rating;
   final String address;
+  final String unit;
   final void Function()? onTab;
   @override
   Widget build(BuildContext context) {
@@ -105,12 +107,22 @@ class PopularPropertiesWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Container(
+                          width: 140.w,
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow
+                                .ellipsis, // Specifies how to handle overflow
+                            maxLines: 1, // Limits the text to a single line
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                         ReusableText(
-                            text: title,
-                            style: appStyle(
-                                14.sp, ColorResource.dark, FontWeight.w600)),
-                        ReusableText(
-                            text: "₹ ${rate}/hour",
+                            text: "₹ ${rate}/${unit}",
                             style: appStyle(12.sp, ColorResource.primaryColor,
                                 FontWeight.w600))
                       ],

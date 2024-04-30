@@ -15,6 +15,7 @@ class LatestPropertiesWidget extends StatelessWidget {
       required this.rate,
       required this.rating,
       required this.address,
+      required this.unit,
       this.onTab});
 
   final String image;
@@ -23,6 +24,7 @@ class LatestPropertiesWidget extends StatelessWidget {
   final int rate;
   final int rating;
   final String address;
+  final String unit;
   final void Function()? onTab;
   @override
   Widget build(BuildContext context) {

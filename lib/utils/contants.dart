@@ -5,6 +5,9 @@ enum ApiRequestMethod { get, put, delete, post, patch }
 class Constants {
   static const String getTrack = 'getTrack';
   static const bool success = true;
+  static const String propertiesSuccess = 'success';
+  static const String basePath =
+      'https://brhfiles.s3.ap-south-1.amazonaws.com/';
 }
 
 class SharedPrefKeys {

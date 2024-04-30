@@ -10,3 +10,16 @@ class HomeInitialEvent extends HomeEvent {
 
   HomeInitialEvent({this.context});
 }
+
+class PropertyListEvent extends HomeEvent {
+  BuildContext? context;
+  dynamic arguments;
+
+  PropertyListEvent({this.context, this.arguments});
+}
+
+class AmenitiesListEvent extends HomeEvent {
+  BuildContext? context;
+
+  AmenitiesListEvent({this.context});
+}

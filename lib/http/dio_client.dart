@@ -10,7 +10,10 @@ import 'package:mg/utils/base_equatable.dart';
 
 class DioClient {
   static dynamic dioConfig({String? token}) {
-    var dynHeader = {'contentType': 'application/json'};
+    var dynHeader = {
+      'contentType': 'application/json',
+      'Authorization': '2P2mfbGMap5GRtjFhqTP5V85McgPT75BtmkNuRAn'
+    };
 
     Dio dio = Dio(
       BaseOptions(
