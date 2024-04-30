@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mg/authentication/bloc/authentication_bloc.dart';
+import 'package:mg/screens/bookings/bookings_bloc.dart';
+import 'package:mg/screens/bookings/bookings_event.dart';
+import 'package:mg/screens/bookings/bookings_screen.dart';
+import 'package:mg/screens/chat/chat_bloc.dart';
+import 'package:mg/screens/chat/chat_event.dart';
+import 'package:mg/screens/chat/chat_screen.dart';
+import 'package:mg/screens/dashboard/dashboard_bloc.dart';
+import 'package:mg/screens/dashboard/dashboard_event.dart';
+import 'package:mg/screens/dashboard/dashboard_screen.dart';
+import 'package:mg/screens/explore_screen/explore_bloc.dart';
+import 'package:mg/screens/explore_screen/explore_event.dart';
+import 'package:mg/screens/explore_screen/explore_screen.dart';
+import 'package:mg/screens/favorites/favorites_bloc.dart';
+import 'package:mg/screens/favorites/favorites_event.dart';
+import 'package:mg/screens/favorites/favorites_screen.dart';
 import 'package:mg/screens/forgot_password_screen/forgot_password_bloc.dart';
 import 'package:mg/screens/forgot_password_screen/forgot_password_event.dart';
 import 'package:mg/screens/forgot_password_screen/forgot_password_screen.dart';
+import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/home_event.dart';
+import 'package:mg/screens/home/home_screen.dart';
 import 'package:mg/screens/intro_page/intro_page_bloc.dart';
 import 'package:mg/screens/intro_page/intro_page_event.dart';
 import 'package:mg/screens/intro_page/intro_page_screen.dart';
 import 'package:mg/screens/login_page/login_bloc.dart';
 import 'package:mg/screens/login_page/login_event.dart';
 import 'package:mg/screens/login_page/login_screen.dart';
+import 'package:mg/screens/map_screen/map_bloc.dart';
+import 'package:mg/screens/map_screen/map_screen.dart';
 import 'package:mg/screens/page_inprogress.dart';
-import 'package:mg/screens/signup_screen/signup_bloc.dart';
-import 'package:mg/screens/signup_screen/signup_event.dart';
-import 'package:mg/screens/signup_screen/signup_screen.dart';
-import 'package:mg/screens/dashboard/dashboard_screen.dart';
-import 'package:mg/screens/dashboard/dashboard_bloc.dart';
-import 'package:mg/screens/dashboard/dashboard_event.dart';
-import 'package:mg/screens/home/home_screen.dart';
-import 'package:mg/screens/home/home_bloc.dart';
-import 'package:mg/screens/home/home_event.dart';
-import 'package:mg/screens/favorites/favorites_event.dart';
-import 'package:mg/screens/favorites/favorites_screen.dart';
-import 'package:mg/screens/favorites/favorites_bloc.dart';
-import 'package:mg/screens/bookings/bookings_bloc.dart';
-import 'package:mg/screens/bookings/bookings_screen.dart';
-import 'package:mg/screens/bookings/bookings_event.dart';
-import 'package:mg/screens/chat/chat_bloc.dart';
-import 'package:mg/screens/chat/chat_event.dart';
-import 'package:mg/screens/chat/chat_screen.dart';
 import 'package:mg/screens/profile/profile_bloc.dart';
 import 'package:mg/screens/profile/profile_event.dart';
 import 'package:mg/screens/profile/profile_screen.dart';
 import 'package:mg/screens/search/search_bloc.dart';
 import 'package:mg/screens/search/search_event.dart';
 import 'package:mg/screens/search/search_screen.dart';
-import 'package:mg/screens/explore_screen/explore_bloc.dart';
-import 'package:mg/screens/explore_screen/explore_event.dart';
-import 'package:mg/screens/explore_screen/explore_screen.dart';
+import 'package:mg/screens/signup_screen/signup_bloc.dart';
+import 'package:mg/screens/signup_screen/signup_event.dart';
+import 'package:mg/screens/signup_screen/signup_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = 'splash_screen';
@@ -54,6 +56,8 @@ class AppRoutes {
   static const String chatPage = 'chat_screen';
   static const String searchPage = 'search_screen';
   static const String explorePage = 'explore_screen';
+
+  static const String mapScreen = 'map_screen';
 }
 
 Route<dynamic> getRoute(RouteSettings settings) {
@@ -82,6 +86,8 @@ Route<dynamic> getRoute(RouteSettings settings) {
       return _buildSearchPage();
     case AppRoutes.explorePage:
       return _buildExplorePage();
+    case AppRoutes.mapScreen:
+      return _buildMapPage();
   }
   return _buildInProgressScreen();
 }
@@ -169,6 +175,12 @@ Route<dynamic> _buildSearchPage() {
 Route<dynamic> _buildExplorePage() {
   return MaterialPageRoute(
     builder: (BuildContext context) => PageBuilder.buildExploreScreen(),
+  );
+}
+
+Route<dynamic> _buildMapPage() {
+  return MaterialPageRoute(
+    builder: (BuildContext context) => PageBuilder.buildMapScreen(),
   );
 }
 
@@ -282,6 +294,14 @@ class PageBuilder {
       create: (BuildContext context) =>
           ExploreBloc()..add(ExploreInitialEvent(context: context)),
       child: const ExploreScreen(),
+    );
+  }
+
+  static Widget buildMapScreen() {
+    return BlocProvider(
+      create: (BuildContext context) =>
+          MapBloc()..add(MapInitialEvent(context: context)),
+      child: const MapScreen(),
     );
   }
 }

@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/base/base_state.dart';
-import 'package:mg/screens/explore_screen/explore_bloc.dart';
-import 'package:mg/screens/explore_screen/ui/properties_list.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mg/screens/map_screen/map_bloc.dart';
+import 'package:mg/screens/map_screen/ui/map_popular_properties_list.dart';
 import 'package:mg/utils/color_resources.dart';
-import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/image_resource.dart';
 
-import '../../router.dart';
+import '../../base/base_state.dart';
+import '../../utils/custom_appstyle.dart';
 import '../../utils/custom_reuseable.dart';
 
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
 
   @override
-  _ExploreScreenState createState() => _ExploreScreenState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
-  late ExploreBloc bloc;
+class _MapScreenState extends State<MapScreen> {
+  MapBloc? bloc;
 
-  @override
-  void initState() {
-    super.initState();
-    bloc = BlocProvider.of<ExploreBloc>(context);
+  Container buildTextWidget(String word) {
+    return Container(
+        alignment: Alignment.center,
+        child: Text(
+          word,
+          textAlign: TextAlign.center,
+        ));
+  }
+
+  Marker buildMarker(LatLng coordinates, String word) {
+    return Marker(
+        point: coordinates,
+        width: 100,
+        height: 12,
+        child: buildTextWidget(word));
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop();
-          return false;
+    return PopScope(
+        canPop: true, //When false, blocks the current route from being popped.
+        onPopInvoked: (didPop) {
+          //do your logic here:
         },
         child: BlocListener(
           bloc: bloc,
@@ -41,9 +53,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
               bloc: bloc,
               builder: (BuildContext context, BaseState state) {
                 if (state is InitialState) {
-                  return const Center(
-                    child: Text(''),
-                  );
                 } else if (state is SuccessState) {}
                 return ScreenUtilInit(
                     designSize: const Size(393, 852),
@@ -63,11 +72,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             ),
                             child: MaterialButton(
                               onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, AppRoutes.mapScreen);
+                                Navigator.pop(context);
                               },
                               child: Text(
-                                "Map",
+                                "List",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: FontResousrce.DMSans_MEDIUM,
@@ -75,9 +83,78 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               ),
                             ),
                           ),
-                          backgroundColor: ColorResource.white,
                           body: Stack(
                             children: [
+                              FlutterMap(
+                                  options: const MapOptions(
+                                    initialCenter: LatLng(11.016844, 76.955833),
+                                    initialZoom: 12,
+                                  ),
+                                  children: [
+                                    TileLayer(
+                                      urlTemplate:
+                                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                      userAgentPackageName: 'com.example.app',
+                                    ),
+                                    MarkerLayer(
+                                      markers: <Marker>[
+                                        Marker(
+                                          width: 80.w,
+                                          height: 40.h,
+                                          point: const LatLng(
+                                              11.016844, 76.955833),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color:
+                                                      ColorResource.lightGrey),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "\$1000",
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14.sp,
+                                                    fontFamily: FontResousrce
+                                                        .DMSans_BOLD),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Marker(
+                                          width: 80.w,
+                                          height: 40.h,
+                                          point: const LatLng(
+                                              11.009880, 76.949966),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color:
+                                                      ColorResource.lightGrey),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "\$800",
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14.sp,
+                                                    fontFamily: FontResousrce
+                                                        .DMSans_BOLD),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 20.h),
                                 child: Row(
@@ -185,7 +262,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ],
                                 ),
                               ),
-                              const Properties()
+                              const MapPopularProperties(),
                             ],
                           ),
                         ),

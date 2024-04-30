@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mg/common/uidata.dart';
-import 'package:mg/screens/home/ui/popular_properties_widget.dart';
 import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/screens/home/ui/popular_properties_widget.dart';
 import 'package:mg/utils/contants.dart';
 
 class PopularProperties extends StatelessWidget {
@@ -11,7 +10,7 @@ class PopularProperties extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 250.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
