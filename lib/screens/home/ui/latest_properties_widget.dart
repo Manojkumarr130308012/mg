@@ -5,6 +5,7 @@ import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:mg/utils/contants.dart';
 import 'package:mg/utils/color_resources.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class LatestPropertiesWidget extends StatelessWidget {
   const LatestPropertiesWidget(
@@ -49,9 +50,23 @@ class LatestPropertiesWidget extends StatelessWidget {
                       child: SizedBox(
                         height: 153.h,
                         width: 267.w,
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.fitWidth,
+                        child: FadeInImage.memoryNetwork(
+                          fit: BoxFit.fill,
+                          placeholder: kTransparentImage,
+                          image: image,
+                          imageErrorBuilder: (context, error, stacktrace) {
+                            // Handle Error for the 2nd time
+                            return FadeInImage.memoryNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: kTransparentImage,
+                              image: image,
+                              imageErrorBuilder: (context, error, stacktrace) {
+                                // Handle Error for the 3rd time to return text
+                                return Center(
+                                    child: Text('Image Not Available'));
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class BasedOnAmenitiesWidget extends StatelessWidget {
   const BasedOnAmenitiesWidget(
@@ -26,7 +27,24 @@ class BasedOnAmenitiesWidget extends StatelessWidget {
                       size: Size.fromRadius(26.r), // Image radius
                       child: Padding(
                         padding: EdgeInsets.all(10.0.r),
-                        child: Image.network(image, fit: BoxFit.fill),
+                        child: FadeInImage.memoryNetwork(
+                          fit: BoxFit.fill,
+                          placeholder: kTransparentImage,
+                          image: image,
+                          imageErrorBuilder: (context, error, stacktrace) {
+                            // Handle Error for the 2nd time
+                            return FadeInImage.memoryNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: kTransparentImage,
+                              image: image,
+                              imageErrorBuilder: (context, error, stacktrace) {
+                                // Handle Error for the 3rd time to return text
+                                return Center(
+                                    child: Text('Image Not Available'));
+                              },
+                            );
+                          },
+                        ),
                       )),
                 ),
               ),

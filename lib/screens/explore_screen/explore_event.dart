@@ -10,3 +10,10 @@ class ExploreInitialEvent extends ExploreEvent {
 
   ExploreInitialEvent({this.context});
 }
+
+class PropertyListEvent extends ExploreEvent {
+  BuildContext? context;
+  dynamic arguments;
+
+  PropertyListEvent({this.context, this.arguments});
+}

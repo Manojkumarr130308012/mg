@@ -7,9 +7,11 @@ import 'package:mg/screens/explore_screen/ui/properties_list.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/image_resource.dart';
-
+import 'package:mg/screens/home/model/PropertiesList.dart';
 import '../../router.dart';
 import '../../utils/custom_reuseable.dart';
+import 'package:mg/common/shimmers/popular_places.dart';
+import 'explore_event.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -20,11 +22,14 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   late ExploreBloc bloc;
+  List<Data>? propertiesListes = [];
 
   @override
   void initState() {
     super.initState();
     bloc = BlocProvider.of<ExploreBloc>(context);
+    final Map<String, dynamic> data = {"is_meeting_space": 1, "user_id": 1634};
+    bloc.add(PropertyListEvent(context: context, arguments: data));
   }
 
   @override
@@ -36,7 +41,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
         },
         child: BlocListener(
           bloc: bloc,
-          listener: (BuildContext context, BaseState state) async {},
+          listener: (BuildContext context, BaseState state) async {
+            if (state is SuccessState) {
+              if (state.successResponse is PropertiesList) {
+                setState(() {
+                  PropertiesList propertiesList = state.successResponse;
+                  propertiesListes = propertiesList?.results?.data!;
+                });
+              }
+            }
+            setState(() {});
+          },
           child: BlocBuilder(
               bloc: bloc,
               builder: (BuildContext context, BaseState state) {
@@ -185,7 +200,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ],
                                 ),
                               ),
-                              const Properties()
+                              propertiesListes == null
+                                  ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
+                                  : Properties(
+                                      propertiesList: propertiesListes!)
                             ],
                           ),
                         ),

@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
+import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/utils/contants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PropertiesWidget extends StatelessWidget {
   final String image;
@@ -11,7 +14,8 @@ class PropertiesWidget extends StatelessWidget {
   final int rate;
   final int rating;
   final String address;
-  final List<String> icon;
+  final String unit;
+  final List<PropertyAmenities> icon;
   final void Function()? onTab;
 
   const PropertiesWidget(
@@ -23,7 +27,8 @@ class PropertiesWidget extends StatelessWidget {
       required this.rating,
       required this.address,
       this.onTab,
-      required this.icon});
+      required this.icon,
+      required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +46,26 @@ class PropertiesWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12.r),
                     child: SizedBox(
-                      height: 242.h,
-                      width: 363.w,
-                      child: Image.network(
-                        image,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                        height: 242.h,
+                        width: 363.w,
+                        child: FadeInImage.memoryNetwork(
+                          fit: BoxFit.fill,
+                          placeholder: kTransparentImage,
+                          image: image,
+                          imageErrorBuilder: (context, error, stacktrace) {
+                            // Handle Error for the 2nd time
+                            return FadeInImage.memoryNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: kTransparentImage,
+                              image: image,
+                              imageErrorBuilder: (context, error, stacktrace) {
+                                // Handle Error for the 3rd time to return text
+                                return Center(
+                                    child: Text('Image Not Available'));
+                              },
+                            );
+                          },
+                        )),
                   ),
                   Positioned(
                     left: 15.w,
@@ -107,7 +125,7 @@ class PropertiesWidget extends StatelessWidget {
                         style: appStyle(
                             14.sp, ColorResource.dark, FontWeight.w600)),
                     ReusableText(
-                        text: "₹ $rate/hour",
+                        text: "₹ $rate/${unit}",
                         style: appStyle(
                             15.sp, ColorResource.primaryColor, FontWeight.w600))
                   ],
@@ -126,6 +144,7 @@ class PropertiesWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: icon.length,
                 itemBuilder: (BuildContext context, int index) {
+                  PropertyAmenities icons = icon[index];
                   return Padding(
                     padding: EdgeInsets.only(
                         left: 0.w, top: 6.h, bottom: 6.h, right: 8.w),
@@ -137,11 +156,15 @@ class PropertiesWidget extends StatelessWidget {
                             color: ColorResource.lightGrey.withOpacity(0.5),
                             width: 1.w,
                           )),
-                      child: ImageIcon(
-                        AssetImage(
-                            'assets/images/icons/amenities_icons/${icon[index]}.png'),
-                        size: 25.sp,
-                      ),
+                      child: Padding(
+                          padding: EdgeInsets.all(6.0.r),
+                          child: Image.network(
+                              icons?.iconPath != null &&
+                                      icons.iconPath!.isNotEmpty
+                                  ? "${Constants.basePath}${icons.iconPath}" ??
+                                      ''
+                                  : '',
+                              fit: BoxFit.fill)),
                     ),
                   );
                 },
