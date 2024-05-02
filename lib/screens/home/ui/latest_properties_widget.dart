@@ -124,20 +124,31 @@ class LatestPropertiesWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Container(
+                          width: 140.w,
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow
+                                .ellipsis, // Specifies how to handle overflow
+                            maxLines: 1, // Limits the text to a single line
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                         ReusableText(
-                            text: title,
-                            style: appStyle(
-                                12, ColorResource.dark, FontWeight.w500)),
-                        ReusableText(
-                            text: "₹ ${rate}/hour",
-                            style: appStyle(
-                                9, ColorResource.primaryColor, FontWeight.w400))
+                            text: "₹ ${rate}/${unit}",
+                            style: appStyle(12.sp, ColorResource.primaryColor,
+                                FontWeight.w600))
                       ],
                     ),
+                    SizedBox(height: 4.h),
                     ReusableText(
                         text: address,
                         style: appStyle(
-                            9, ColorResource.lightGrey, FontWeight.w500))
+                            12.sp, ColorResource.lightGrey, FontWeight.w400))
                   ],
                 ),
               )
