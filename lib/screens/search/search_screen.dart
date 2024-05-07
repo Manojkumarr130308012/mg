@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mg/base/base_state.dart';
+import 'package:mg/router.dart';
 import 'package:mg/screens/search/search_bloc.dart';
 import 'package:mg/screens/search/ui/based_on_cities_list.dart';
 import 'package:mg/screens/search/ui/recent_searches_list.dart';
@@ -11,10 +13,8 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/search_heading.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:mg/utils/singleton.dart';
-import 'package:mg/router.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

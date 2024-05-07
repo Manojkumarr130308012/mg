@@ -63,7 +63,7 @@ class MapPopularPropertiesWidget extends StatelessWidget {
                               size: 12,
                             ),
                             ReusableText(
-                                text: '$rating',
+                                text: '${rating.toDouble()}',
                                 style: appStyle(12.sp, ColorResource.white,
                                     FontWeight.w400))
                           ],
@@ -98,18 +98,49 @@ class MapPopularPropertiesWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ReusableText(
-                          text: "₹ $rate/hour",
-                          style: appStyle(13.sp, ColorResource.primaryColor,
-                              FontWeight.w600)),
-                      ReusableText(
-                          text: title,
-                          style: appStyle(
-                              14.sp, ColorResource.dark, FontWeight.w600)),
-                      ReusableText(
-                          text: address,
-                          style: appStyle(
-                              12.sp, ColorResource.lightGrey, FontWeight.w400))
+                      SizedBox(
+                        child: Text(
+                          "₹ $rate/hour",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow
+                              .ellipsis, // Specifies how to handle overflow
+                          maxLines: 1, // Limits the text to a single line
+                          style: TextStyle(
+                            fontSize: 15.sp,
+                            color: ColorResource.primaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 4.h),
+                        child: Text(
+                          title,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow
+                              .ellipsis, // Specifies how to handle overflow
+                          maxLines: 1, // Limits the text to a single line
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: ColorResource.dark,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        child: Text(
+                          address,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow
+                              .ellipsis, // Specifies how to handle overflow
+                          maxLines: 1, // Limits the text to a single line
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: ColorResource.lightGrey,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

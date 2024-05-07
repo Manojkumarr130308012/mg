@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/utils/color_resources.dart';
+import 'package:mg/utils/contants.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
-import 'package:mg/screens/home/model/PropertiesList.dart';
-import 'package:mg/utils/contants.dart';
 import 'package:transparent_image/transparent_image.dart';
+
+import '../../../router.dart';
 
 class PropertiesWidget extends StatelessWidget {
   final String image;
@@ -33,7 +35,10 @@ class PropertiesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTab,
+      onTap: () {
+        Navigator.pushReplacementNamed(
+            context, AppRoutes.propertyDetailsScreen);
+      },
       child: SizedBox(
         height: 350.h,
         child: ListView(
@@ -159,10 +164,9 @@ class PropertiesWidget extends StatelessWidget {
                       child: Padding(
                           padding: EdgeInsets.all(6.0.r),
                           child: Image.network(
-                              icons?.iconPath != null &&
+                              icons.iconPath != null &&
                                       icons.iconPath!.isNotEmpty
-                                  ? "${Constants.basePath}${icons.iconPath}" ??
-                                      ''
+                                  ? "${Constants.basePath}${icons.iconPath}"
                                   : '',
                               fit: BoxFit.fill)),
                     ),

@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
+import 'package:mg/common/shimmers/popular_places.dart';
 import 'package:mg/router.dart';
 import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/model/AmenitiesList.dart';
+import 'package:mg/screens/home/model/MeetingResourceGroup.dart';
+import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/screens/home/model/PropertyTypeList.dart';
 import 'package:mg/screens/home/ui/based_on_amenities_list.dart';
 import 'package:mg/screens/home/ui/cities_properties_list.dart';
 import 'package:mg/screens/home/ui/filter_amenities_list.dart';
@@ -18,16 +23,10 @@ import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
-import 'package:mg/utils/sub_heading.dart';
-import 'home_event.dart';
-import '../../utils/preference_helpher.dart';
-import 'package:mg/screens/home/model/PropertiesList.dart';
-import 'package:mg/utils/contants.dart';
-import 'package:mg/common/shimmers/popular_places.dart';
-import 'package:mg/screens/home/model/AmenitiesList.dart';
-import 'package:mg/screens/home/model/PropertyTypeList.dart';
-import 'package:mg/screens/home/model/MeetingResourceGroup.dart';
 import 'package:mg/utils/singleton.dart';
+import 'package:mg/utils/sub_heading.dart';
+
+import 'home_event.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -85,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop();
-          return false;
+    return PopScope(
+        canPop: true, //When false, blocks the current route from being popped.
+        onPopInvoked: (didPop) {
+          //do your logic here:
         },
         child: BlocListener(
           bloc: bloc,
@@ -324,9 +323,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Heading(
+                                            const Heading(
                                               text: "Popular Properties",
-                                              onTab: () {},
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -371,12 +369,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Heading(
+                                            const Heading(
                                               text: "Cities you might like",
-                                              onTab: () {
-                                                Navigator.pushNamed(context,
-                                                    AppRoutes.explorePage);
-                                              },
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -409,9 +403,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Heading(
+                                            const Heading(
                                               text: "Latest Properties",
-                                              onTab: () {},
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -448,9 +441,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Heading(
+                                            const Heading(
                                               text: "Based on amenities",
-                                              onTab: () {},
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -476,8 +468,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         amenitiesListes == null
                                             ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
                                             : BasedOnAmenitiesProperties(
-                                                amenitiesListes:
-                                                    amenitiesListes!),
+                                                amenitiesLists:
+                                                    amenitiesListes!,
+                                              ),
                                         Container(
                                           height: 10.h,
                                           width: double.infinity,
@@ -598,33 +591,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Heading(
                       text: "Price Range",
-                      onTab: () {},
                     ),
                     const RangeSliderProperties(),
                     Heading(
                       text: "No of Seats",
-                      onTab: () {},
                     ),
                     const SelectSeats(),
                     Heading(
                       text: "Property Type",
-                      onTab: () {},
                     ),
                     propertyTypeListes == null
                         ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
                         : PropertiesTypeList(
                             PropertiesTypeLists: propertyTypeListes!),
-                    Heading(
+                    const Heading(
                       text: "Resource Type",
-                      onTab: () {},
                     ),
                     ResourceResultsLists == null
                         ? PopularPropertiesShimmer()
                         : ResourceTypeList(
                             ResourceResultsLists: ResourceResultsLists!),
-                    Heading(
+                    const Heading(
                       text: "Amenities",
-                      onTab: () {},
                     ),
                     amenitiesListes == null
                         ? PopularPropertiesShimmer()

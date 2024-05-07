@@ -12,7 +12,7 @@ class MapPopularProperties extends StatelessWidget {
     return Positioned(
       bottom: 90.h,
       child: SizedBox(
-        height: 111.h,
+        height: 121.h,
         width: 393.w,
         child: ListView(
           scrollDirection: Axis.horizontal,

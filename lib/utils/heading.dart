@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
-import 'package:mg/utils/custom_reuseable.dart';
-import 'package:mg/utils/image_resource.dart';
+
+import 'custom_reuseable.dart';
 
 class Heading extends StatelessWidget {
-  const Heading({super.key, required this.text, this.onTab});
+  const Heading({super.key, required this.text});
 
   final String text;
-  final void Function()? onTab;
   @override
   Widget build(BuildContext context) {
     return Container(

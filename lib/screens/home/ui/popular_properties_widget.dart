@@ -60,7 +60,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                               image: image,
                               imageErrorBuilder: (context, error, stacktrace) {
                                 // Handle Error for the 3rd time to return text
-                                return Center(
+                                return const Center(
                                     child: Text('Image Not Available'));
                               },
                             );
@@ -86,7 +86,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                                   size: 12,
                                 ),
                                 ReusableText(
-                                    text: '${rating}',
+                                    text: '${rating.toDouble()}',
                                     style: appStyle(12.sp, ColorResource.white,
                                         FontWeight.w400))
                               ],
@@ -115,15 +115,15 @@ class PopularPropertiesWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 140.w,
+                        SizedBox(
+                          width: 160.w,
                           child: Text(
                             title,
                             textAlign: TextAlign.start,
@@ -132,14 +132,26 @@ class PopularPropertiesWidget extends StatelessWidget {
                             maxLines: 1, // Limits the text to a single line
                             style: TextStyle(
                               fontSize: 14.sp,
+                              color: ColorResource.dark,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
-                        ReusableText(
-                            text: "₹ ${rate}/${unit}",
-                            style: appStyle(12.sp, ColorResource.primaryColor,
-                                FontWeight.w600))
+                        SizedBox(
+                          width: 80.w,
+                          child: Text(
+                            "₹ $rate/$unit",
+                            textAlign: TextAlign.end,
+                            overflow: TextOverflow
+                                .ellipsis, // Specifies how to handle overflow
+                            maxLines: 1, // Limits the text to a single line
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: ColorResource.primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 4.h),
