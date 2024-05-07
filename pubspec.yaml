@@ -50,6 +50,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   transparent_image: ^2.0.1
   flutter_map: ^6.1.0
+  geolocator: ^7.0.3
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

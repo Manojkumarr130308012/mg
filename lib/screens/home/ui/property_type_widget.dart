@@ -3,14 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/common/uidata.dart';
+import 'package:mg/utils/singleton.dart';
 
 class PropertyTypeWidgets extends StatefulWidget {
+  final String id;
   final String title;
   late bool isSelected;
   final VoidCallback onTap;
 
   PropertyTypeWidgets({
     Key? key,
+    required this.id,
     required this.title,
     required this.isSelected,
     required this.onTap,
@@ -24,7 +27,12 @@ class _PropertyTypeWidgetsState extends State<PropertyTypeWidgets> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: () {
+        setState(() {
+          widget.isSelected = !widget.isSelected;
+        });
+        FlashSingleton.instance.addPropertyId(int.parse(widget.id!));
+      },
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         children: [

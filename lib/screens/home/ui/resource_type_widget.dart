@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
+import 'package:mg/common/uidata.dart';
+import 'package:mg/utils/singleton.dart';
 
-class ResourceTypeWidgets extends StatefulWidget {
+class ResourceTypeWidget extends StatefulWidget {
+  final String id;
   final String title;
-  final String icon;
   late bool isSelected;
+  final VoidCallback onTap;
 
-  ResourceTypeWidgets(
-      {super.key,
-      required this.title,
-      required this.isSelected,
-      required this.icon});
+  ResourceTypeWidget({
+    Key? key,
+    required this.id,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
-  State<ResourceTypeWidgets> createState() => _ResourceTypeWidgetsState();
+  State<ResourceTypeWidget> createState() => _ResourceTypeWidgetsState();
 }
 
-class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
+class _ResourceTypeWidgetsState extends State<ResourceTypeWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,6 +31,7 @@ class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
         setState(() {
           widget.isSelected = !widget.isSelected;
         });
+        FlashSingleton.instance.addResourceGroupId(int.parse(widget.id!));
       },
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
@@ -45,28 +51,13 @@ class _ResourceTypeWidgetsState extends State<ResourceTypeWidgets> {
                 ),
               ),
               child: Center(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: ImageIcon(
-                        AssetImage(
-                            'assets/images/icons/resource_type_icons/${widget.icon}.png'),
-                        size: 30.h,
-                        color: widget.isSelected
-                            ? Colors.white
-                            : ColorResource.dark,
-                      ),
-                    ),
-                    Text(
-                      widget.title,
-                      textAlign: TextAlign.center,
-                      style: appStyle(
-                          10.sp,
-                          widget.isSelected ? Colors.white : ColorResource.dark,
-                          FontWeight.w500),
-                    ),
-                  ],
+                child: Text(
+                  widget.title,
+                  textAlign: TextAlign.center,
+                  style: appStyle(
+                      10.sp,
+                      widget.isSelected ? Colors.white : ColorResource.dark,
+                      FontWeight.w500),
                 ),
               ),
             ),

@@ -23,3 +23,15 @@ class AmenitiesListEvent extends HomeEvent {
 
   AmenitiesListEvent({this.context});
 }
+
+class PropertyTypeListEvent extends HomeEvent {
+  BuildContext? context;
+
+  PropertyTypeListEvent({this.context});
+}
+
+class MeetingResourceGroupListEvent extends HomeEvent {
+  BuildContext? context;
+
+  MeetingResourceGroupListEvent({this.context});
+}

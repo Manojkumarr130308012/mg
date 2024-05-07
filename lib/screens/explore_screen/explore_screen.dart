@@ -12,6 +12,7 @@ import '../../router.dart';
 import '../../utils/custom_reuseable.dart';
 import 'package:mg/common/shimmers/popular_places.dart';
 import 'explore_event.dart';
+import 'package:mg/utils/singleton.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -28,7 +29,29 @@ class _ExploreScreenState extends State<ExploreScreen> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<ExploreBloc>(context);
-    final Map<String, dynamic> data = {"is_meeting_space": 1, "user_id": 1634};
+
+    final Map<String, dynamic> data = {
+      "is_meeting_space": 1,
+      "user_id": 1634,
+      "latitude": FlashSingleton.instance.latitude != 0.0
+          ? FlashSingleton.instance.latitude
+          : "",
+      "longitude": FlashSingleton.instance.longitude != 0.0
+          ? FlashSingleton.instance.longitude
+          : "",
+      "amenity_id": FlashSingleton.instance.amenityIdArray != null
+          ? FlashSingleton.instance.amenityIdArray
+          : [],
+      "resource_group_id": FlashSingleton.instance.resourceGroupIdArray != null
+          ? FlashSingleton.instance.resourceGroupIdArray
+          : [],
+      "property_type_id": FlashSingleton.instance.propertyIdArray != null
+          ? FlashSingleton.instance.propertyIdArray
+          : []
+    };
+
+    print("datasssss${data}");
+
     bloc.add(PropertyListEvent(context: context, arguments: data));
   }
 
@@ -36,7 +59,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-          Navigator.of(context).pop();
+          Navigator.pushNamed(context, AppRoutes.homePage);
           return false;
         },
         child: BlocListener(
@@ -47,8 +70,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 setState(() {
                   PropertiesList propertiesList = state.successResponse;
                   propertiesListes = propertiesList?.results?.data!;
+
+                  FlashSingleton.instance.propertyIdArray?.clear();
+                  FlashSingleton.instance.resourceGroupIdArray?.clear();
+                  FlashSingleton.instance.amenityIdArray?.clear();
+                  FlashSingleton.instance.updateLocation(0.0, 0.0);
                 });
               }
+            } else if (state is FailureState) {
+              setState(() {
+                propertiesListes = [];
+              });
             }
             setState(() {});
           },
@@ -112,7 +144,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ),
                                         child: IconButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.pushNamed(
+                                                  context, AppRoutes.homePage);
                                             },
                                             icon: const Icon(Icons.arrow_back)),
                                       ),
@@ -201,9 +234,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 ),
                               ),
                               propertiesListes == null
-                                  ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
-                                  : Properties(
-                                      propertiesList: propertiesListes!)
+                                  ? Container(
+                                      child: Center(
+                                        child: Text("No Data"),
+                                      ),
+                                    ) // Widget to display when propertiesListes is null
+                                  : propertiesListes != null &&
+                                          propertiesListes?.length != 0
+                                      ? Properties(
+                                          propertiesList: propertiesListes!)
+                                      : Container(
+                                          child: Center(
+                                            child: Text("No Data"),
+                                          ),
+                                        )
                             ],
                           ),
                         ),

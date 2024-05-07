@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:mg/utils/singleton.dart';
 
 class AmenitiesListWidgets extends StatefulWidget {
+  final String id;
   final String title;
   final String icon;
   late bool isSelected;
 
   AmenitiesListWidgets(
       {super.key,
+      required this.id,
       required this.title,
       required this.isSelected,
       required this.icon});
@@ -25,6 +29,7 @@ class _AmenitiesListWidgetsState extends State<AmenitiesListWidgets> {
         setState(() {
           widget.isSelected = !widget.isSelected;
         });
+        FlashSingleton.instance.addAmenityId(int.parse(widget.id!));
       },
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
@@ -48,13 +53,30 @@ class _AmenitiesListWidgetsState extends State<AmenitiesListWidgets> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: ImageIcon(
-                        AssetImage(
-                            'assets/images/icons/amenities_icons/${widget.icon}.png'),
-                        size: 30.h,
+                      child: FadeInImage.memoryNetwork(
+                        fit: BoxFit.fill,
+                        placeholder: kTransparentImage,
+                        image: widget.icon,
+                        imageScale: 12.0.sp,
                         color: widget.isSelected
-                            ? Colors.white
-                            : ColorResource.dark,
+                            ? ColorResource.white
+                            : ColorResource.lightdark,
+                        imageErrorBuilder: (context, error, stacktrace) {
+                          // Handle Error for the 2nd time
+                          return FadeInImage.memoryNetwork(
+                            fit: BoxFit.fill,
+                            placeholder: kTransparentImage,
+                            image: widget.icon,
+                            imageScale: 12.0.sp,
+                            color: widget.isSelected
+                                ? ColorResource.white
+                                : ColorResource.lightdark,
+                            imageErrorBuilder: (context, error, stacktrace) {
+                              // Handle Error for the 3rd time to return text
+                              return Center(child: Text('Image Not Available'));
+                            },
+                          );
+                        },
                       ),
                     ),
                     Text(

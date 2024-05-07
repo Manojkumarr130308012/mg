@@ -11,6 +11,10 @@ import 'package:mg/utils/custom_container.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/search_heading.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:mg/utils/singleton.dart';
+import 'package:mg/router.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -26,6 +30,40 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     bloc = BlocProvider.of<SearchBloc>(context);
+  }
+
+  Future<void> getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      FlashSingleton.instance
+          .updateLocation(position.latitude, position.longitude);
+      print(
+          'Latitude: ${FlashSingleton.instance.latitude}, Longitude: ${FlashSingleton.instance.longitude}');
+      Navigator.pushNamed(context, AppRoutes.explorePage);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> _checkPermission() async {
+    // Check if location permission is granted
+    PermissionStatus permission = await Permission.location.status;
+    if (permission == PermissionStatus.granted) {
+      // If permission is granted, get the current location
+      getCurrentLocation();
+    } else {
+      // If permission is not granted, request permission
+      permission = await Permission.location.request();
+      if (permission == PermissionStatus.granted) {
+        // If permission is granted after request, get the current location
+        getCurrentLocation();
+      } else {
+        // If permission is still not granted, show an error message
+        print('Location permission not granted');
+      }
+    }
   }
 
   @override
@@ -147,13 +185,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                               width: 7.5.w,
                                             ),
                                             Center(
-                                              child: ReusableText(
-                                                  text: "Use current location",
-                                                  style: appStyle(
-                                                      12.sp,
-                                                      ColorResource.dark,
-                                                      FontWeight.w500)),
-                                            )
+                                                child: GestureDetector(
+                                              onTap: () {
+                                                _checkPermission();
+                                              },
+                                              child: Text(
+                                                "Use current location",
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: ColorResource.dark,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ))
                                           ],
                                         ),
                                       ),

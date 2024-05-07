@@ -25,6 +25,9 @@ import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/utils/contants.dart';
 import 'package:mg/common/shimmers/popular_places.dart';
 import 'package:mg/screens/home/model/AmenitiesList.dart';
+import 'package:mg/screens/home/model/PropertyTypeList.dart';
+import 'package:mg/screens/home/model/MeetingResourceGroup.dart';
+import 'package:mg/utils/singleton.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,6 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int segmentedControlGroupValue = 0;
   List<Data>? propertiesListes = [];
   List<Datas>? amenitiesListes = [];
+  List<PropertyTypeDataDataList>? propertyTypeListes = [];
+  List<ResourceResults>? ResourceResultsLists = [];
   final Map<int, Widget> myTabs = <int, Widget>{
     0: Container(
       margin: EdgeInsets.symmetric(horizontal: 33.5.w),
@@ -74,6 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final Map<String, dynamic> data = {"is_meeting_space": 1, "user_id": 1634};
     bloc.add(PropertyListEvent(context: context, arguments: data));
     bloc.add(AmenitiesListEvent(context: context));
+    bloc.add(PropertyTypeListEvent(context: context));
+    bloc.add(MeetingResourceGroupListEvent(context: context));
   }
 
   @override
@@ -96,6 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   AmenitiesList amenitiesList = state.successResponse;
                   amenitiesListes = amenitiesList?.data?.data!;
+                });
+              } else if (state.successResponse is PropertyTypeList) {
+                setState(() {
+                  PropertyTypeList propertyTypeList = state.successResponse;
+                  propertyTypeListes = propertyTypeList?.data?.data!;
+                  print(propertyTypeListes);
+                });
+              } else if (state.successResponse is MeetingResourceGroup) {
+                setState(() {
+                  MeetingResourceGroup meetingResourceGroup =
+                      state.successResponse;
+                  ResourceResultsLists = meetingResourceGroup?.results!;
+                  print(ResourceResultsLists);
                 });
               }
             }
@@ -590,17 +610,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: "Property Type",
                       onTab: () {},
                     ),
-                    const PropertiesTypeList(),
+                    propertyTypeListes == null
+                        ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
+                        : PropertiesTypeList(
+                            PropertiesTypeLists: propertyTypeListes!),
                     Heading(
                       text: "Resource Type",
                       onTab: () {},
                     ),
-                    const ResourceTypeList(),
+                    ResourceResultsLists == null
+                        ? PopularPropertiesShimmer()
+                        : ResourceTypeList(
+                            ResourceResultsLists: ResourceResultsLists!),
                     Heading(
                       text: "Amenities",
                       onTab: () {},
                     ),
-                    const AmenitiesLists(),
+                    amenitiesListes == null
+                        ? PopularPropertiesShimmer()
+                        : AmenitiesLists(amenitiesListes: amenitiesListes!),
                   ],
                 ),
               ),
@@ -637,7 +665,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(8.r)),
                       child: TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            print(FlashSingleton.instance.resourceGroupIdArray);
+                            print(FlashSingleton.instance.amenityIdArray);
+                            print(FlashSingleton.instance.propertyIdArray);
+                            Navigator.pushNamed(context, AppRoutes.explorePage);
                           },
                           child: Text(
                             "Apply",

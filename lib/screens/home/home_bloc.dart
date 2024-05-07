@@ -10,6 +10,8 @@ import 'package:mg/router.dart';
 import 'package:mg/http/api_repository.dart';
 import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/screens/home/model/AmenitiesList.dart';
+import 'package:mg/screens/home/model/PropertyTypeList.dart';
+import 'package:mg/screens/home/model/MeetingResourceGroup.dart';
 
 class HomeBloc extends Bloc<HomeEvent, BaseState> {
   HomeBloc() : super(InitialState());
@@ -41,6 +43,26 @@ class HomeBloc extends Bloc<HomeEvent, BaseState> {
           isBearerTokenNeed: true,
           context: event.context);
       response = AmenitiesList.fromJson(returnableValues);
+      yield SuccessState(successResponse: response);
+    } else if (event is PropertyTypeListEvent) {
+      dynamic response;
+      yield LoadingState();
+      final dynamic returnableValues = await APIRepository().dynamicRequest(
+          HttpUrl.property_type_list,
+          method: ApiRequestMethod.get,
+          isBearerTokenNeed: true,
+          context: event.context);
+      response = PropertyTypeList.fromJson(returnableValues);
+      yield SuccessState(successResponse: response);
+    } else if (event is MeetingResourceGroupListEvent) {
+      dynamic response;
+      yield LoadingState();
+      final dynamic returnableValues = await APIRepository().dynamicRequest(
+          HttpUrl.meeting_resource_group_list,
+          method: ApiRequestMethod.get,
+          isBearerTokenNeed: true,
+          context: event.context);
+      response = MeetingResourceGroup.fromJson(returnableValues);
       yield SuccessState(successResponse: response);
     }
   }

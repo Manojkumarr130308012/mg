@@ -1,15 +1,16 @@
-class AmenitiesList {
+class PropertyTypeList {
   String? status;
   String? message;
-  AmenitiesData? data;
+  PropertyTypeData? data;
 
-  AmenitiesList({this.status, this.message, this.data});
+  PropertyTypeList({this.status, this.message, this.data});
 
-  AmenitiesList.fromJson(Map<String, dynamic> json) {
+  PropertyTypeList.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data =
-        json['data'] != null ? new AmenitiesData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new PropertyTypeData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,9 +24,9 @@ class AmenitiesList {
   }
 }
 
-class AmenitiesData {
+class PropertyTypeData {
   int? currentPage;
-  List<Datas>? data;
+  List<PropertyTypeDataDataList>? data;
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -33,12 +34,12 @@ class AmenitiesData {
   List<Links>? links;
   Null? nextPageUrl;
   String? path;
-  String? perPage;
+  int? perPage;
   Null? prevPageUrl;
   int? to;
   int? total;
 
-  AmenitiesData(
+  PropertyTypeData(
       {this.currentPage,
       this.data,
       this.firstPageUrl,
@@ -53,12 +54,12 @@ class AmenitiesData {
       this.to,
       this.total});
 
-  AmenitiesData.fromJson(Map<String, dynamic> json) {
+  PropertyTypeData.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = <Datas>[];
+      data = <PropertyTypeDataDataList>[];
       json['data'].forEach((v) {
-        data!.add(new Datas.fromJson(v));
+        data!.add(new PropertyTypeDataDataList.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -102,62 +103,47 @@ class AmenitiesData {
   }
 }
 
-class Datas {
+class PropertyTypeDataDataList {
   int? id;
-  String? amenityName;
-  String? iconPath;
-  String? desc;
-  String? paidUnit;
-  int? isDraft;
-  int? isPaid;
+  String? propertyTypeCode;
+  String? propertyTypeName;
   int? status;
-  Null? createdAt;
+  String? createdAt;
   String? updatedAt;
   Null? deletedAt;
-  bool? isSelected;
+  int? sortOrder;
 
-  Datas(
+  PropertyTypeDataDataList(
       {this.id,
-      this.amenityName,
-      this.iconPath,
-      this.desc,
-      this.paidUnit,
-      this.isDraft,
-      this.isPaid,
+      this.propertyTypeCode,
+      this.propertyTypeName,
       this.status,
       this.createdAt,
       this.updatedAt,
       this.deletedAt,
-      bool? isSelected});
+      this.sortOrder});
 
-  Datas.fromJson(Map<String, dynamic> json) {
+  PropertyTypeDataDataList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    amenityName = json['amenity_name'];
-    iconPath = json['icon_path'];
-    desc = json['desc'];
-    paidUnit = json['paid_unit'];
-    isDraft = json['is_draft'];
-    isPaid = json['is_paid'];
+    propertyTypeCode = json['property_type_code'];
+    propertyTypeName = json['property_type_name'];
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    isSelected = false;
+    sortOrder = json['sort_order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['amenity_name'] = this.amenityName;
-    data['icon_path'] = this.iconPath;
-    data['desc'] = this.desc;
-    data['paid_unit'] = this.paidUnit;
-    data['is_draft'] = this.isDraft;
-    data['is_paid'] = this.isPaid;
+    data['property_type_code'] = this.propertyTypeCode;
+    data['property_type_name'] = this.propertyTypeName;
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
+    data['sort_order'] = this.sortOrder;
     return data;
   }
 }

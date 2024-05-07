@@ -30,8 +30,17 @@ class ExploreBloc extends Bloc<ExploreEvent, BaseState> {
           method: ApiRequestMethod.post,
           isBearerTokenNeed: true,
           context: event.context);
-      response = PropertiesList.fromJson(returnableValues);
-      yield SuccessState(successResponse: response);
+
+      if (returnableValues['status'] == "success") {
+        if (returnableValues is String) {
+          response = returnableValues;
+        } else {
+          response = PropertiesList.fromJson(returnableValues);
+        }
+        yield SuccessState(successResponse: response);
+      } else if (returnableValues?.data['status']! == "error") {
+        yield FailureState(errorMessage: returnableValues.data['message']);
+      }
     }
   }
 }

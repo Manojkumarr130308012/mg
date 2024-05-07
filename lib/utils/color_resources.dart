@@ -8,6 +8,7 @@ class ColorResource {
   static const Color circleGrey = Color(0xff47484a);
   static const Color grey = Color(0xff333333);
   static const Color dark = Color(0xff000000);
+  static const Color lightdark = Color(0xff575757);
   static const Color offWhite = Color(0xffF3F4F8);
   static const Color white = Color(0xffffffff);
   static const Color secondaryLight = Color(0xFFffe5db);

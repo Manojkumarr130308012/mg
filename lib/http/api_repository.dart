@@ -136,7 +136,7 @@ class APIRepository {
         //   showToast(returnableValues);
         // }
         if (e.response!.statusCode == 404) {
-          showToast(returnableValues);
+          returnableValues = e.response!;
         } else if (e.response!.statusCode == 400) {
           // showToast('Please try again');
 

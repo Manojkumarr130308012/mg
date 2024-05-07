@@ -48,6 +48,14 @@
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIStatusBarHidden</key>
+		<key>NSLocationWhenInUseUsageDescription</key>
+        <string>Your message explaining why you need location access when the app is in use</string>
+
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>Your message explaining why you need continuous location access</string>
+
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>Your message explaining why you need location access all the time</string>
 		<false/>
 	</dict>
 </plist>
