@@ -20,6 +20,8 @@ class Properties extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
             child: PropertiesWidget(
+                resource_id: popularProperties?.resourceId ?? 0,
+                id: popularProperties?.id ?? 0,
                 image: popularProperties?.images != null &&
                         popularProperties.images!.isNotEmpty
                     ? popularProperties.images ?? []

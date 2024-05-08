@@ -1,11 +1,19 @@
-part of 'property_details_bloc.dart';
+import 'package:mg/utils/base_equatable.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 abstract class PropertyDetailsEvent extends BaseEquatable {}
 
-class ProperttDetailsInitialEvent extends PropertyDetailsEvent {
+class PropertyDetailsInitialEvent extends PropertyDetailsEvent {
   BuildContext? context;
   dynamic arguments;
 
-  ProperttDetailsInitialEvent({this.context});
+  PropertyDetailsInitialEvent({this.context});
+}
+
+class PropertyInfoEvent extends PropertyDetailsEvent {
+  BuildContext? context;
+  dynamic arguments;
+
+  PropertyInfoEvent({this.context, this.arguments});
 }

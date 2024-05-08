@@ -5,9 +5,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:mg/screens/property_details_screen/property_details_bloc.dart';
-import 'package:mg/screens/property_details_screen/ui/properties_reviews_list.dart';
-import 'package:mg/screens/property_details_screen/ui/property_details_amenities_list.dart';
-import 'package:mg/screens/property_details_screen/ui/reservation_plan_list.dart';
 import 'package:mg/utils/image_resource.dart';
 
 import '../../base/base_state.dart';
@@ -16,16 +13,23 @@ import '../../utils/color_resources.dart';
 import '../../utils/custom_appstyle.dart';
 import '../../utils/custom_reuseable.dart';
 import '../home/model/AmenitiesList.dart';
+import '../home/ui/based_on_amenities_list.dart';
+import 'package:mg/screens/property_details_screen/model/propertyDetailsInfo.dart';
+import 'property_details_event.dart';
+import '../../utils/contants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
-  const PropertyDetailsScreen({super.key});
+  final Map<String, dynamic> args;
+
+  const PropertyDetailsScreen({Key? key, required this.args}) : super(key: key);
 
   @override
   State<PropertyDetailsScreen> createState() => _PropertyDetailsScreenState();
 }
 
 class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
-  PropertyDetailsBloc? bloc;
+  late PropertyDetailsBloc bloc;
 
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -41,6 +45,18 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
   List<String> listsData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<Datas>? amenitiesLists = [];
+  List<Results>? propertiesinfoListes = [];
+  List<PropertyImages>? propertiesImageListes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<PropertyDetailsBloc>(context);
+    final Map<String, dynamic> args = widget.args;
+    final propertyId = args['property_id'];
+    final resourceId = args['resource_id'];
+    bloc.add(PropertyInfoEvent(context: context, arguments: args));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +68,28 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
         child: BlocListener(
           bloc: bloc,
           listener: (BuildContext context, BaseState state) async {
-            if (state is SuccessState) {}
+            if (state is SuccessState) {
+              if (state.successResponse is PropertyDetailsInfo) {
+                setState(() {
+                  PropertyDetailsInfo propertyDetailsInfo =
+                      state.successResponse;
+                  propertiesinfoListes = propertyDetailsInfo.results;
+
+                  if (propertiesinfoListes != null) {
+                    for (Results property in propertiesinfoListes!) {
+                      if (property.propertyImages != null) {
+                        propertiesImageListes?.addAll(property.propertyImages!);
+                      }
+                    }
+                  }
+                });
+              }
+            } else if (state is FailureState) {
+              setState(() {
+                propertiesinfoListes = [];
+              });
+            }
+            setState(() {});
           },
           child: BlocBuilder(
               bloc: bloc,
@@ -83,15 +120,57 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       viewportFraction: 1,
                                       disableCenter: false,
                                     ),
-                                    itemCount: imgList.length,
+                                    itemCount: propertiesImageListes?.length ??
+                                        0, // Ensure itemCount is not null
                                     itemBuilder: (BuildContext context,
                                         int index, int realIndex) {
-                                      return Center(
-                                          child: Image.network(imgList[index],
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              fit: BoxFit.fill));
+                                      if (propertiesImageListes != null &&
+                                          index >= 0 &&
+                                          index <
+                                              propertiesImageListes!.length) {
+                                        PropertyImages? image =
+                                            propertiesImageListes![index];
+                                        if (image != null) {
+                                          return Center(
+                                            child: Container(
+                                              width: 393.w,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                              ),
+                                              child: FadeInImage.memoryNetwork(
+                                                fit: BoxFit.fill,
+                                                placeholder: kTransparentImage,
+                                                image:
+                                                    "${Constants.basePath}${image.imagePath}" ??
+                                                        "",
+                                                imageErrorBuilder: (context,
+                                                    error, stacktrace) {
+                                                  // Handle Error for the 2nd time
+                                                  return FadeInImage
+                                                      .memoryNetwork(
+                                                    fit: BoxFit.fill,
+                                                    placeholder:
+                                                        kTransparentImage,
+                                                    image:
+                                                        "${Constants.basePath}${image}" ??
+                                                            "",
+                                                    imageErrorBuilder: (context,
+                                                        error, stacktrace) {
+                                                      // Handle Error for the 3rd time to return text
+                                                      return Center(
+                                                        child: Text(
+                                                            'Image Not Available'),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      }
+                                      // Return a placeholder widget or handle other cases
+                                      return Container();
                                     },
                                   ),
                                   Padding(
@@ -361,7 +440,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
-                                            const PropertyDetailsAmenitiesProperties()
+                                            BasedOnAmenitiesProperties(
+                                                amenitiesLists:
+                                                    amenitiesLists!),
                                           ],
                                         ),
                                       ),
@@ -370,8 +451,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 15.w, vertical: 5.h),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               "Reservation Plans",
@@ -382,7 +461,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                       .DMSans_SEMIBOLD),
                                             ),
                                             SizedBox(height: 12.h),
-                                            ReservationPlan()
                                           ],
                                         ),
                                       ),
@@ -498,7 +576,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
-                                            const PropertiesReviews()
                                           ],
                                         ),
                                       ),

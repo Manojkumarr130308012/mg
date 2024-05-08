@@ -36,6 +36,7 @@ import 'package:mg/screens/profile/profile_event.dart';
 import 'package:mg/screens/profile/profile_screen.dart';
 import 'package:mg/screens/property_details_screen/profile_details_screen.dart';
 import 'package:mg/screens/property_details_screen/property_details_bloc.dart';
+import 'package:mg/screens/property_details_screen/property_details_event.dart';
 import 'package:mg/screens/search/search_bloc.dart';
 import 'package:mg/screens/search/search_event.dart';
 import 'package:mg/screens/search/search_screen.dart';
@@ -92,7 +93,10 @@ Route<dynamic> getRoute(RouteSettings settings) {
     case AppRoutes.mapScreen:
       return _buildMapPage();
     case AppRoutes.propertyDetailsScreen:
-      return _buildPropertyDetailsPage();
+      final Map<String, dynamic> args =
+          settings.arguments as Map<String, dynamic>;
+
+      return _buildPropertyDetailsPage(args);
   }
   return _buildInProgressScreen();
 }
@@ -189,9 +193,10 @@ Route<dynamic> _buildMapPage() {
   );
 }
 
-Route<dynamic> _buildPropertyDetailsPage() {
+Route<dynamic> _buildPropertyDetailsPage(Map<String, dynamic> args) {
   return MaterialPageRoute(
-    builder: (BuildContext context) => PageBuilder.buildPropertyDetailsScreen(),
+    builder: (BuildContext context) =>
+        PageBuilder.buildPropertyDetailsScreen(args),
   );
 }
 
@@ -316,11 +321,11 @@ class PageBuilder {
     );
   }
 
-  static Widget buildPropertyDetailsScreen() {
+  static Widget buildPropertyDetailsScreen(Map<String, dynamic> args) {
     return BlocProvider(
       create: (BuildContext context) => PropertyDetailsBloc()
-        ..add(ProperttDetailsInitialEvent(context: context)),
-      child: const PropertyDetailsScreen(),
+        ..add(PropertyDetailsInitialEvent(context: context)),
+      child: PropertyDetailsScreen(args: args),
     );
   }
 }

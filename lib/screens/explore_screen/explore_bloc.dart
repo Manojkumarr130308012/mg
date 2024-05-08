@@ -8,7 +8,6 @@ import '../../http/httpurls.dart';
 import '../../utils/contants.dart';
 import 'package:mg/router.dart';
 import 'package:mg/http/api_repository.dart';
-import 'package:mg/http/api_repository.dart';
 import 'package:mg/screens/home/model/PropertiesList.dart';
 
 class ExploreBloc extends Bloc<ExploreEvent, BaseState> {

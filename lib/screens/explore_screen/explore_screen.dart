@@ -93,7 +93,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   // FlashSingleton.instance.propertyIdArray?.clear();
                   // FlashSingleton.instance.resourceGroupIdArray?.clear();
                   // FlashSingleton.instance.amenityIdArray?.clear();
-                  // FlashSingleton.instance.updateLocation(0.0, 0.0);
+                  // FlashSinglet on.instance.updateLocation(0.0, 0.0);
                 });
               }
             } else if (state is FailureState) {

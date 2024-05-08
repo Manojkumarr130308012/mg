@@ -8,4 +8,6 @@ class HttpUrl {
   static const String property_type_list = '${baseUrl}api/propertytype';
   static const String meeting_resource_group_list =
       '${baseUrl}api/meeting-resource-group';
+  static const String meeting_property_info =
+      '${baseUrl}api/meeting-property-info';
 }

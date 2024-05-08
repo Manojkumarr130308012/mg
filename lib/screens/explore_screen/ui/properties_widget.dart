@@ -7,10 +7,14 @@ import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-
+import 'package:mg/screens/explore_screen/explore_bloc.dart';
+import 'package:mg/screens/explore_screen/explore_event.dart';
+import 'package:mg/screens/explore_screen/explore_screen.dart';
 import '../../../router.dart';
 
 class PropertiesWidget extends StatelessWidget {
+  final int resource_id;
+  final int id;
   final List<Images> image;
   final String logo;
   final String title;
@@ -23,6 +27,8 @@ class PropertiesWidget extends StatelessWidget {
 
   const PropertiesWidget(
       {super.key,
+      required this.resource_id,
+      required this.id,
       required this.image,
       required this.logo,
       required this.title,
@@ -37,8 +43,8 @@ class PropertiesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacementNamed(
-            context, AppRoutes.propertyDetailsScreen);
+        Navigator.pushNamed(context, AppRoutes.propertyDetailsScreen,
+            arguments: {'property_id': id, 'resource_id': resource_id});
       },
       child: SizedBox(
         height: 350.h,
