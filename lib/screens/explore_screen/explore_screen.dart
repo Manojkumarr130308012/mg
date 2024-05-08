@@ -4,15 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
 import 'package:mg/screens/explore_screen/explore_bloc.dart';
 import 'package:mg/screens/explore_screen/ui/properties_list.dart';
+import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/image_resource.dart';
-import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/utils/singleton.dart';
+
 import '../../router.dart';
 import '../../utils/custom_reuseable.dart';
-import 'package:mg/common/shimmers/popular_places.dart';
 import 'explore_event.dart';
-import 'package:mg/utils/singleton.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   late ExploreBloc bloc;
-  List<Data>? propertiesListes = [];
+  List<Data>? propertiesLists = [];
 
   @override
   void initState() {
@@ -82,13 +82,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           // Check if price falls within the specified range
                           if (data.leastPlanPrice!.price! >= minPrice &&
                               data.leastPlanPrice!.price! <= maxPrice) {
-                            propertiesListes?.add(data);
+                            propertiesLists?.add(data);
                           }
                         }
                       }
                     }
                   } else {
-                    propertiesListes = propertiesList?.results?.data!;
+                    propertiesLists = propertiesList.results?.data!;
                   }
                   // FlashSingleton.instance.propertyIdArray?.clear();
                   // FlashSingleton.instance.resourceGroupIdArray?.clear();
@@ -98,7 +98,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               }
             } else if (state is FailureState) {
               setState(() {
-                propertiesListes = [];
+                propertiesLists = [];
               });
             }
             setState(() {});
@@ -251,16 +251,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ],
                                 ),
                               ),
-                              propertiesListes == null
+                              propertiesLists == null
                                   ? Container(
                                       child: Center(
                                         child: Text("No Data"),
                                       ),
                                     ) // Widget to display when propertiesListes is null
-                                  : propertiesListes != null &&
-                                          propertiesListes?.length != 0
+                                  : propertiesLists != null &&
+                                          propertiesLists?.length != 0
                                       ? Properties(
-                                          propertiesList: propertiesListes!)
+                                          propertiesList: propertiesLists!)
                                       : Container(
                                           child: Center(
                                             child: Text("No Data"),
