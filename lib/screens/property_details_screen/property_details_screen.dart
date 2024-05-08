@@ -4,20 +4,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:mg/screens/property_details_screen/model/propertyDetailsInfo.dart';
 import 'package:mg/screens/property_details_screen/property_details_bloc.dart';
+import 'package:mg/screens/property_details_screen/ui/properties_reviews_list.dart';
+import 'package:mg/screens/property_details_screen/ui/property_details_amenities_list.dart';
+import 'package:mg/screens/property_details_screen/ui/reservation_plan_list.dart';
 import 'package:mg/utils/image_resource.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../base/base_state.dart';
 import '../../router.dart';
 import '../../utils/color_resources.dart';
+import '../../utils/contants.dart';
 import '../../utils/custom_appstyle.dart';
 import '../../utils/custom_reuseable.dart';
 import '../home/model/AmenitiesList.dart';
-import '../home/ui/based_on_amenities_list.dart';
-import 'package:mg/screens/property_details_screen/model/propertyDetailsInfo.dart';
 import 'property_details_event.dart';
-import '../../utils/contants.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> args;
@@ -440,9 +442,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
-                                            BasedOnAmenitiesProperties(
-                                                amenitiesLists:
-                                                    amenitiesLists!),
+                                            PropertyDetailsAmenities()
                                           ],
                                         ),
                                       ),
@@ -451,6 +451,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 15.w, vertical: 5.h),
                                         child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               "Reservation Plans",
@@ -461,6 +463,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                       .DMSans_SEMIBOLD),
                                             ),
                                             SizedBox(height: 12.h),
+                                            const ReservationPlan()
                                           ],
                                         ),
                                       ),
@@ -576,6 +579,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
+                                            const PropertiesReviews()
                                           ],
                                         ),
                                       ),
