@@ -6,11 +6,12 @@ import 'package:mg/utils/contants.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 import '../../../router.dart';
 
 class PropertiesWidget extends StatelessWidget {
-  final String image;
+  final List<Images> image;
   final String logo;
   final String title;
   final int rate;
@@ -53,23 +54,50 @@ class PropertiesWidget extends StatelessWidget {
                     child: SizedBox(
                         height: 242.h,
                         width: 363.w,
-                        child: FadeInImage.memoryNetwork(
-                          fit: BoxFit.fill,
-                          placeholder: kTransparentImage,
-                          image: image,
-                          imageErrorBuilder: (context, error, stacktrace) {
-                            // Handle Error for the 2nd time
-                            return FadeInImage.memoryNetwork(
-                              fit: BoxFit.fill,
-                              placeholder: kTransparentImage,
-                              image: image,
-                              imageErrorBuilder: (context, error, stacktrace) {
-                                // Handle Error for the 3rd time to return text
-                                return Center(
-                                    child: Text('Image Not Available'));
+                        child: FlutterCarousel(
+                          options: CarouselOptions(
+                            height: 242.h,
+                            aspectRatio: 16 / 9,
+                            viewportFraction: 1.0,
+                            showIndicator: true,
+                            slideIndicator:
+                                CircularSlideIndicator(indicatorRadius: 4.r),
+                          ),
+                          items: image.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                    width: 393.w,
+                                    decoration:
+                                        BoxDecoration(color: Colors.white),
+                                    child: FadeInImage.memoryNetwork(
+                                      fit: BoxFit.fill,
+                                      placeholder: kTransparentImage,
+                                      image:
+                                          "${Constants.basePath}${i?.imagePath}" ??
+                                              "",
+                                      imageErrorBuilder:
+                                          (context, error, stacktrace) {
+                                        // Handle Error for the 2nd time
+                                        return FadeInImage.memoryNetwork(
+                                          fit: BoxFit.fill,
+                                          placeholder: kTransparentImage,
+                                          image:
+                                              "${Constants.basePath}${i?.imagePath}" ??
+                                                  "",
+                                          imageErrorBuilder:
+                                              (context, error, stacktrace) {
+                                            // Handle Error for the 3rd time to return text
+                                            return Center(
+                                                child: Text(
+                                                    'Image Not Available'));
+                                          },
+                                        );
+                                      },
+                                    ));
                               },
                             );
-                          },
+                          }).toList(),
                         )),
                   ),
                   Positioned(

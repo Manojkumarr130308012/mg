@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/image_resource.dart';
+import 'package:mg/utils/singleton.dart';
 
 class RangeSliderProperties extends StatefulWidget {
   const RangeSliderProperties({Key? key}) : super(key: key);
@@ -55,6 +56,10 @@ class _RangeSliderPropertiesState extends State<RangeSliderProperties> {
                       " ₹ ${_currentRangeValues.start.round().toString()}";
                   maxTxt.text =
                       " ₹ ${_currentRangeValues.end.round().toString()}";
+                  FlashSingleton.instance.minPrice =
+                      _currentRangeValues.start.round();
+                  FlashSingleton.instance.maxPrice =
+                      _currentRangeValues.end.round();
                 });
               },
             ),

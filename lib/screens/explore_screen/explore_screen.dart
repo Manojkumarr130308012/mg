@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/base/base_state.dart';
 import 'package:mg/screens/explore_screen/explore_bloc.dart';
-import 'package:mg/screens/explore_screen/explore_event.dart';
 import 'package:mg/screens/explore_screen/ui/properties_list.dart';
-import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/image_resource.dart';
-import 'package:mg/utils/singleton.dart';
-
+import 'package:mg/screens/home/model/PropertiesList.dart';
 import '../../router.dart';
 import '../../utils/custom_reuseable.dart';
+import 'package:mg/common/shimmers/popular_places.dart';
+import 'explore_event.dart';
+import 'package:mg/utils/singleton.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   late ExploreBloc bloc;
-  List<Data>? propertiesLists = [];
+  List<Data>? propertiesListes = [];
 
   @override
   void initState() {
@@ -57,10 +57,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: true, //When false, blocks the current route from being popped.
-        onPopInvoked: (didPop) {
-          //do your logic here:
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context);
+          return false;
         },
         child: BlocListener(
           bloc: bloc,
@@ -69,17 +69,36 @@ class _ExploreScreenState extends State<ExploreScreen> {
               if (state.successResponse is PropertiesList) {
                 setState(() {
                   PropertiesList propertiesList = state.successResponse;
-                  propertiesLists = propertiesList?.results?.data!;
-
-                  FlashSingleton.instance.propertyIdArray?.clear();
-                  FlashSingleton.instance.resourceGroupIdArray?.clear();
-                  FlashSingleton.instance.amenityIdArray?.clear();
-                  FlashSingleton.instance.updateLocation(0.0, 0.0);
+                  int minPrice = FlashSingleton.instance.minPrice!.toInt();
+                  int maxPrice = FlashSingleton.instance.maxPrice!.toInt();
+                  if (minPrice != 0 && maxPrice != 0) {
+                    // Check if propertiesList and its results are not null
+                    if (propertiesList.results != null &&
+                        propertiesList.results!.data != null) {
+                      // Iterate through each Data object
+                      for (Data data in propertiesList.results!.data!) {
+                        // Check if leastPlanPrice is not null
+                        if (data.leastPlanPrice != null) {
+                          // Check if price falls within the specified range
+                          if (data.leastPlanPrice!.price! >= minPrice &&
+                              data.leastPlanPrice!.price! <= maxPrice) {
+                            propertiesListes?.add(data);
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    propertiesListes = propertiesList?.results?.data!;
+                  }
+                  // FlashSingleton.instance.propertyIdArray?.clear();
+                  // FlashSingleton.instance.resourceGroupIdArray?.clear();
+                  // FlashSingleton.instance.amenityIdArray?.clear();
+                  // FlashSingleton.instance.updateLocation(0.0, 0.0);
                 });
               }
             } else if (state is FailureState) {
               setState(() {
-                propertiesLists = [];
+                propertiesListes = [];
               });
             }
             setState(() {});
@@ -144,8 +163,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ),
                                         child: IconButton(
                                             onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, AppRoutes.homePage);
+                                              Navigator.pop(context);
                                             },
                                             icon: const Icon(Icons.arrow_back)),
                                       ),
@@ -233,16 +251,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   ],
                                 ),
                               ),
-                              propertiesLists == null
+                              propertiesListes == null
                                   ? Container(
                                       child: Center(
                                         child: Text("No Data"),
                                       ),
                                     ) // Widget to display when propertiesListes is null
-                                  : propertiesLists != null &&
-                                          propertiesLists?.length != 0
+                                  : propertiesListes != null &&
+                                          propertiesListes?.length != 0
                                       ? Properties(
-                                          propertiesList: propertiesLists!)
+                                          propertiesList: propertiesListes!)
                                       : Container(
                                           child: Center(
                                             child: Text("No Data"),

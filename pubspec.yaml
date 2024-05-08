@@ -52,6 +52,7 @@ dependencies:
   flutter_map: ^6.1.0
   geolocator: ^7.0.3
   permission_handler: ^11.3.1
+  flutter_carousel_widget: ^2.2.0
   carousel_slider: ^4.2.1
 
 dev_dependencies:

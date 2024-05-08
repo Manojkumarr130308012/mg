@@ -22,9 +22,8 @@ class Properties extends StatelessWidget {
             child: PropertiesWidget(
                 image: popularProperties?.images != null &&
                         popularProperties.images!.isNotEmpty
-                    ? "${Constants.basePath}${popularProperties.images![0]?.imagePath}" ??
-                        ''
-                    : '',
+                    ? popularProperties.images ?? []
+                    : [],
                 logo: popularProperties?.images != null &&
                         popularProperties.images!.isNotEmpty
                     ? "${Constants.basePath}${popularProperties.images![0]?.imagePath}" ??
