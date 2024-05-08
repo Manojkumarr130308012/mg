@@ -47,8 +47,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
 
   List<String> listsData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   List<Datas>? amenitiesLists = [];
-  List<Results>? propertiesinfoListes = [];
-  List<PropertyImages>? propertiesImageListes = [];
+  List<Results>? propertiesInfoLists = [];
+  List<PropertyImages>? propertiesImageLists = [];
 
   @override
   void initState() {
@@ -75,12 +75,12 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                 setState(() {
                   PropertyDetailsInfo propertyDetailsInfo =
                       state.successResponse;
-                  propertiesinfoListes = propertyDetailsInfo.results;
+                  propertiesInfoLists = propertyDetailsInfo.results;
 
-                  if (propertiesinfoListes != null) {
-                    for (Results property in propertiesinfoListes!) {
+                  if (propertiesInfoLists != null) {
+                    for (Results property in propertiesInfoLists!) {
                       if (property.propertyImages != null) {
-                        propertiesImageListes?.addAll(property.propertyImages!);
+                        propertiesImageLists?.addAll(property.propertyImages!);
                       }
                     }
                   }
@@ -88,7 +88,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
               }
             } else if (state is FailureState) {
               setState(() {
-                propertiesinfoListes = [];
+                propertiesInfoLists = [];
               });
             }
             setState(() {});
@@ -108,149 +108,165 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                           backgroundColor: ColorResource.white,
                           body: Column(
                             children: [
-                              Stack(
-                                children: [
-                                  CarouselSlider.builder(
-                                    carouselController: _controller,
-                                    options: CarouselOptions(
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          _current = index;
-                                        });
-                                      },
-                                      autoPlay: true,
-                                      viewportFraction: 1,
-                                      disableCenter: false,
-                                    ),
-                                    itemCount: propertiesImageListes?.length ??
-                                        0, // Ensure itemCount is not null
-                                    itemBuilder: (BuildContext context,
-                                        int index, int realIndex) {
-                                      if (propertiesImageListes != null &&
-                                          index >= 0 &&
-                                          index <
-                                              propertiesImageListes!.length) {
-                                        PropertyImages? image =
-                                            propertiesImageListes![index];
-                                        if (image != null) {
-                                          return Center(
-                                            child: Container(
-                                              width: 393.w,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                              ),
-                                              child: FadeInImage.memoryNetwork(
-                                                fit: BoxFit.fill,
-                                                placeholder: kTransparentImage,
-                                                image:
-                                                    "${Constants.basePath}${image.imagePath}" ??
-                                                        "",
-                                                imageErrorBuilder: (context,
-                                                    error, stacktrace) {
-                                                  // Handle Error for the 2nd time
-                                                  return FadeInImage
-                                                      .memoryNetwork(
-                                                    fit: BoxFit.fill,
-                                                    placeholder:
-                                                        kTransparentImage,
-                                                    image:
-                                                        "${Constants.basePath}${image}" ??
-                                                            "",
-                                                    imageErrorBuilder: (context,
-                                                        error, stacktrace) {
-                                                      // Handle Error for the 3rd time to return text
-                                                      return Center(
-                                                        child: Text(
-                                                            'Image Not Available'),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      }
-                                      // Return a placeholder widget or handle other cases
-                                      return Container();
-                                    },
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 20.h),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 15.w, right: 5.w),
-                                          child: Container(
-                                            height: 40.h,
-                                            width: 40.w,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.r)),
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                            ),
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                icon: const Icon(
-                                                    Icons.arrow_back)),
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5.w),
-                                          child: Container(
-                                            height: 40.h,
-                                            width: 40.w,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.r)),
-                                              border: Border.all(),
-                                            ),
-                                            child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.share,
-                                                )),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 5.w, right: 15.w),
-                                          child: Container(
-                                            height: 40.h,
-                                            width: 40.w,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.r)),
-                                              border: Border.all(),
-                                            ),
-                                            child: IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(
-                                                  Icons.favorite_outline,
-                                                )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
                               Expanded(
                                 child: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Stack(
+                                        children: [
+                                          CarouselSlider.builder(
+                                            carouselController: _controller,
+                                            options: CarouselOptions(
+                                              onPageChanged: (index, reason) {
+                                                setState(() {
+                                                  _current = index;
+                                                });
+                                              },
+                                              autoPlay: true,
+                                              viewportFraction: 1,
+                                              disableCenter: false,
+                                            ),
+                                            itemCount: propertiesImageLists
+                                                    ?.length ??
+                                                0, // Ensure itemCount is not null
+                                            itemBuilder: (BuildContext context,
+                                                int index, int realIndex) {
+                                              if (propertiesImageLists !=
+                                                      null &&
+                                                  index >= 0 &&
+                                                  index <
+                                                      propertiesImageLists!
+                                                          .length) {
+                                                PropertyImages? image =
+                                                    propertiesImageLists![
+                                                        index];
+                                                if (image != null) {
+                                                  return Center(
+                                                    child: Container(
+                                                      width: 393.w,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                      ),
+                                                      child: FadeInImage
+                                                          .memoryNetwork(
+                                                        fit: BoxFit.fill,
+                                                        placeholder:
+                                                            kTransparentImage,
+                                                        image:
+                                                            "${Constants.basePath}${image.imagePath}" ??
+                                                                "",
+                                                        imageErrorBuilder:
+                                                            (context, error,
+                                                                stacktrace) {
+                                                          // Handle Error for the 2nd time
+                                                          return FadeInImage
+                                                              .memoryNetwork(
+                                                            fit: BoxFit.fill,
+                                                            placeholder:
+                                                                kTransparentImage,
+                                                            image:
+                                                                "${Constants.basePath}${image}" ??
+                                                                    "",
+                                                            imageErrorBuilder:
+                                                                (context, error,
+                                                                    stacktrace) {
+                                                              // Handle Error for the 3rd time to return text
+                                                              return Center(
+                                                                child: Text(
+                                                                    'Image Not Available'),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                              }
+                                              // Return a placeholder widget or handle other cases
+                                              return Container();
+                                            },
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 20.h),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 15.w, right: 5.w),
+                                                  child: Container(
+                                                    height: 40.h,
+                                                    width: 40.w,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.r)),
+                                                      border: Border.all(
+                                                          color: Colors.grey),
+                                                    ),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.arrow_back)),
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5.w),
+                                                  child: Container(
+                                                    height: 40.h,
+                                                    width: 40.w,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.r)),
+                                                      border: Border.all(),
+                                                    ),
+                                                    child: IconButton(
+                                                        onPressed: () {},
+                                                        icon: const Icon(
+                                                          Icons.share,
+                                                        )),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 5.w, right: 15.w),
+                                                  child: Container(
+                                                    height: 40.h,
+                                                    width: 40.w,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.r)),
+                                                      border: Border.all(),
+                                                    ),
+                                                    child: IconButton(
+                                                        onPressed: () {},
+                                                        icon: const Icon(
+                                                          Icons
+                                                              .favorite_outline,
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 15.w, vertical: 10.h),
@@ -442,7 +458,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
-                                            PropertyDetailsAmenities()
+                                            const PropertyDetailsAmenities()
                                           ],
                                         ),
                                       ),
