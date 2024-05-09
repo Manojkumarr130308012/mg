@@ -10,15 +10,17 @@ import 'package:mg/screens/property_details_screen/ui/properties_reviews_list.da
 import 'package:mg/screens/property_details_screen/ui/property_details_amenities_list.dart';
 import 'package:mg/screens/property_details_screen/ui/reservation_plan_list.dart';
 import 'package:mg/utils/image_resource.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../base/base_state.dart';
 import '../../router.dart';
+import '../../utils/TimeRangePicker/Availability.dart';
+import '../../utils/TimeRangePicker/TimeRangePickerDialog.dart';
 import '../../utils/color_resources.dart';
 import '../../utils/contants.dart';
 import '../../utils/custom_appstyle.dart';
 import '../../utils/custom_reuseable.dart';
-import '../home/model/AmenitiesList.dart';
 import 'property_details_event.dart';
 
 class PropertyDetailsScreen extends StatefulWidget {
@@ -775,7 +777,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(8.r)),
                                         child: TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              _showTimePickerBottomSheet(
+                                                  context);
+                                            },
                                             child: Text(
                                               "Reserve",
                                               style: TextStyle(
@@ -796,6 +801,165 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     });
               }),
         ));
+  }
+
+  void _showTimePickerBottomSheet(BuildContext context) {
+    Availability availability = Availability(
+        date: DateTime.now(),
+        reservationFrom: 9,
+        reservationTo: 18,
+        available: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Wrap(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15.r)),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Padding(
+                      padding: EdgeInsets.only(left: 10.sp),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          size: 25.h,
+                        ),
+                      )),
+                  SizedBox(
+                    width: 70.w,
+                  ),
+                  Center(
+                      child: Text(
+                    "Select Booking Time",
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
+                  ))
+                ]),
+                const Divider(),
+                SizedBox(height: 10.h),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: TimeRangePickerDialog(availability, 5, 5, 40),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    height: 40.h,
+                    width: 363.w,
+                    decoration: BoxDecoration(
+                        color: ColorResource.primaryColor,
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: TextButton(
+                      onPressed: () {
+                        _showDatePickerBottomSheet(context);
+                      },
+                      child: Text(
+                        "Apply",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDatePickerBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Wrap(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15.r)),
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: 10.h),
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Padding(
+                      padding: EdgeInsets.only(left: 10.sp),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          size: 25.h,
+                        ),
+                      )),
+                  SizedBox(
+                    width: 70.w,
+                  ),
+                  Center(
+                      child: Text(
+                    "Select Booking Date",
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
+                  ))
+                ]),
+                const Divider(),
+                SizedBox(height: 10.h),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: SfDateRangePicker(
+                    backgroundColor: Colors.white,
+                    startRangeSelectionColor: ColorResource.primaryColor,
+                    endRangeSelectionColor: ColorResource.primaryColor,
+                    rangeSelectionColor:
+                        ColorResource.primaryColor.withOpacity(0.2),
+                    selectionMode: DateRangePickerSelectionMode.range,
+                    headerStyle: DateRangePickerHeaderStyle(
+                        backgroundColor: Colors.white,
+                        textStyle: TextStyle(
+                            fontFamily: FontResousrce.DMSans_SEMIBOLD,
+                            fontSize: 14.sp)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    height: 40.h,
+                    width: 363.w,
+                    decoration: BoxDecoration(
+                        color: ColorResource.primaryColor,
+                        borderRadius: BorderRadius.circular(8.r)),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Apply",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   String convertRailwayToNormalTime(String railwayTime) {

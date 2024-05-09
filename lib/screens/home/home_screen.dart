@@ -547,8 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 810.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.horizontal(
-              left: Radius.circular(25.r), right: Radius.circular(25.r)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.r)),
         ),
         child: Column(
           children: [
