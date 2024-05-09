@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/screens/property_details_screen/ui/property_details_amenities_widget.dart';
+import 'package:mg/screens/property_details_screen/model/propertyDetailsInfo.dart';
+import 'package:mg/utils/contants.dart';
 
 class PropertyDetailsAmenities extends StatelessWidget {
-  const PropertyDetailsAmenities({
-    super.key,
-  });
+  PropertyDetailsAmenities({super.key, required this.amenitiesList});
+  final List<PropertyAmenities>? amenitiesList;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110.h * 6 / 3,
+      height: 115.h * (amenitiesList?.length ?? 0) / 3,
       width: double.infinity,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -20,12 +21,12 @@ class PropertyDetailsAmenities extends StatelessWidget {
             crossAxisSpacing: 9.w, // spacing between columns
             childAspectRatio: 1.2,
           ),
-          itemCount: 6, // total number of items
+          itemCount: amenitiesList?.length ?? 0, // total number of items
           itemBuilder: (context, index) {
-            return const PropertyDetailsAmenitiesWidget(
-                image:
-                    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-                title: 'images.unsplash.com photo');
+            PropertyAmenities? amenities = amenitiesList![index];
+            return PropertyDetailsAmenitiesWidget(
+                image: "${Constants.basePath}${amenities?.iconPath}",
+                title: '${amenities?.amenityName}');
           }),
     );
   }

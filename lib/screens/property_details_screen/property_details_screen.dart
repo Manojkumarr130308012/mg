@@ -46,10 +46,15 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   final CarouselController _controller = CarouselController();
 
   List<String> listsData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  List<Datas>? amenitiesLists = [];
+  List<PropertyAmenities>? amenitiesLists = [];
   List<Results>? propertiesInfoLists = [];
   List<PropertyImages>? propertiesImageLists = [];
-
+  List<PropertyTimings>? propertyTimings = [];
+  List<ResourcePlan>? reservationPlans = [];
+  String propertyName = '';
+  String propertyCity = '';
+  String startTime = '';
+  String endTime = '';
   @override
   void initState() {
     super.initState();
@@ -76,11 +81,34 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                   PropertyDetailsInfo propertyDetailsInfo =
                       state.successResponse;
                   propertiesInfoLists = propertyDetailsInfo.results;
-
+                  propertyName = propertiesInfoLists?[0]?.propertyName ?? '';
+                  propertyCity = propertiesInfoLists?[0]?.city?.name ?? '';
+                  startTime = convertRailwayToNormalTime(
+                      propertiesInfoLists?[0]?.startAt ?? '');
+                  endTime = convertRailwayToNormalTime(
+                      propertiesInfoLists?[0]?.endAt ?? '');
+                  amenitiesLists =
+                      propertiesInfoLists?[0]?.propertyAmenities ?? [];
                   if (propertiesInfoLists != null) {
                     for (Results property in propertiesInfoLists!) {
                       if (property.propertyImages != null) {
                         propertiesImageLists?.addAll(property.propertyImages!);
+                      }
+                    }
+                  }
+
+                  if (propertiesInfoLists != null) {
+                    for (Results property in propertiesInfoLists!) {
+                      if (property.resourcePlan != null) {
+                        reservationPlans?.addAll(property.resourcePlan!);
+                      }
+                    }
+                  }
+
+                  if (propertiesInfoLists != null) {
+                    for (Results property in propertiesInfoLists!) {
+                      if (property.propertyTimings != null) {
+                        propertyTimings?.addAll(property.propertyTimings!);
                       }
                     }
                   }
@@ -274,7 +302,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                           children: [
                                             Row(children: [
                                               Text(
-                                                "7 Seater Meeting Room",
+                                                "${propertyName}",
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: FontResousrce
@@ -315,7 +343,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                             ]),
                                             Row(children: [
                                               Text(
-                                                "Bangalore, Karnataka",
+                                                "${propertyCity}",
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: FontResousrce
@@ -362,7 +390,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                         AppRoutes.explorePage);
                                                   },
                                                   child: Text(
-                                                    '09:00 AM - 07:00 PM',
+                                                    '${startTime} - ${endTime}',
                                                     style: TextStyle(
                                                         color: ColorResource
                                                             .primaryColor,
@@ -380,34 +408,74 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                 scrollDirection:
                                                     Axis.horizontal,
                                                 shrinkWrap: true,
-                                                itemCount: listsData.length,
+                                                itemCount:
+                                                    propertyTimings?.length ??
+                                                        0,
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
-                                                  return Container(
-                                                    height: 40.h,
-                                                    width: 40.w,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6.r),
-                                                        border: Border.all(
-                                                          color: ColorResource
-                                                              .primaryColor,
-                                                        )),
-                                                    child: Center(
-                                                      child: Text(
-                                                        listsData[index],
-                                                        style: TextStyle(
-                                                            color: ColorResource
-                                                                .primaryColor,
-                                                            fontSize: 12.sp,
-                                                            fontFamily:
-                                                                FontResousrce
-                                                                    .DMSans_MEDIUM),
-                                                      ),
-                                                    ),
-                                                  );
+                                                  PropertyTimings? timing =
+                                                      propertyTimings![index];
+                                                  return timing.isOpen == 1 ||
+                                                          timing.status == 1
+                                                      ? Container(
+                                                          height: 40.h,
+                                                          width: 40.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(6
+                                                                              .r),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: ColorResource
+                                                                        .primaryColor,
+                                                                  )),
+                                                          child: Center(
+                                                            child: Text(
+                                                              timing?.dayId ??
+                                                                  "",
+                                                              style: TextStyle(
+                                                                  color: ColorResource
+                                                                      .primaryColor,
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontFamily:
+                                                                      FontResousrce
+                                                                          .DMSans_MEDIUM),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Container(
+                                                          height: 40.h,
+                                                          width: 40.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(6
+                                                                              .r),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: ColorResource
+                                                                        .whitesmoke,
+                                                                  )),
+                                                          child: Center(
+                                                            child: Text(
+                                                              timing?.dayId ??
+                                                                  "",
+                                                              style: TextStyle(
+                                                                  color: ColorResource
+                                                                      .whitesmoke,
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  fontFamily:
+                                                                      FontResousrce
+                                                                          .DMSans_BOLD),
+                                                            ),
+                                                          ),
+                                                        );
                                                 },
                                                 separatorBuilder:
                                                     (context, index) =>
@@ -458,7 +526,8 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                               ],
                                             ),
                                             SizedBox(height: 12.h),
-                                            const PropertyDetailsAmenities()
+                                            PropertyDetailsAmenities(
+                                                amenitiesList: amenitiesLists)
                                           ],
                                         ),
                                       ),
@@ -479,7 +548,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                       .DMSans_SEMIBOLD),
                                             ),
                                             SizedBox(height: 12.h),
-                                            const ReservationPlan()
+                                            ReservationPlan(
+                                                reservationPlans:
+                                                    reservationPlans)
                                           ],
                                         ),
                                       ),
@@ -725,5 +796,26 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                     });
               }),
         ));
+  }
+
+  String convertRailwayToNormalTime(String railwayTime) {
+    // Split the railway time string into hours and minutes
+    List<String> timeParts = railwayTime.split(':');
+
+    // Extract hours and minutes
+    int hours = int.parse(timeParts[0]);
+    int minutes = int.parse(timeParts[1]);
+
+    // Convert to 12-hour clock format
+    int normalHours = hours > 12 ? hours - 12 : hours;
+
+    // Determine if it's AM or PM
+    String period = hours >= 12 ? 'PM' : 'AM';
+
+    // Format the time with AM/PM designation
+    String normalTime =
+        '$normalHours:${minutes.toString().padLeft(2, '0')} $period';
+
+    return normalTime;
   }
 }

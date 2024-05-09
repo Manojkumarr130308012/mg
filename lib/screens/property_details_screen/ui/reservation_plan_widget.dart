@@ -4,8 +4,8 @@ import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class ReservationPlanWidget extends StatelessWidget {
-  const ReservationPlanWidget(
+class ReservationPlanWidget extends StatefulWidget {
+  ReservationPlanWidget(
       {super.key,
       required this.image,
       required this.title,
@@ -20,8 +20,14 @@ class ReservationPlanWidget extends StatelessWidget {
   final String plans;
   final String price;
   final String offer;
-  final bool isSelected;
+  bool isSelected;
   final void Function()? onTab;
+
+  @override
+  State<ReservationPlanWidget> createState() => _ResourceTypeWidgetsState();
+}
+
+class _ResourceTypeWidgetsState extends State<ReservationPlanWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,13 +51,13 @@ class ReservationPlanWidget extends StatelessWidget {
                   child: FadeInImage.memoryNetwork(
                     fit: BoxFit.fill,
                     placeholder: kTransparentImage,
-                    image: image,
+                    image: widget.image,
                     imageErrorBuilder: (context, error, stacktrace) {
                       // Handle Error for the 2nd time
                       return FadeInImage.memoryNetwork(
                         fit: BoxFit.fill,
                         placeholder: kTransparentImage,
-                        image: image,
+                        image: widget.image,
                         imageErrorBuilder: (context, error, stacktrace) {
                           // Handle Error for the 3rd time to return text
                           return const Center(
@@ -66,7 +72,7 @@ class ReservationPlanWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Text(
-                  title,
+                  widget.title,
                   textAlign: TextAlign.start,
                   overflow:
                       TextOverflow.ellipsis, // Specifies how to handle overflow
@@ -82,7 +88,7 @@ class ReservationPlanWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Text(
-                  plans,
+                  widget.plans,
                   textAlign: TextAlign.start,
                   overflow:
                       TextOverflow.ellipsis, // Specifies how to handle overflow
@@ -101,7 +107,7 @@ class ReservationPlanWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "₹$price",
+                      "₹${widget.price}",
                       overflow: TextOverflow
                           .ellipsis, // Specifies how to handle overflow
                       maxLines: 1, // Limits the text to a single line
@@ -113,7 +119,7 @@ class ReservationPlanWidget extends StatelessWidget {
                     ),
                     SizedBox(width: 5.w),
                     Text(
-                      "₹ 1500",
+                      "",
                       overflow: TextOverflow
                           .ellipsis, // Specifies how to handle overflow
                       maxLines: 1, // Limits the text to a single line
@@ -126,7 +132,7 @@ class ReservationPlanWidget extends StatelessWidget {
                     ),
                     SizedBox(width: 5.w),
                     Text(
-                      "$offer % off",
+                      "${widget.offer} % off",
                       overflow: TextOverflow
                           .ellipsis, // Specifies how to handle overflow
                       maxLines: 1, // Limits the text to a single line
@@ -143,13 +149,19 @@ class ReservationPlanWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      widget.isSelected = !widget.isSelected;
+                    });
+                  },
                   child: Container(
                     height: 34.h,
                     width: 199.w,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: isSelected ? Colors.green : Colors.black),
+                            color: widget.isSelected
+                                ? Colors.green
+                                : Colors.black),
                         borderRadius: BorderRadius.circular(8)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -157,19 +169,22 @@ class ReservationPlanWidget extends StatelessWidget {
                         Container(
                             margin: EdgeInsets.only(right: 45.w),
                             child: Text(
-                              isSelected ? "Selected" : "Select",
+                              widget.isSelected ? "Selected" : "Select",
                               style: TextStyle(
                                 fontSize: 12.sp,
-                                color: isSelected ? Colors.green : Colors.black,
+                                color: widget.isSelected
+                                    ? Colors.green
+                                    : Colors.black,
                                 fontFamily: FontResousrce.DMSans_REGULAR,
                               ),
                             )),
                         Container(
                           margin: EdgeInsets.only(right: 10.w),
                           child: Icon(
-                            isSelected ? Icons.check : null,
+                            widget.isSelected ? Icons.check : null,
                             size: 24,
-                            color: isSelected ? Colors.green : Colors.black,
+                            color:
+                                widget.isSelected ? Colors.green : Colors.black,
                           ),
                         )
                       ],

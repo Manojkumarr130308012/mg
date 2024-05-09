@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mg/screens/property_details_screen/ui/reservation_plan_widget.dart';
+import 'package:mg/screens/property_details_screen/model/propertyDetailsInfo.dart';
+import 'package:mg/utils/contants.dart';
 
 class ReservationPlan extends StatelessWidget {
-  const ReservationPlan({
-    super.key,
-  });
+  const ReservationPlan({super.key, required this.reservationPlans});
+  final List<ResourcePlan>? reservationPlans;
 
   @override
   Widget build(BuildContext context) {
@@ -14,20 +15,21 @@ class ReservationPlan extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          return const ReservationPlanWidget(
+          ResourcePlan? resourcePlan = reservationPlans![index];
+          return ReservationPlanWidget(
             image:
-                'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-            title: "3 Seater Meeting room",
-            plans: 'Hourly plan',
-            price: '1200',
-            offer: '15',
-            isSelected: true,
+                '${Constants.basePath}${resourcePlan?.imagePath![0].imagePaths}',
+            title: "${resourcePlan.planName}",
+            plans: '${resourcePlan.unit} plan',
+            price: '${resourcePlan.price}',
+            offer: '',
+            isSelected: false,
           );
         },
         separatorBuilder: (BuildContext context, int index) {
           return SizedBox(width: 15.w);
         },
-        itemCount: 3,
+        itemCount: reservationPlans?.length ?? 0,
       ),
     );
   }
