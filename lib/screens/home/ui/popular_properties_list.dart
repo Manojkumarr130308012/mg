@@ -19,20 +19,21 @@ class PopularProperties extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
             child: PopularPropertiesWidget(
-              image: popularProperties.images != null &&
-                      popularProperties.images!.isNotEmpty
-                  ? "${Constants.basePath}${popularProperties.images![0].imagePath}"
-                  : '',
-              logo: popularProperties.images != null &&
-                      popularProperties.images!.isNotEmpty
-                  ? "${Constants.basePath}${popularProperties.images![0].imagePath}"
-                  : '',
-              title: popularProperties.propertyName ?? '',
-              rate: popularProperties.leastPlanPrice?.price ?? 0,
-              rating: 5,
-              address: popularProperties.city?.name ?? '',
-              unit: popularProperties.leastPlanPrice?.unit ?? '',
-            ),
+                image: popularProperties.images != null &&
+                        popularProperties.images!.isNotEmpty
+                    ? "${Constants.basePath}${popularProperties.images![0].imagePath}"
+                    : '',
+                logo: popularProperties.images != null &&
+                        popularProperties.images!.isNotEmpty
+                    ? "${Constants.basePath}${popularProperties.images![0].imagePath}"
+                    : '',
+                title: popularProperties.propertyName ?? '',
+                rate: popularProperties.leastPlanPrice?.price ?? 0,
+                rating: 5,
+                address: popularProperties.city?.name ?? '',
+                unit: popularProperties.leastPlanPrice?.unit ?? '',
+                wish: popularProperties.wishList ?? 0,
+                resourceId: popularProperties.resourceId ?? 0),
           );
         }),
       ),

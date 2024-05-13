@@ -9,7 +9,7 @@ import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/singleton.dart';
-
+import 'package:mg/screens/home/model/FavoriteList.dart';
 import '../../router.dart';
 import '../../utils/custom_reuseable.dart';
 import 'explore_event.dart';
@@ -31,8 +31,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
     bloc = BlocProvider.of<ExploreBloc>(context);
 
     final Map<String, dynamic> data = {
-      "is_meeting_space": 1,
-      "user_id": 1634,
+      "is_meeting_space": FlashSingleton.instance.space,
+      "user_id": FlashSingleton.instance.id,
       "latitude": FlashSingleton.instance.latitude != 0.0
           ? FlashSingleton.instance.latitude
           : "",
@@ -95,6 +95,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   // FlashSingleton.instance.amenityIdArray?.clear();
                   // FlashSinglet on.instance.updateLocation(0.0, 0.0);
                 });
+              } else if (state.successResponse is Favourite) {
+                Favourite favourite = state.successResponse;
+                final Map<String, dynamic> data = {
+                  "is_meeting_space": 1,
+                  "user_id": 1634
+                };
+                bloc.add(PropertyListEvent(context: context, arguments: data));
               }
             } else if (state is FailureState) {
               setState(() {

@@ -9,6 +9,7 @@ import '../../utils/contants.dart';
 import 'package:mg/router.dart';
 import 'package:mg/http/api_repository.dart';
 import 'package:mg/screens/home/model/PropertiesList.dart';
+import 'package:mg/screens/home/model/FavoriteList.dart';
 
 class ExploreBloc extends Bloc<ExploreEvent, BaseState> {
   ExploreBloc() : super(InitialState());
@@ -40,6 +41,17 @@ class ExploreBloc extends Bloc<ExploreEvent, BaseState> {
       } else if (returnableValues?.data['status']! == "error") {
         yield FailureState(errorMessage: returnableValues.data['message']);
       }
+    } else if (event is LikeEvent) {
+      dynamic response;
+      yield LoadingState();
+      final dynamic returnableValues = await APIRepository().dynamicRequest(
+          HttpUrl.wish_property,
+          userArguments: jsonEncode(event.arguments),
+          method: ApiRequestMethod.post,
+          isBearerTokenNeed: true,
+          context: event.context);
+      response = Favourite.fromJson(returnableValues);
+      yield SuccessState(successResponse: response);
     }
   }
 }

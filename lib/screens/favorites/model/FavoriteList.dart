@@ -1,15 +1,19 @@
-class PropertiesList {
+class Favorites {
   String? status;
   String? message;
-  Results? results;
+  List<Results>? results;
 
-  PropertiesList({this.status, this.message, this.results});
+  Favorites({this.status, this.message, this.results});
 
-  PropertiesList.fromJson(Map<String, dynamic> json) {
+  Favorites.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    results =
-        json['results'] != null ? new Results.fromJson(json['results']) : null;
+    if (json['results'] != null) {
+      results = [];
+      json['results'].forEach((v) {
+        results!.add(new Results.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -17,101 +21,27 @@ class PropertiesList {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.results != null) {
-      data['results'] = this.results!.toJson();
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Results {
-  int? currentPage;
-  List<Data>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  List<Links>? links;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
-  Null? prevPageUrl;
-  int? to;
-  int? total;
-
-  Results(
-      {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.links,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
-
-  Results.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    if (json['links'] != null) {
-      links = <Links>[];
-      json['links'].forEach((v) {
-        links!.add(new Links.fromJson(v));
-      });
-    }
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['current_page'] = this.currentPage;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    data['first_page_url'] = this.firstPageUrl;
-    data['from'] = this.from;
-    data['last_page'] = this.lastPage;
-    data['last_page_url'] = this.lastPageUrl;
-    if (this.links != null) {
-      data['links'] = this.links!.map((v) => v.toJson()).toList();
-    }
-    data['next_page_url'] = this.nextPageUrl;
-    data['path'] = this.path;
-    data['per_page'] = this.perPage;
-    data['prev_page_url'] = this.prevPageUrl;
-    data['to'] = this.to;
-    data['total'] = this.total;
-    return data;
-  }
-}
-
-class Data {
   int? id;
+  int? userId;
+  int? propertyId;
+  int? resourceId;
+  int? isMeetingSpace;
+  int? isWorkspace;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
   String? propertyName;
   String? pseudoname;
   int? showActualName;
-  String? locality;
   int? sortId;
-  String? latitude;
-  String? longitude;
-  int? resourceId;
+  String? locality;
   String? resourceName;
   int? resourceGroupId;
   String? resourceGroupName;
@@ -120,18 +50,23 @@ class Data {
   List<Images>? images;
   List<PropertyAmenities>? propertyAmenities;
   int? wishList;
-  List<Null>? wishListData;
+  List<WishListData>? wishListData;
 
-  Data(
+  Results(
       {this.id,
+      this.userId,
+      this.propertyId,
+      this.resourceId,
+      this.isMeetingSpace,
+      this.isWorkspace,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
       this.propertyName,
       this.pseudoname,
       this.showActualName,
-      this.locality,
       this.sortId,
-      this.latitude,
-      this.longitude,
-      this.resourceId,
+      this.locality,
       this.resourceName,
       this.resourceGroupId,
       this.resourceGroupName,
@@ -142,16 +77,21 @@ class Data {
       this.wishList,
       this.wishListData});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Results.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    userId = json['user_id'];
+    propertyId = json['property_id'];
+    resourceId = json['resource_id'];
+    isMeetingSpace = json['is_meeting_space'];
+    isWorkspace = json['is_workspace'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
     propertyName = json['property_name'];
     pseudoname = json['pseudoname'];
     showActualName = json['show_actual_name'];
-    locality = json['locality'];
     sortId = json['sort_id'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    resourceId = json['resource_id'];
+    locality = json['locality'];
     resourceName = json['resource_name'];
     resourceGroupId = json['resource_group_id'];
     resourceGroupName = json['resource_group_name'];
@@ -160,22 +100,22 @@ class Data {
         ? new LeastPlanPrice.fromJson(json['least_plan_price'])
         : null;
     if (json['images'] != null) {
-      images = <Images>[];
+      images = [];
       json['images'].forEach((v) {
         images!.add(new Images.fromJson(v));
       });
     }
     if (json['property_amenities'] != null) {
-      propertyAmenities = <PropertyAmenities>[];
+      propertyAmenities = [];
       json['property_amenities'].forEach((v) {
         propertyAmenities!.add(new PropertyAmenities.fromJson(v));
       });
     }
     wishList = json['wish_list'];
     if (json['wish_list_data'] != null) {
-      wishListData = <Null>[];
+      wishListData = [];
       json['wish_list_data'].forEach((v) {
-        // wishListData!.add(new Null.fromJson(v));
+        wishListData!.add(new WishListData.fromJson(v));
       });
     }
   }
@@ -183,14 +123,19 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['property_id'] = this.propertyId;
+    data['resource_id'] = this.resourceId;
+    data['is_meeting_space'] = this.isMeetingSpace;
+    data['is_workspace'] = this.isWorkspace;
+    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     data['property_name'] = this.propertyName;
     data['pseudoname'] = this.pseudoname;
     data['show_actual_name'] = this.showActualName;
-    data['locality'] = this.locality;
     data['sort_id'] = this.sortId;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['resource_id'] = this.resourceId;
+    data['locality'] = this.locality;
     data['resource_name'] = this.resourceName;
     data['resource_group_id'] = this.resourceGroupId;
     data['resource_group_name'] = this.resourceGroupName;
@@ -209,8 +154,8 @@ class Data {
     }
     data['wish_list'] = this.wishList;
     if (this.wishListData != null) {
-      // data['wish_list_data'] =
-      // this.wishListData!.map((v) => v.toJson()).toList();
+      data['wish_list_data'] =
+          this.wishListData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -310,24 +255,51 @@ class PropertyAmenities {
   }
 }
 
-class Links {
-  String? url;
-  String? label;
-  bool? active;
+class WishListData {
+  int? id;
+  int? userId;
+  int? propertyId;
+  int? resourceId;
+  int? isMeetingSpace;
+  int? isWorkspace;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
 
-  Links({this.url, this.label, this.active});
+  WishListData(
+      {this.id,
+      this.userId,
+      this.propertyId,
+      this.resourceId,
+      this.isMeetingSpace,
+      this.isWorkspace,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    label = json['label'];
-    active = json['active'];
+  WishListData.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    propertyId = json['property_id'];
+    resourceId = json['resource_id'];
+    isMeetingSpace = json['is_meeting_space'];
+    isWorkspace = json['is_workspace'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['label'] = this.label;
-    data['active'] = this.active;
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['property_id'] = this.propertyId;
+    data['resource_id'] = this.resourceId;
+    data['is_meeting_space'] = this.isMeetingSpace;
+    data['is_workspace'] = this.isWorkspace;
+    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

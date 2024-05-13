@@ -12,6 +12,7 @@ import 'package:mg/screens/home/model/PropertiesList.dart';
 import 'package:mg/screens/home/model/AmenitiesList.dart';
 import 'package:mg/screens/home/model/PropertyTypeList.dart';
 import 'package:mg/screens/home/model/MeetingResourceGroup.dart';
+import 'package:mg/screens/home/model/FavoriteList.dart';
 
 class HomeBloc extends Bloc<HomeEvent, BaseState> {
   HomeBloc() : super(InitialState());
@@ -63,6 +64,17 @@ class HomeBloc extends Bloc<HomeEvent, BaseState> {
           isBearerTokenNeed: true,
           context: event.context);
       response = MeetingResourceGroup.fromJson(returnableValues);
+      yield SuccessState(successResponse: response);
+    } else if (event is LikeEvent) {
+      dynamic response;
+      yield LoadingState();
+      final dynamic returnableValues = await APIRepository().dynamicRequest(
+          HttpUrl.wish_property,
+          userArguments: jsonEncode(event.arguments),
+          method: ApiRequestMethod.post,
+          isBearerTokenNeed: true,
+          context: event.context);
+      response = Favourite.fromJson(returnableValues);
       yield SuccessState(successResponse: response);
     }
   }

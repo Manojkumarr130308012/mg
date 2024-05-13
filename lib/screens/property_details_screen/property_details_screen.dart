@@ -55,6 +55,9 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   List<ResourcePlan>? reservationPlans = [];
   String propertyName = '';
   String propertyCity = '';
+  String propertyDesc = '';
+  double latitude = 0.0;
+  double longitude = 0.0;
   String startTime = '';
   String endTime = '';
   @override
@@ -85,6 +88,13 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                   propertiesInfoLists = propertyDetailsInfo.results;
                   propertyName = propertiesInfoLists?[0]?.propertyName ?? '';
                   propertyCity = propertiesInfoLists?[0]?.city?.name ?? '';
+                  propertyDesc = propertiesInfoLists?[0]?.longDesc ?? '';
+                  latitude = double.tryParse(
+                          propertiesInfoLists?[0]?.latitude ?? '0.0') ??
+                      0.0;
+                  longitude = double.tryParse(
+                          propertiesInfoLists?[0]?.longitude ?? '0.0') ??
+                      0.0;
                   startTime = convertRailwayToNormalTime(
                       propertiesInfoLists?[0]?.startAt ?? '');
                   endTime = convertRailwayToNormalTime(
@@ -154,7 +164,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                   _current = index;
                                                 });
                                               },
-                                              autoPlay: true,
+                                              autoPlay: false,
                                               viewportFraction: 1,
                                               disableCenter: false,
                                             ),
@@ -573,7 +583,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                             ),
                                             SizedBox(height: 12.h),
                                             Text(
-                                              "BRH classic house is one of our flagship offices located out of Koramangala in Bangalore. A bright, lively & Spacious office that consist of 6 seater conference room. 3 seater meeting room and several dedicated desk. it is situated near BD complex.",
+                                              "${propertyDesc}",
                                               style: TextStyle(
                                                   fontFamily: FontResousrce
                                                       .DMSans_MEDIUM,
@@ -607,11 +617,10 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                                         BorderRadius.circular(
                                                             10), // Adjust the radius as needed
                                                     child: FlutterMap(
-                                                        options:
-                                                            const MapOptions(
+                                                        options: MapOptions(
                                                           initialCenter: LatLng(
-                                                              11.016844,
-                                                              76.955833),
+                                                              latitude,
+                                                              longitude),
                                                           initialZoom: 12,
                                                         ),
                                                         children: [

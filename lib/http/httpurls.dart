@@ -10,4 +10,6 @@ class HttpUrl {
       '${baseUrl}api/meeting-resource-group';
   static const String meeting_property_info =
       '${baseUrl}api/meeting-property-info';
+  static const String wish_property = '${baseUrl}api/post-property-wish-list';
+  static const String wish_list = '${baseUrl}api/property-wish-list';
 }

@@ -25,8 +25,9 @@ import 'package:mg/utils/heading.dart';
 import 'package:mg/utils/image_resource.dart';
 import 'package:mg/utils/singleton.dart';
 import 'package:mg/utils/sub_heading.dart';
-
+import 'package:skeletonizer/skeletonizer.dart';
 import 'home_event.dart';
+import 'package:mg/screens/home/model/FavoriteList.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -53,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Datas>? amenitiesListes = [];
   List<PropertyTypeDataDataList>? propertyTypeListes = [];
   List<ResourceResults>? ResourceResultsLists = [];
+  bool propertyloading = true;
+  bool amenityloading = true;
+  bool propertyTypeloading = true;
+  bool resourceResultloading = true;
   final Map<int, Widget> myTabs = <int, Widget>{
     0: Container(
       margin: EdgeInsets.symmetric(horizontal: 33.5.w),
@@ -75,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     bloc = BlocProvider.of<HomeBloc>(context);
 
-    final Map<String, dynamic> data = {"is_meeting_space": 1, "user_id": 1634};
+    final Map<String, dynamic> data = {
+      "is_meeting_space": FlashSingleton.instance.space,
+      "user_id": 1634
+    };
     bloc.add(PropertyListEvent(context: context, arguments: data));
     bloc.add(AmenitiesListEvent(context: context));
     bloc.add(PropertyTypeListEvent(context: context));
@@ -97,25 +105,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   PropertiesList propertiesList = state.successResponse;
                   propertiesListes = propertiesList?.results?.data!;
+
+                  Future.delayed(const Duration(seconds: 2), () {
+                    propertyloading = false;
+                  });
                 });
               } else if (state.successResponse is AmenitiesList) {
                 setState(() {
                   AmenitiesList amenitiesList = state.successResponse;
                   amenitiesListes = amenitiesList?.data?.data!;
+
+                  Future.delayed(const Duration(seconds: 2), () {
+                    amenityloading = false;
+                  });
                 });
               } else if (state.successResponse is PropertyTypeList) {
                 setState(() {
                   PropertyTypeList propertyTypeList = state.successResponse;
                   propertyTypeListes = propertyTypeList?.data?.data!;
-                  print(propertyTypeListes);
+
+                  Future.delayed(const Duration(seconds: 2), () {
+                    propertyTypeloading = false;
+                  });
                 });
               } else if (state.successResponse is MeetingResourceGroup) {
                 setState(() {
                   MeetingResourceGroup meetingResourceGroup =
                       state.successResponse;
                   ResourceResultsLists = meetingResourceGroup?.results!;
-                  print(ResourceResultsLists);
+
+                  Future.delayed(const Duration(seconds: 2), () {
+                    resourceResultloading = false;
+                  });
                 });
+              } else if (state.successResponse is Favourite) {
+                Favourite favourite = state.successResponse;
+                final Map<String, dynamic> data = {
+                  "is_meeting_space": FlashSingleton.instance.space,
+                  "user_id": FlashSingleton.instance.id
+                };
+                bloc.add(PropertyListEvent(context: context, arguments: data));
               }
             }
             setState(() {});
@@ -355,11 +384,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               "Properties situated in the heart of the city",
                                           onTab: () {},
                                         ),
-                                        propertiesListes == null
-                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
-                                            : PopularProperties(
-                                                propertiesList:
-                                                    propertiesListes!),
+                                        Skeletonizer(
+                                          enabled: propertyloading,
+                                          child: PopularProperties(
+                                              propertiesList:
+                                                  propertiesListes!),
+                                        ),
                                         Container(
                                           height: 5.h,
                                           width: double.infinity,
@@ -393,7 +423,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                           ],
                                         ),
-                                        const CitiesProperties(),
+                                        Skeletonizer(
+                                          enabled: propertyloading,
+                                          child: CitiesProperties(),
+                                        ),
                                         Container(
                                           height: 5.h,
                                           width: double.infinity,
@@ -427,11 +460,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                           ],
                                         ),
-                                        propertiesListes == null
-                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
-                                            : LatestProperties(
-                                                propertiesList:
-                                                    propertiesListes!),
+                                        Skeletonizer(
+                                          enabled: propertyloading,
+                                          child: LatestProperties(
+                                              propertiesList:
+                                                  propertiesListes!),
+                                        ),
                                         Container(
                                           height: 5.h,
                                           width: double.infinity,
@@ -465,12 +499,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                           ],
                                         ),
-                                        amenitiesListes == null
-                                            ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
-                                            : BasedOnAmenitiesProperties(
-                                                amenitiesLists:
-                                                    amenitiesListes!,
-                                              ),
+                                        Skeletonizer(
+                                          enabled: amenityloading,
+                                          child: BasedOnAmenitiesProperties(
+                                            amenitiesLists: amenitiesListes!,
+                                          ),
+                                        ),
                                         Container(
                                           height: 10.h,
                                           width: double.infinity,
@@ -521,8 +555,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: myTabs,
                                         onValueChanged: (value) {
                                           setState(() {
+                                            if (value == 1) {
+                                              FlashSingleton.instance.space = 0;
+                                            } else {
+                                              FlashSingleton.instance.space = 1;
+                                            }
                                             segmentedControlGroupValue = value!;
                                           });
+                                          final Map<String, dynamic> data = {
+                                            "is_meeting_space":
+                                                FlashSingleton.instance.space,
+                                            "user_id":
+                                                FlashSingleton.instance.id
+                                          };
+                                          bloc.add(PropertyListEvent(
+                                              context: context,
+                                              arguments: data));
                                         },
                                       ),
                                     ),
@@ -599,23 +647,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     Heading(
                       text: "Property Type",
                     ),
-                    propertyTypeListes == null
-                        ? PopularPropertiesShimmer() // Widget to display when propertiesListes is null
-                        : PropertiesTypeList(
-                            PropertiesTypeLists: propertyTypeListes!),
+                    Skeletonizer(
+                      enabled: propertyTypeloading,
+                      child: PropertiesTypeList(
+                          PropertiesTypeLists: propertyTypeListes!),
+                    ),
                     const Heading(
                       text: "Resource Type",
                     ),
-                    ResourceResultsLists == null
-                        ? PopularPropertiesShimmer()
-                        : ResourceTypeList(
-                            ResourceResultsLists: ResourceResultsLists!),
+                    Skeletonizer(
+                      enabled: resourceResultloading,
+                      child: ResourceTypeList(
+                          ResourceResultsLists: ResourceResultsLists!),
+                    ),
                     const Heading(
                       text: "Amenities",
                     ),
-                    amenitiesListes == null
-                        ? PopularPropertiesShimmer()
-                        : AmenitiesLists(amenitiesListes: amenitiesListes!),
+                    Skeletonizer(
+                      enabled: amenityloading,
+                      child: AmenitiesLists(amenitiesListes: amenitiesListes!),
+                    ),
                   ],
                 ),
               ),

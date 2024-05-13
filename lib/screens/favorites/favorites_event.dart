@@ -10,3 +10,10 @@ class FavoritesInitialEvent extends FavoriteEvent {
 
   FavoritesInitialEvent({this.context});
 }
+
+// class PropertyListEvent extends FavoriteEvent {
+//   BuildContext? context;
+//   dynamic arguments;
+//
+//   PropertyListEvent({this.context, this.arguments});
+// }

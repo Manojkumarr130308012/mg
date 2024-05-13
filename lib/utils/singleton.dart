@@ -6,6 +6,7 @@ class FlashSingleton {
   double? longitude;
   int? minPrice = 0;
   int? maxPrice = 0;
+  int? space = 1;
 
   // Add latitude and longitude properties and a method to update them
   void updateLocation(double lat, double long) {

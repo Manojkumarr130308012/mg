@@ -17,3 +17,10 @@ class PropertyListEvent extends ExploreEvent {
 
   PropertyListEvent({this.context, this.arguments});
 }
+
+class LikeEvent extends ExploreEvent {
+  BuildContext? context;
+  dynamic arguments;
+
+  LikeEvent({this.context, this.arguments});
+}

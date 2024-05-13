@@ -35,3 +35,10 @@ class MeetingResourceGroupListEvent extends HomeEvent {
 
   MeetingResourceGroupListEvent({this.context});
 }
+
+class LikeEvent extends HomeEvent {
+  BuildContext? context;
+  dynamic arguments;
+
+  LikeEvent({this.context, this.arguments});
+}

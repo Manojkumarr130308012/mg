@@ -4,9 +4,24 @@ import 'package:mg/utils/color_resources.dart';
 import 'package:mg/utils/custom_appstyle.dart';
 import 'package:mg/utils/custom_reuseable.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:mg/screens/home/home_bloc.dart';
+import 'package:mg/screens/home/home_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mg/screens/home/model/FavoriteList.dart';
+import 'package:mg/base/base_state.dart';
 
-class PopularPropertiesWidget extends StatelessWidget {
-  const PopularPropertiesWidget(
+class PopularPropertiesWidget extends StatefulWidget {
+  final String image;
+  final String logo;
+  final String title;
+  final int rate;
+  final int rating;
+  final String address;
+  final String unit;
+  int? wish;
+  int? resourceId;
+  final void Function()? onTab;
+  PopularPropertiesWidget(
       {super.key,
       required this.image,
       required this.logo,
@@ -15,20 +30,20 @@ class PopularPropertiesWidget extends StatelessWidget {
       required this.rating,
       required this.address,
       required this.unit,
+      required this.wish,
+      required this.resourceId,
       this.onTab});
+  @override
+  State<PopularPropertiesWidget> createState() =>
+      _PopularPropertiesWidgetState();
+}
 
-  final String image;
-  final String logo;
-  final String title;
-  final int rate;
-  final int rating;
-  final String address;
-  final String unit;
-  final void Function()? onTab;
+class _PopularPropertiesWidgetState extends State<PopularPropertiesWidget> {
   @override
   Widget build(BuildContext context) {
+    HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
     return GestureDetector(
-      onTap: onTab,
+      onTap: widget.onTab,
       child: Padding(
         padding: EdgeInsets.only(right: 0.w),
         child: Container(
@@ -51,13 +66,13 @@ class PopularPropertiesWidget extends StatelessWidget {
                         child: FadeInImage.memoryNetwork(
                           fit: BoxFit.fill,
                           placeholder: kTransparentImage,
-                          image: image,
+                          image: widget.image,
                           imageErrorBuilder: (context, error, stacktrace) {
                             // Handle Error for the 2nd time
                             return FadeInImage.memoryNetwork(
                               fit: BoxFit.fill,
                               placeholder: kTransparentImage,
-                              image: image,
+                              image: widget.image,
                               imageErrorBuilder: (context, error, stacktrace) {
                                 // Handle Error for the 3rd time to return text
                                 return const Center(
@@ -86,7 +101,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                                   size: 12,
                                 ),
                                 ReusableText(
-                                    text: '${rating.toDouble()}',
+                                    text: '${widget.rating.toDouble()}',
                                     style: appStyle(12.sp, ColorResource.white,
                                         FontWeight.w400))
                               ],
@@ -94,23 +109,53 @@ class PopularPropertiesWidget extends StatelessWidget {
                           ),
                         )),
                     Positioned(
-                        right: 10.w,
-                        top: 10.h,
+                      right: 10.w,
+                      top: 10.h,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.wish = widget.wish == 1 ? 0 : 1;
+                          });
+                          final Map<String, dynamic> data = {
+                            "is_meeting_space": 1,
+                            "user_id": 1634,
+                            "is_workspace": 0,
+                            "resource_id": widget.resourceId,
+                            "status": 1
+                          };
+                          bloc.add(
+                              LikeEvent(context: context, arguments: data));
+                        },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.r),
-                          child: Container(
-                            height: 24.h,
-                            width: 24.w,
-                            color: ColorResource.circleGrey,
-                            child: const Icon(
-                              Icons.favorite_border,
-                              color: ColorResource.offWhite,
-                              size: 16.0,
-                              semanticLabel:
-                                  'Text to announce in accessibility modes',
-                            ),
-                          ),
-                        ))
+                          child: widget.wish == 1
+                              ? Container(
+                                  height: 24.h,
+                                  width: 24.w,
+                                  color: ColorResource.circleGrey,
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: ColorResource.primaryColor,
+                                    size: 16.0,
+                                    semanticLabel:
+                                        'Text to announce in accessibility modes',
+                                  ),
+                                )
+                              : Container(
+                                  height: 24.h,
+                                  width: 24.w,
+                                  color: ColorResource.circleGrey,
+                                  child: Icon(
+                                    Icons.favorite_border,
+                                    color: ColorResource.offWhite,
+                                    size: 16.0,
+                                    semanticLabel:
+                                        'Text to announce in accessibility modes',
+                                  ),
+                                ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -125,7 +170,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                         SizedBox(
                           width: 160.w,
                           child: Text(
-                            title,
+                            widget.title,
                             textAlign: TextAlign.start,
                             overflow: TextOverflow
                                 .ellipsis, // Specifies how to handle overflow
@@ -140,7 +185,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                         SizedBox(
                           width: 80.w,
                           child: Text(
-                            "₹ $rate/$unit",
+                            "₹ ${widget.rate}/${widget.unit}",
                             textAlign: TextAlign.end,
                             overflow: TextOverflow
                                 .ellipsis, // Specifies how to handle overflow
@@ -156,7 +201,7 @@ class PopularPropertiesWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     ReusableText(
-                        text: address,
+                        text: widget.address,
                         style: appStyle(
                             12.sp, ColorResource.lightGrey, FontWeight.w400))
                   ],

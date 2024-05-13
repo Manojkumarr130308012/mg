@@ -36,7 +36,9 @@ class Properties extends StatelessWidget {
                 rating: 5,
                 address: popularProperties?.city?.name ?? '',
                 icon: popularProperties?.propertyAmenities ?? [],
-                unit: popularProperties?.leastPlanPrice?.unit ?? ""),
+                unit: popularProperties?.leastPlanPrice?.unit ?? "",
+                wish: popularProperties.wishList ?? 0,
+                resourceId: popularProperties.resourceId ?? 0),
           );
         }),
       ),

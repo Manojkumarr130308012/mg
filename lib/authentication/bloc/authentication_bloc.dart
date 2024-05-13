@@ -26,6 +26,9 @@ class AuthenticationBloc
       //     context: event.context);
       // AidivaFlashSingleton.instance.errorMapValues =
       //     returnableValues as Map<String, dynamic>?;
+      int userId = await PreferenceHelper.getId();
+
+      FlashSingleton.instance.id = userId;
       bool mpinStatus = await PreferenceHelper.getLoginStatus();
       if (mpinStatus) {
         yield AuthenticationAuthenticated();
